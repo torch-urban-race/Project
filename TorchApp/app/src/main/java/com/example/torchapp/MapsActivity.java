@@ -428,8 +428,7 @@ public class MapsActivity extends AppCompatActivity
     }
 
     private void addTestMarkers2(){
-        Drawable drawable = getDrawable(R.drawable.kappa);
-        drawable.setBounds(-drawable.getIntrinsicWidth()/2, -drawable.getIntrinsicHeight(), drawable.getIntrinsicWidth() /2, 0);
+      
 
         //Add test markers relative to your initial location
         double offset = 0.0001;
