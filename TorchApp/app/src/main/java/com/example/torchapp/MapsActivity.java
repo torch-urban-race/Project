@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -94,23 +95,24 @@ public class MapsActivity extends AppCompatActivity
 
         //Construct a LocationCallBack.
 
-        /* mLocationCallback = new LocationCallback() {
+        mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 if (locationResult == null) {
                     return;
                 }
 
-                for(Location location : locationResult.getLocations()){
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                            new LatLng(mLastKnownLocation.getLatitude(),
-                                    mLastKnownLocation.getLongitude()), mMap.getCameraPosition().zoom));
+                mLastKnownLocation = locationResult.getLastLocation();
 
-                }
-            };
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(mLastKnownLocation.getLatitude(),
+                                   mLastKnownLocation.getLongitude()), mMap.getCameraPosition().zoom));
+
+                
+            }
 
 
-        }; */
+        };
 
         // Build the map.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -167,7 +169,6 @@ public class MapsActivity extends AppCompatActivity
             public void onClick(View v) {
                 //Place the marker at the user's current location set the carriedMarker to null and update the carriedMarker's position
 
-                updateLocation();
                 LatLng userPosition = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
                 carriedMarker.setPosition(userPosition);
                 carriedMarker.setVisible(true);
@@ -303,7 +304,7 @@ public class MapsActivity extends AppCompatActivity
                                     new LatLng(mLastKnownLocation.getLatitude(),
                                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
 
-                            //  startLocationUpdates();
+                            startLocationUpdates();
                             addTestMarkers();
 
                         } else {
@@ -324,7 +325,7 @@ public class MapsActivity extends AppCompatActivity
     }
 
 
-    /*private void startLocationUpdates(){
+    private void startLocationUpdates(){
         mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         mLocationRequest.setInterval(LOCATION_UPDATE_INTERVAL);
@@ -332,44 +333,9 @@ public class MapsActivity extends AppCompatActivity
 
         mFusedLocationProviderClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
 
-    }*/
-
-    /**
-     * Update user's location
-     */
-
-    private void updateLocation(){
-        try {
-            if (mLocationPermissionGranted) {
-                Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
-
-                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        if (task.isSuccessful()) {
-                            // Set the map's camera position to the current location of the device.
-                            mLastKnownLocation = task.getResult();
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                    new LatLng(mLastKnownLocation.getLatitude(),
-                                            mLastKnownLocation.getLongitude()), mMap.getCameraPosition().zoom));
-
-                            //  startLocationUpdates();
-                            //addTestMarkers();
-
-                        } else {
-                            Log.d(TAG, "Current location is null. Using defaults.");
-                            Log.e(TAG, "Exception: %s", task.getException());
-                            mMap.moveCamera(CameraUpdateFactory
-                                    .newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
-                            mMap.getUiSettings().setMyLocationButtonEnabled(false);
-                        }
-                    }
-                });
-            }
-        } catch (SecurityException e)  {
-            Log.e("Exception: %s", e.getMessage());
-        }
     }
+
+
 
     /**
      * Prompts the user for permission to use the device location.
