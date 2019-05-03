@@ -469,9 +469,9 @@ public class MapsActivity extends AppCompatActivity
 
 
             mMap.addMarker(new MarkerOptions().position(pos)
-                    .title("Marker " + i));
-                 //   .icon(BitmapDescriptorFactory.fromResource(R.drawable.arrow)));
-                 //   .snippet("This marker was about " + calculateDistance(mLastKnownLocation, pos) + " meters away \n from when you first launched the app!"));
+                    .title("Marker " + i)
+                    .snippet("This marker was about " + calculateDistance(mLastKnownLocation, pos) + " meters away \n from when you first launched the app!")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.kappa)));
             offset += offset;
 
 
