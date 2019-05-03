@@ -146,12 +146,13 @@ public class MapsActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 //Move the Selected Marker to the user's position
-                //TODO: When the user picks up the marker make it their carriedMarker and enable the drop button
+                //When the user picks up the marker make it their carriedMarker and enable the drop button
                 if(selectedMarker != null && carriedMarker == null){
                     carriedMarker = selectedMarker;
                     selectedMarker = null;
                     carriedMarker.setVisible(false);
 
+                    disableButton(pickupButton);
                     enableButton(dropButton);
                     dropButton.setVisibility(View.VISIBLE);
 
@@ -162,7 +163,7 @@ public class MapsActivity extends AppCompatActivity
         dropButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Place the marker at the user's current location set the carriedMarker to null and update the carriedMarker's position
+                //Place the marker at the user's current location set the carriedMarker to null and update the carriedMarker's position
                 LatLng userPosition = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
                 carriedMarker.setPosition(userPosition);
                 carriedMarker.setVisible(true);
