@@ -1,7 +1,9 @@
 package com.example.torchapp;
 
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -305,7 +307,7 @@ public class MapsActivity extends AppCompatActivity
                                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
 
                             startLocationUpdates();
-                            addTestMarkers();
+                            addTestMarkers2();
 
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
@@ -426,6 +428,8 @@ public class MapsActivity extends AppCompatActivity
     }
 
     private void addTestMarkers2(){
+        Drawable drawable = getDrawable(R.drawable.kappa);
+        drawable.setBounds(-drawable.getIntrinsicWidth()/2, -drawable.getIntrinsicHeight(), drawable.getIntrinsicWidth() /2, 0);
 
         //Add test markers relative to your initial location
         double offset = 0.0001;
@@ -437,7 +441,8 @@ public class MapsActivity extends AppCompatActivity
             mMap.addMarker(new MarkerOptions().position(pos)
                     .title("Marker " + i)
                     .snippet("This marker was about " + calculateDistance(mLastKnownLocation, pos) + " meters away \n from when you first launched the app!")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.kappa)));
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ttorch_icon)));
+            //
             offset += offset;
 
 
