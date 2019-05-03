@@ -166,8 +166,8 @@ public class MapsActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 //Place the marker at the user's current location set the carriedMarker to null and update the carriedMarker's position
-                
-                getDeviceLocation();
+
+                updateLocation();
                 LatLng userPosition = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
                 carriedMarker.setPosition(userPosition);
                 carriedMarker.setVisible(true);
@@ -334,6 +334,42 @@ public class MapsActivity extends AppCompatActivity
 
     }*/
 
+    /**
+     * Update user's location
+     */
+
+    private void updateLocation(){
+        try {
+            if (mLocationPermissionGranted) {
+                Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
+
+                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if (task.isSuccessful()) {
+                            // Set the map's camera position to the current location of the device.
+                            mLastKnownLocation = task.getResult();
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                    new LatLng(mLastKnownLocation.getLatitude(),
+                                            mLastKnownLocation.getLongitude()), mMap.getCameraPosition().zoom));
+
+                            //  startLocationUpdates();
+                            //addTestMarkers();
+
+                        } else {
+                            Log.d(TAG, "Current location is null. Using defaults.");
+                            Log.e(TAG, "Exception: %s", task.getException());
+                            mMap.moveCamera(CameraUpdateFactory
+                                    .newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
+                            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                        }
+                    }
+                });
+            }
+        } catch (SecurityException e)  {
+            Log.e("Exception: %s", e.getMessage());
+        }
+    }
 
     /**
      * Prompts the user for permission to use the device location.
