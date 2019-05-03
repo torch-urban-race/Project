@@ -105,11 +105,6 @@ public class MapsActivity extends AppCompatActivity
                 }
 
                 mLastKnownLocation = locationResult.getLastLocation();
-
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                        new LatLng(mLastKnownLocation.getLatitude(),
-                                   mLastKnownLocation.getLongitude()), mMap.getCameraPosition().zoom));
-
                 
             }
 
