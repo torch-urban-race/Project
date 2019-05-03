@@ -23,6 +23,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -412,6 +414,28 @@ public class MapsActivity extends AppCompatActivity
             mMap.addMarker(new MarkerOptions().position(pos)
                     .title("Marker " + i)
                     .snippet("This marker was about " + calculateDistance(mLastKnownLocation, pos) + " meters away \n from when you first launched the app!"));
+            offset += offset;
+
+
+
+        }
+
+
+    }
+
+    private void addTestMarkers2(){
+
+        //Add test markers relative to your initial location
+        double offset = 0.0001;
+
+        for(int i = 0; i < 4; i++){
+            LatLng pos = new LatLng(mLastKnownLocation.getLatitude() + offset, mLastKnownLocation.getLongitude() + offset);
+
+
+            mMap.addMarker(new MarkerOptions().position(pos)
+                    .title("Marker " + i));
+                 //   .icon(BitmapDescriptorFactory.fromResource(R.drawable.arrow)));
+                 //   .snippet("This marker was about " + calculateDistance(mLastKnownLocation, pos) + " meters away \n from when you first launched the app!"));
             offset += offset;
 
 
