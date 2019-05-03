@@ -164,6 +164,8 @@ public class MapsActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 //Place the marker at the user's current location set the carriedMarker to null and update the carriedMarker's position
+                
+                getDeviceLocation();
                 LatLng userPosition = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
                 carriedMarker.setPosition(userPosition);
                 carriedMarker.setVisible(true);
