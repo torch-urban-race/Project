@@ -1,231 +1,140 @@
 -- MySQL Workbench Forward Engineering
 
-
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-
-
 -- -----------------------------------------------------
-
--- Schema TorchUR
-
--- -----------------------------------------------------
-
-
-
--- -----------------------------------------------------
-
 -- Schema TorchUR
 -- -----------------------------------------------------
 
+-- -----------------------------------------------------
+-- Schema TorchUR
+-- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `TorchUR` DEFAULT CHARACTER SET utf8 ;
-
 USE `TorchUR` ;
 
-
-
 -- -----------------------------------------------------
-
 -- Table `TorchUR`.`User`
-
 -- -----------------------------------------------------
-
 CREATE TABLE IF NOT EXISTS `TorchUR`.`User` (
-
   `idUser` INT NOT NULL AUTO_INCREMENT,
-
   `name` VARCHAR(20) NOT NULL,
-
   `password` VARCHAR(50) NOT NULL,
-
   `maxCarryTime` INT NOT NULL,
-
   `amountTorchesCreated` INT NULL,
-
   `amountAchievements` INT NULL,
-
   `carriedTorch` INT NULL,
-
   `sprite` VARCHAR(45) NULL,
-
   PRIMARY KEY (`idUser`),
-
   INDEX `fk_User_Torch1_idx` (`carriedTorch` ASC) VISIBLE,
-
   CONSTRAINT `fk_User_Torch1`
-
     FOREIGN KEY (`carriedTorch`)
-
     REFERENCES `TorchUR`.`Torch` (`idTorch`)
-
     ON DELETE NO ACTION
-
     ON UPDATE NO ACTION)
-
 ENGINE = InnoDB;
 
 
-
-
-
 -- -----------------------------------------------------
-
 -- Table `TorchUR`.`Torch`
-
 -- -----------------------------------------------------
-
 CREATE TABLE IF NOT EXISTS `TorchUR`.`Torch` (
-
   `idTorch` INT NOT NULL AUTO_INCREMENT,
-
   `name` VARCHAR(10) NOT NULL,
-
   `positionX` INT NOT NULL,
-
   `positionY` INT NOT NULL,
-
-  `status` TINYINT NOT NULL,
-
   `creationTime` DATETIME NOT NULL,
-
+  `publicity` TINYINT NOT NULL,
   `creatorID` INT NOT NULL,
-
   `sprite` VARCHAR(45) NULL,
-
   PRIMARY KEY (`idTorch`),
-
   INDEX `fk_Torch_User_idx` (`creatorID` ASC) VISIBLE,
-
   CONSTRAINT `fk_Torch_User`
-
     FOREIGN KEY (`creatorID`)
-
     REFERENCES `TorchUR`.`User` (`idUser`)
-
     ON DELETE NO ACTION
-
     ON UPDATE NO ACTION)
-
 ENGINE = InnoDB;
 
 
-
-
-
 -- -----------------------------------------------------
-
 -- Table `TorchUR`.`Achievement`
-
 -- -----------------------------------------------------
-
 CREATE TABLE IF NOT EXISTS `TorchUR`.`Achievement` (
-
   `idAchievement` INT NOT NULL,
-
   `description` VARCHAR(100) NOT NULL,
-
   `reward` VARCHAR(50) NOT NULL,
-
   `icon` VARCHAR(45) NULL,
-
   PRIMARY KEY (`idAchievement`))
-
 ENGINE = InnoDB;
 
 
-
-
-
 -- -----------------------------------------------------
-
 -- Table `TorchUR`.`User_has_Achievement`
-
 -- -----------------------------------------------------
-
 CREATE TABLE IF NOT EXISTS `TorchUR`.`User_has_Achievement` (
-
   `Achievements_idAchievements` INT NOT NULL,
-
   `User_idUser` INT NOT NULL,
-
   `date` DATETIME NOT NULL,
-
   PRIMARY KEY (`Achievements_idAchievements`, `User_idUser`),
-
   INDEX `fk_Achievements_has_User_User1_idx` (`User_idUser` ASC) VISIBLE,
-
   INDEX `fk_Achievements_has_User_Achievements1_idx` (`Achievements_idAchievements` ASC) VISIBLE,
-
   CONSTRAINT `fk_Achievements_has_User_Achievements1`
-
     FOREIGN KEY (`Achievements_idAchievements`)
-
     REFERENCES `TorchUR`.`Achievement` (`idAchievement`)
-
     ON DELETE NO ACTION
-
     ON UPDATE NO ACTION,
-
   CONSTRAINT `fk_Achievements_has_User_User1`
-
     FOREIGN KEY (`User_idUser`)
-
     REFERENCES `TorchUR`.`User` (`idUser`)
-
     ON DELETE NO ACTION
-
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
-
-
-
 -- -----------------------------------------------------
-
 -- Table `TorchUR`.`RouteDataPoint`
-
 -- -----------------------------------------------------
-
 CREATE TABLE IF NOT EXISTS `TorchUR`.`RouteDataPoint` (
-
   `idDatapoint` INT NOT NULL AUTO_INCREMENT,
-
   `positionX` INT NOT NULL,
-
   `positionY` INT NOT NULL,
-
   `date` DATETIME NOT NULL,
-
   `idTorch` INT NOT NULL,
-
   PRIMARY KEY (`idDatapoint`),
-
   INDEX `fk_RouteDataPoint_Torch1_idx` (`idTorch` ASC) VISIBLE,
-
   CONSTRAINT `fk_RouteDataPoint_Torch1`
-
     FOREIGN KEY (`idTorch`)
-
     REFERENCES `TorchUR`.`Torch` (`idTorch`)
-
     ON DELETE NO ACTION
-
     ON UPDATE NO ACTION)
-
 ENGINE = InnoDB;
 
 
-
+-- -----------------------------------------------------
+-- Table `TorchUR`.`FriendList`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `TorchUR`.`FriendList` (
+  `idUserA` INT NOT NULL,
+  `idUserB` INT NOT NULL,
+  `startingDate` DATETIME NOT NULL,
+  PRIMARY KEY (`idUserA`, `idUserB`),
+  INDEX `fk_User_has_User_User2_idx` (`idUserB` ASC) VISIBLE,
+  INDEX `fk_User_has_User_User1_idx` (`idUserA` ASC) VISIBLE,
+  CONSTRAINT `fk_User_has_User_User1`
+    FOREIGN KEY (`idUserA`)
+    REFERENCES `TorchUR`.`User` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_User_has_User_User2`
+    FOREIGN KEY (`idUserB`)
+    REFERENCES `TorchUR`.`User` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
-
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

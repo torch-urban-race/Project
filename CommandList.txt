@@ -1,0 +1,4 @@
+Create new torch:	t+torchname;latitude;longitude;creatorname;publicity
+
+Create new user:	u+username;password
+Log in user:		u*username;password
