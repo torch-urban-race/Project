@@ -127,58 +127,19 @@ public class MapsActivity extends AppCompatActivity
 
     }
 
-    /**
-     * Attaching listeners to our menu button and possibly other buttons
-     */
-
-    public void addListenersOnButtons(){
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO: Slide menu when user clicks on the FAB
-
-                //Temporary for debugging purpose
-                Log.d(TAG, "someone pressed the button!");
-            }
-        });
-
-
-        pickupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Move the Selected Marker to the user's position
-                //When the user picks up the marker make it their carriedMarker and enable the drop button
-                if(selectedMarker != null && carriedMarker == null){
-                    carriedMarker = selectedMarker;
-                    selectedMarker = null;
-                    carriedMarker.setVisible(false);
-
-                    disableButton(pickupButton);
-                    enableButton(dropButton);
-                    dropButton.setVisibility(View.VISIBLE);
-
-                } else{}
-            }
-        });
-
-        dropButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Place the marker at the user's current location set the carriedMarker to null and update the carriedMarker's position
-
-                LatLng userPosition = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
-                carriedMarker.setPosition(userPosition);
-                carriedMarker.setVisible(true);
-                carriedMarker = null;
-
-                disableButton(dropButton);
-                dropButton.setVisibility(View.INVISIBLE);
-            }
-        });
-
-
+    @Override
+    protected void onPause(){
+        super.onPause();
+        stopLocationUpdates();
 
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        startLocationUpdates();
+    }
+
 
     /**
      * Saves the state of the map when the activity is paused.
@@ -277,6 +238,62 @@ public class MapsActivity extends AppCompatActivity
 
     }
 
+
+    /**
+     * Attaching listeners to our menu button and possibly other buttons
+     */
+
+    public void addListenersOnButtons(){
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Slide menu when user clicks on the FAB
+
+                //Temporary for debugging purpose
+                Log.d(TAG, "someone pressed the button!");
+            }
+        });
+
+
+        pickupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Move the Selected Marker to the user's position
+                //When the user picks up the marker make it their carriedMarker and enable the drop button
+                if(selectedMarker != null && carriedMarker == null){
+                    carriedMarker = selectedMarker;
+                    selectedMarker = null;
+                    carriedMarker.setVisible(false);
+
+                    disableButton(pickupButton);
+                    enableButton(dropButton);
+                    dropButton.setVisibility(View.VISIBLE);
+
+                } else{}
+            }
+        });
+
+        dropButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Place the marker at the user's current location set the carriedMarker to null and update the carriedMarker's position
+
+                LatLng userPosition = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
+                carriedMarker.setPosition(userPosition);
+                carriedMarker.setVisible(true);
+                carriedMarker = null;
+
+                disableButton(dropButton);
+                dropButton.setVisibility(View.INVISIBLE);
+            }
+        });
+
+
+
+    }
+
+
+
     /**
      * Gets the current location of the device, and positions the map's camera.
      */
@@ -330,6 +347,10 @@ public class MapsActivity extends AppCompatActivity
 
         mFusedLocationProviderClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
 
+    }
+
+    private void stopLocationUpdates(){
+        mFusedLocationProviderClient.removeLocationUpdates(mLocationCallback);
     }
 
 
