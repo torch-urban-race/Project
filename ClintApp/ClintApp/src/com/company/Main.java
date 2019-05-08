@@ -31,17 +31,17 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+
         Client c = new Client();
         if (c.createUser("Bottle", "Water")) {
-            System.out.println("It works");
+            System.out.println("User is created.");
+        } else {
+            System.out.println("Username already exists. Create a new one.");
         }
-    }
-
-    public static String createUser(String username, String password){
-        return "+" + username + ";" + password;
-    }
-
-    public static String login(String username, String password){
-        return "*" + username + ";" + password;
+        if (c.login("Bottle", "Water")) {
+            System.out.println("Login successful.");
+        } else {
+            System.out.println("User does not exist. (or) Wrong username or password.");
+        }
     }
 }

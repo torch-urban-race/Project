@@ -25,7 +25,7 @@ public class Client {
             in = new BufferedReader(iR);
 
             //send user information
-            out.println("u+" + username + ";" + password);
+            out.println("+" + username + ";" + password);
 
             //response from server
             String response = in.readLine();
@@ -37,5 +37,33 @@ public class Client {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean login(String username, String password) {
+        try {
+            //initialization
+            clientSocket = new Socket(IP,portNumber);
+            out = new PrintWriter(clientSocket.getOutputStream(),true);
+            iR = new InputStreamReader(clientSocket.getInputStream());
+            in = new BufferedReader(iR);
+
+            //send login information
+            out.println("*" + username + ";" + password);
+
+            //response from server
+            String response = in.readLine();
+            System.out.println("Server:-> "+response);
+
+            //responds true when user logins successfully
+            return response.equals("Login successful");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean locateTorch(){
+        return false;
+        //dfvgfdgff
     }
 }
