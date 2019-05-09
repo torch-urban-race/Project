@@ -6,6 +6,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+
+/**
+ * @version 19.05.09
+ */
 public class Client {
     private String IP = "85.197.159.54";
     private int portNumber =45454;
@@ -14,56 +18,133 @@ public class Client {
     private PrintWriter out;
     private BufferedReader in;
     private InputStreamReader iR;
+    private String serverResponse;
 
+    /**
+     * Standard connection request called before every server request.
+     */
 
-    public boolean createUser(String username, String password) {
-        try {
+    public void connect(){
+        try{
             //initialization
             clientSocket = new Socket(IP,portNumber);
             out = new PrintWriter(clientSocket.getOutputStream(),true);
             iR = new InputStreamReader(clientSocket.getInputStream());
             in = new BufferedReader(iR);
 
+            //Clear server response
+            serverResponse = null;
+
+        } catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+    }
+
+    /**
+     * Standard request to read response from server supports a single response.
+     */
+    public void readResponse(){
+        try{
+            serverResponse = in.readLine();
+            System.out.println("Server: ->" + serverResponse);
+
+        } catch (IOException ioe){
+
+        }
+    }
+
+    /**
+     * Disconnecting ensures that the socket input and output streams are shut before the next request is made.
+     */
+    public void disconnect(){
+        try{
+            clientSocket.close();
+        } catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+    }
+
+    public boolean createUser(String username, String password) {
+            //initialization
+            connect();
             //send user information
-            out.println("+" + username + ";" + password);
+            out.println("u+" + username + ";" + password);
 
             //response from server
-            String response = in.readLine();
-            System.out.println("Server:-> "+response);
+            readResponse();
 
+            //termination
+            disconnect();
             //responds true when user created successfully
-            return response.equals("User created");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
+            return serverResponse.equals("User created");
+
     }
 
     public boolean login(String username, String password) {
-        try {
             //initialization
-            clientSocket = new Socket(IP,portNumber);
-            out = new PrintWriter(clientSocket.getOutputStream(),true);
-            iR = new InputStreamReader(clientSocket.getInputStream());
-            in = new BufferedReader(iR);
+            connect();
 
             //send login information
-            out.println("*" + username + ";" + password);
+            out.println("u*" + username + ";" + password);
 
             //response from server
-            String response = in.readLine();
-            System.out.println("Server:-> "+response);
+            readResponse();
+
+            //termination
+            disconnect();
 
             //responds true when user logins successfully
-            return response.equals("Login successful");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            return serverResponse.equals("Login successful");
+
+    }
+
+    public boolean createTorch(String torchName, Double latitude, Double longitude, String creatorName, boolean isPublic){
+        //initialization
+        connect();
+        //send torch information
+        out.println("t+" + torchName + ";" + latitude + ";" + longitude +
+                ";" + creatorName + ";" + (isPublic ? 1 : 0));
+
+        //response from server
+        readResponse();
+
+        //termination
+        disconnect();
+
+
         return false;
     }
 
-    public boolean locateTorch(){
+    public boolean updateTorch(int torchID, Double latitude, Double longitude){
+
+        //initialization
+        connect();
+        //send torch location information for existing torch
+        out.println("t@" + torchID + ";" + latitude + ";" + longitude);
+
+        //response from server
+        readResponse();
+
+        //termination
+        disconnect();
+
+
         return false;
-        //dfvgfdgff
+    }
+    public boolean getTorchPosition(int torchID){
+        //initialization
+        connect();
+        //request torch location for existing torch
+        out.println("t?" + torchID);
+
+        //response from server
+        readResponse();
+
+        //termination
+        disconnect();
+
+
+
+        return false;
     }
 }
