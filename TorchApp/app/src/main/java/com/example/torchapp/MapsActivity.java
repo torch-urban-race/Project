@@ -248,9 +248,15 @@ public class MapsActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 //TODO: Slide menu when user clicks on the FAB
+                LatLng pos = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
 
+                mMap.addMarker(new MarkerOptions().position(pos)
+                        .title("You placed this marker!")
+                        .snippet("This marker was created by the user!")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ttorch_icon)));
                 //Temporary for debugging purpose
                 Log.d(TAG, "someone pressed the button!");
+
             }
         });
 
