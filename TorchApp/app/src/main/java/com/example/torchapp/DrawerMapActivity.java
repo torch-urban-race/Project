@@ -1,21 +1,30 @@
 package com.example.torchapp;
 
+import android.Manifest;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.support.v4.view.GravityCompat;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.MenuItem;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -26,23 +35,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-/**
- * An activity that displays a map showing the place at the device's current location.
- */
-public class MapsActivity extends AppCompatActivity
-        implements OnMapReadyCallback {
+public class DrawerMapActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
-    private static final String TAG = MapsActivity.class.getSimpleName();
+    private static final String TAG = DrawerMapActivity.class.getSimpleName();
     private GoogleMap mMap;
     private CameraPosition mCameraPosition;
 
@@ -78,18 +82,21 @@ public class MapsActivity extends AppCompatActivity
     private Button dropButton;
     private FloatingActionButton fab;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_drawer_map);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
             mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
-
-        // Retrieve the content view that renders the map.
-        setContentView(R.layout.activity_maps);
 
 
         // Construct a FusedLocationProviderClient.
@@ -105,13 +112,14 @@ public class MapsActivity extends AppCompatActivity
                 }
 
                 mLastKnownLocation = locationResult.getLastLocation();
-                
+
             }
 
 
         };
 
         // Build the map.
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -128,18 +136,52 @@ public class MapsActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onPause(){
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_home) {
+           // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapFragment()).commit();
+
+        } else if (id == R.id.profile_profile) {
+           // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+        } else if (id == R.id.profile_achievements) {
+           // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementsFragment()).commit();
+
+        } else if (id == R.id.profile_logout) {
+            Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show();
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+    @Override
+    protected void onPause() {
         super.onPause();
         stopLocationUpdates();
 
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         startLocationUpdates();
     }
-
 
     /**
      * Saves the state of the map when the activity is paused.
@@ -198,7 +240,7 @@ public class MapsActivity extends AppCompatActivity
                 pickupButton.setVisibility(View.VISIBLE);
                 disableButton(pickupButton);
                 //Checking if the user is close enough to the torch and is not carrying a torch already
-                if(calculateDistance(mLastKnownLocation, marker.getPosition()) > MINIMUM_PICKUP_DISTANCE || carriedMarker != null){
+                if (calculateDistance(mLastKnownLocation, marker.getPosition()) > MINIMUM_PICKUP_DISTANCE || carriedMarker != null) {
                     //The user should not be able to pickup the torch
                     //Keep the Pickup button disabled
                 } else {
@@ -243,7 +285,7 @@ public class MapsActivity extends AppCompatActivity
      * Attaching listeners to our menu button and possibly other buttons
      */
 
-    public void addListenersOnButtons(){
+    public void addListenersOnButtons() {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -266,7 +308,7 @@ public class MapsActivity extends AppCompatActivity
             public void onClick(View v) {
                 //Move the Selected Marker to the user's position
                 //When the user picks up the marker make it their carriedMarker and enable the drop button
-                if(selectedMarker != null && carriedMarker == null){
+                if (selectedMarker != null && carriedMarker == null) {
                     carriedMarker = selectedMarker;
                     selectedMarker = null;
                     carriedMarker.setVisible(false);
@@ -275,7 +317,8 @@ public class MapsActivity extends AppCompatActivity
                     enableButton(dropButton);
                     dropButton.setVisibility(View.VISIBLE);
 
-                } else{}
+                } else {
+                }
             }
         });
 
@@ -295,9 +338,7 @@ public class MapsActivity extends AppCompatActivity
         });
 
 
-
     }
-
 
 
     /**
@@ -337,7 +378,7 @@ public class MapsActivity extends AppCompatActivity
                     }
                 });
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
 
@@ -345,11 +386,12 @@ public class MapsActivity extends AppCompatActivity
     }
 
 
-    private void startLocationUpdates(){
+    private void startLocationUpdates() {
         mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         mLocationRequest.setInterval(LOCATION_UPDATE_INTERVAL);
         mLocationRequest.setFastestInterval(LOCATION_UPDATE_FASTEST_INTERVAL);
+
 
         mFusedLocationProviderClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
 
@@ -450,7 +492,7 @@ public class MapsActivity extends AppCompatActivity
     }
 
     private void addTestMarkers2(){
-      
+
 
         //Add test markers relative to your initial location
         double offset = 0.0001;
@@ -500,6 +542,4 @@ public class MapsActivity extends AppCompatActivity
         button.setBackgroundColor(Color.GREEN);
         button.setClickable(true);
     }
-
-
 }

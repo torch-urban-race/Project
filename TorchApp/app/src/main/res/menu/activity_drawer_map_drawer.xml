@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_public_black_24dp"
+            android:title= "@string/menu_home" />
+
+        <item
+            android:id="@+id/profile_profile"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="@string/menu_profile" />
+        <item
+            android:id="@+id/profile_achievements"
+            android:icon="@drawable/ic_stars_black_24dp"
+            android:title="@string/menu_achievements" />
+
+
+    </group>
+
+    <item android:title="Logout">
+        <menu>
+            <item
+                android:id="@+id/profile_logout"
+                android:icon="@drawable/ic_cancel_black_24dp"
+                android:title="@string/menu_logout" />
+        </menu>
+    </item>
+
+
+</menu>
