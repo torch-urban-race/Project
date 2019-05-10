@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -119,7 +120,7 @@ public class DrawerMapActivity extends AppCompatActivity
         };
 
         // Build the map.
-
+        navigationView.setCheckedItem(R.id.nav_home);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -153,12 +154,17 @@ public class DrawerMapActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-           // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapFragment()).commit();
-
+            for(Fragment fragment: getSupportFragmentManager().getFragments()){
+                if(fragment instanceof SupportMapFragment){
+                    continue;
+                } else if(fragment != null){
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                }
+            }
         } else if (id == R.id.profile_profile) {
-           // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+           getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
         } else if (id == R.id.profile_achievements) {
-           // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementsFragment()).commit();
+           getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementsFragment()).commit();
 
         } else if (id == R.id.profile_logout) {
             Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show();
@@ -366,7 +372,7 @@ public class DrawerMapActivity extends AppCompatActivity
                                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
 
                             startLocationUpdates();
-                            addTestMarkers2();
+                            addTestMarkers();
 
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
@@ -472,32 +478,11 @@ public class DrawerMapActivity extends AppCompatActivity
 
     private void addTestMarkers(){
 
-        //Add test markers relative to your initial location
-        double offset = 0.0001;
-
-        for(int i = 0; i < 4; i++){
-            LatLng pos = new LatLng(mLastKnownLocation.getLatitude() + offset, mLastKnownLocation.getLongitude() + offset);
-
-
-            mMap.addMarker(new MarkerOptions().position(pos)
-                    .title("Marker " + i)
-                    .snippet("This marker was about " + calculateDistance(mLastKnownLocation, pos) + " meters away \n from when you first launched the app!"));
-            offset += offset;
-
-
-
-        }
-
-
-    }
-
-    private void addTestMarkers2(){
-
 
         //Add test markers relative to your initial location
         double offset = 0.0001;
 
-        for(int i = 0; i < 4; i++){
+        for(int i = 0; i < 4; i++) {
             LatLng pos = new LatLng(mLastKnownLocation.getLatitude() + offset, mLastKnownLocation.getLongitude() + offset);
 
 
@@ -507,9 +492,6 @@ public class DrawerMapActivity extends AppCompatActivity
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ttorch_icon)));
             //
             offset += offset;
-
-
-
         }
 
 
