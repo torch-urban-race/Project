@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.StringTokenizer;
 
 
 /**
@@ -103,7 +104,7 @@ public class Client {
         connect();
         //send torch information
         out.println("t+" + torchName + ";" + latitude + ";" + longitude +
-                ";" + creatorName + ";" + (isPublic ? 1 : 0));
+                ";" + creatorName + ";" + isPublic);
 
         //response from server
         readResponse();
@@ -112,7 +113,7 @@ public class Client {
         disconnect();
 
 
-        return false;
+        return serverResponse.equals("Torch created");
     }
 
     public boolean updateTorch(int torchID, Double latitude, Double longitude){
@@ -129,9 +130,11 @@ public class Client {
         disconnect();
 
 
-        return false;
+        return serverResponse.equals("Torch position updated");
     }
-    public boolean getTorchPosition(int torchID){
+    public Double[] getTorchPosition(int torchID){
+        Double[] latLng = new Double[2];
+
         //initialization
         connect();
         //request torch location for existing torch
@@ -143,8 +146,12 @@ public class Client {
         //termination
         disconnect();
 
+        StringTokenizer stringTokenizer = new StringTokenizer(serverResponse.substring(2,serverResponse.length()), ";");
 
+        for(int i = 0; i < 2; i++){
+            latLng[i] = Double.parseDouble(stringTokenizer.nextToken());
+        }
 
-        return false;
+        return latLng;
     }
 }
