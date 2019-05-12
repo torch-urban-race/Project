@@ -14,11 +14,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Material"
+        android:screenOrientation="portrait">
         <activity
             android:name=".DrawerMapActivity"
             android:label="@string/title_activity_drawer_map"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Material">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -14,32 +14,36 @@
         android:layout_height="wrap_content"
         android:text="@string/pickup_button_text"
         android:visibility="invisible"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:elevation="4dp"
+        android:layout_margin="10dp"/>
 
     <Button
         android:id="@+id/drop_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:text="@string/drop_button_text"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/pickup_button"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@id/pickup_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:elevation="4dp"
+        android:layout_margin="10dp"/>
+
+
 
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floating_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_menu_black_24dp"
-        app:backgroundTint="#3F51B5"
+        android:src="@drawable/ic_add_black_24dp"
+        app:backgroundTint="@color/colorPrimaryDark"
         app:elevation="4dp"
         app:fabSize="normal"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
 
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/pickup_button"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <fragment
@@ -50,5 +54,15 @@
         tools:context="com.example.torchapp.DrawerMapActivity">
 
     </fragment>
+
+    <ImageView
+        android:id="@+id/menu_image"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_margin="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_menu_black_24dp"
+        />
 
 </android.support.constraint.ConstraintLayout>
