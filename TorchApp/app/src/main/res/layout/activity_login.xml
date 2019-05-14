@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--Background image-->
+    <View
+        android:id="@+id/login_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_background" />
+
+    <!--Blur effect for background-->
+    <View
+        android:id="@+id/login_blur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.5"
+        android:background="#000000"
+        android:clickable="false"
+        android:focusable="false"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <!--Guidelines for edges 15%-->
+    <android.support.constraint.Guideline
+        android:id="@+id/login_logo_left_edge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/login_logo_right_edge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <!--Guideline for logo-->
+    <android.support.constraint.Guideline
+        android:id="@+id/login_logo_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <!--Logo-->
+    <TextView
+        android:id="@+id/login_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/app_name"
+        android:textAppearance="@style/logo_text"
+
+        app:layout_constraintBottom_toBottomOf="@+id/login_logo_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/login_logo_guideline" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/login_username_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="366dp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_username_text_layout"
+        style="@style/normal_hint"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/username"
+        app:errorEnabled="true"
+
+        app:layout_constraintBottom_toTopOf="@+id/login_username_guideline"
+        app:layout_constraintEnd_toEndOf="@id/login_logo_right_edge"
+        app:layout_constraintStart_toStartOf="@id/login_logo_left_edge"
+        app:layout_constraintTop_toBottomOf="@+id/login_username_guideline">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/login_username_text"
+            style="@style/normal_hint"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_password_text_layout"
+        style="@style/normal_hint"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+
+        android:hint="@string/password"
+        app:layout_constraintEnd_toEndOf="@id/login_logo_right_edge"
+        app:layout_constraintStart_toStartOf="@id/login_logo_left_edge"
+        app:layout_constraintTop_toBottomOf="@+id/login_username_text_layout">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/login_password_text"
+            style="@style/normal_hint"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/login_login_button"
+        style="@style/normal_text"
+        android:layout_width="288dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="10dp"
+
+        android:background="#ff5030"
+
+        android:text="@string/log_in"
+
+        app:layout_constraintBottom_toTopOf="@+id/login_have_no_account_text"
+
+        app:layout_constraintEnd_toEndOf="@id/login_logo_right_edge"
+        app:layout_constraintStart_toStartOf="@id/login_logo_left_edge" />
+
+    <TextView
+        android:id="@+id/login_have_no_account_text"
+        style="@style/normal_text"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+
+        android:text="@string/no_account"
+
+        app:layout_constraintBottom_toTopOf="@+id/login_last_guideline"
+        app:layout_constraintStart_toStartOf="@id/login_login_button" />
+
+    <TextView
+        android:id="@+id/login_have_no_account_text_2"
+        style="@style/text_link"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="20dp"
+
+        android:text="@string/register_underlined"
+
+        app:layout_constraintBottom_toTopOf="@+id/login_last_guideline"
+        app:layout_constraintStart_toEndOf="@id/login_have_no_account_text"
+        android:layout_marginLeft="3dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/login_last_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
+
+</android.support.constraint.ConstraintLayout>
