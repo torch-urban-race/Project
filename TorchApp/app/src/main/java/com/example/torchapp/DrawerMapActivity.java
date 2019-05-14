@@ -92,6 +92,7 @@ public class DrawerMapActivity extends AppCompatActivity
     protected Button dropButton;
     protected FloatingActionButton fab;
     protected ImageView menuImg;
+    NavigationView navigationView;
 
     //Instances
     protected UIUtils uiUtils;
@@ -104,7 +105,7 @@ public class DrawerMapActivity extends AppCompatActivity
         System.out.println("Creating drawer map activity!");
         setContentView(R.layout.activity_drawer_map);
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -161,7 +162,7 @@ public class DrawerMapActivity extends AppCompatActivity
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if(!drawer.isDrawerOpen(GravityCompat.START)){
+        } else if(!drawer.isDrawerOpen(GravityCompat.START) && getSupportFragmentManager().getFragments().size() > 1){
             for(Fragment fragment: getSupportFragmentManager().getFragments()){
                 if(fragment instanceof SupportMapFragment){
                     continue;
@@ -169,8 +170,10 @@ public class DrawerMapActivity extends AppCompatActivity
                     getSupportFragmentManager().beginTransaction().remove(fragment).commit();
                 }
             }
+
+            navigationView.setCheckedItem(R.id.nav_home);
         } else {
-            super.onBackPressed();
+            startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 
