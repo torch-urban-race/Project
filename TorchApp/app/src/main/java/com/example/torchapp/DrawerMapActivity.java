@@ -2,6 +2,8 @@ package com.example.torchapp;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -99,6 +101,7 @@ public class DrawerMapActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("Creating drawer map activity!");
         setContentView(R.layout.activity_drawer_map);
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -193,6 +196,10 @@ public class DrawerMapActivity extends AppCompatActivity
 
         } else if (id == R.id.profile_logout) {
             Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show();
+
+            SaveSharedPreference.getSharedPreferences(this).edit().clear().commit();
+            startActivity(new Intent(this, MainActivity.class));
+            android.os.Process.killProcess(android.os.Process.myPid());
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -204,6 +211,7 @@ public class DrawerMapActivity extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
+        System.out.println("Pause");
         mapUtils.stopLocationUpdates();
 
     }
@@ -211,8 +219,14 @@ public class DrawerMapActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        System.out.println("Resume");
         mapUtils.startLocationUpdates();
 
+    }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        System.out.println("Starting");
     }
 
     /**

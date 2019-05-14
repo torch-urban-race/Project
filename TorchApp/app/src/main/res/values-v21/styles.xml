@@ -5,4 +5,22 @@
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="normal_hint">
+        <item name="android:textSize">
+            12sp
+        </item>
+        <item name="android:textColor">
+            #FFFFFF
+        </item>
+        <item name="android:textColorHint">
+            #FFFFFF
+        </item>
+        <item name="android:backgroundTint">
+            #FFFFFF
+        </item>
+        <item name="android:maxLines">
+            1
+        </item>
+    </style>
 </resources>
