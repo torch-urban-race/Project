@@ -1,12 +1,9 @@
 package com.company;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
-public class TorchAppRunnable  implements Runnable{
+public class TorchAppRunnable implements Runnable{
 
     private Socket clientSocket;
     private DBConnector connector;
@@ -18,15 +15,14 @@ public class TorchAppRunnable  implements Runnable{
 
     @Override
     public void run() {
-        String message;
         try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),true);
-            String str;
-            str = in.readLine();
+            String message;
+            ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
+            ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
+            String str = (String) in.readObject();
             System.out.println("Client: -> " + str);
 
-            int errorCode;
+            ErrorCode errorCode;
             String data[];
             switch (str.charAt(0)) {
                 case 'u':
@@ -39,33 +35,33 @@ public class TorchAppRunnable  implements Runnable{
                                     System.out.println("Username: " + data[0] + "\nPassword: " + data[1]);
                                     errorCode = connector.createUser(data[0], data[1]);
                                 } else {
-                                    errorCode = -1;
+                                    errorCode = ErrorCode.InvalidCommand;
                                 }
 
                                 //check ErrorCode
                                 switch (errorCode) {
-                                    case -1:
+                                    case InvalidCommand:
                                         message = "Invalid command";
                                         break;
-                                    case 0:
+                                    case OK:
                                         message = "User created";
                                         break;
-                                    case 1:
+                                    case NameTooShortOrLong:
                                         message = "Username too short/ long";
                                         break;
-                                    case 2:
+                                    case PasswordTooLongOrShort:
                                         message = "Password too short/ long";
                                         break;
-                                    case 3:
+                                    case SQLError:
                                         message = "SQL error";
                                         break;
-                                    case 4:
+                                    case NameContainsIllegalSymbols:
                                         message = "Username contains illegal symbol";
                                         break;
-                                    case 5:
+                                    case PasswordContainsIllegalSymbols:
                                         message = "Password contains illegal symbol";
                                         break;
-                                    case 6:
+                                    case NameAlreadyExists:
                                         message = "Username already exists";
                                         break;
                                     default:
@@ -77,12 +73,13 @@ public class TorchAppRunnable  implements Runnable{
                             break;
                         //Login format: u*Username;Password
                         case '*':
+                            String errorStrings[];
+
                             data = getData(str);
                             if (data.length == 2) {
-                                System.out.println("Username: " + data[0] + "\nPassword: " + data[1]);
-                                errorCode = connector.logIn(data[0], data[1]);
+                                errorStrings = connector.logIn(data[0], data[1]);
                             } else {
-                                errorCode = -1;
+                                errorStrings = new String[]{"" + ErrorCode.InvalidCommand};
                             }
 
                             //check ErrorCode
@@ -94,25 +91,45 @@ public class TorchAppRunnable  implements Runnable{
                                 case 8 -> "Wrong password";
                                 default -> "ErrorCode: " + errorCode;
                             }*/
-                            switch (errorCode) {
-                                case -1:
-                                    message = "Invalid command";
-                                    break;
-                                case 0:
-                                    message = "Login successful";
-                                    break;
-                                case 3:
-                                    message = "SQL error";
-                                    break;
-                                case 7:
-                                    message = "Wrong username";
-                                    break;
-                                case 8:
-                                    message = "Wrong password";
-                                    break;
-                                default:
-                                    message = "ErrorCode: " + errorCode;
-                                    break;
+                            if (errorStrings[0].equals("" + ErrorCode.InvalidCommand)) {
+                                message = "Invalid command";
+                            } else if (errorStrings[0].equals("" + ErrorCode.OK)) {
+                                message = errorStrings[1];
+                            } else if (errorStrings[0].equals("" + ErrorCode.SQLError)) {
+                                message = "SQL error";
+                            } else if (errorStrings[0].equals("" + ErrorCode.NameDoesNotExist)) {
+                                message = "Wrong username";
+                            } else if (errorStrings[0].equals("" + ErrorCode.PasswordDoesNotMatch)) {
+                                message = "Wrong password";
+                            } else {
+                                message = "ErrorCode: " + errorStrings[0];
+                            }
+                            break;
+                        case '?':
+                            String information[];
+                            String errorString;
+
+                            data = getData(str);
+                            if (data[0].length() > 0) {
+                                System.out.println("UserID: " + data[0]);
+                                information = connector.getUserInformation(data[0]);
+                                errorString = information[0];
+                            } else {
+                                errorString = "" + ErrorCode.InvalidCommand;
+                                information = new String[2];
+                            }
+
+                            if (errorString.equals("" + ErrorCode.InvalidCommand)) {
+                                message = "Invalid command";
+                            } else if (errorString.equals("" + ErrorCode.OK)) {
+                                //Return message: u@userName;maxCarryTime;carriedDistance;amountTorchesCreated;amountAchievements
+                                message = information[1];
+                            } else if (errorString.equals("" + ErrorCode.SQLError)) {
+                                message = "SQL error";
+                            } else if (errorString.equals("" + ErrorCode.WrongUserID)) {
+                                message = "Wrong user ID";
+                            } else {
+                                message = "ErrorCode: " + errorString;
                             }
                             break;
                         default:
@@ -125,24 +142,27 @@ public class TorchAppRunnable  implements Runnable{
                         case '+':
                             data = getData(str);
                             if (data.length == 5) {
-                                errorCode = connector.createTorch(data[0], Double.parseDouble(data[1]), Double.parseDouble(data[2]), data[3], Boolean.parseBoolean(data[4]));
+                                errorCode = connector.createTorch(data[0], data[1], data[2], data[3], data[4]);
                             } else {
-                                errorCode = -1;
+                                errorCode = ErrorCode.InvalidCommand;
                             }
 
                             //check ErrorCode
                             switch (errorCode) {
-                                case -1:
+                                case InvalidCommand:
                                     message = "Invalid command";
                                     break;
-                                case 0:
+                                case OK:
                                     message = "Torch created";
                                     break;
-                                case 3:
+                                case SQLError:
                                     message = "SQL error";
                                     break;
-                                case 7:
+                                case NameDoesNotExist:
                                     message = "Wrong username";
+                                    break;
+                                case NameAlreadyExists:
+                                    message = "Torch name already taken";
                                     break;
                                 default:
                                     message = "ErrorCode: " + errorCode;
@@ -150,60 +170,54 @@ public class TorchAppRunnable  implements Runnable{
                             break;
                         //requests torch location: t?torchID
                         case '?':
-                            double position[];
+                            String position[];
+                            String errorString;
+
                             data = getData(str);
                             if (data[0].length() > 0) {
                                 System.out.println("TorchID: " + data[0]);
-                                int torchID = Integer.parseInt(data[0]);
-                                position = connector.getTorchPosition(torchID);
-                                errorCode = (int) position[2];
+                                position = connector.getTorchPosition(data[0]);
+                                errorString = position[0];
                             } else {
-                                errorCode = -1;
-                                position = new double[2];
+                                errorString = "" + ErrorCode.InvalidCommand;
+                                position = new String[2];
                             }
-                            switch (errorCode) {
-                                case -1:
-                                    message = "Invalid command";
-                                    break;
-                                case 0:
-                                    //Return message: t@latitude;longitude
-                                    message = "t@" + position[0] + ";" + position[1];
-                                    /*if (torchID == 1) {
-                                        message += ";" + position[3];
-                                    }*/
-                                    break;
-                                case 3:
-                                    message = "SQL error";
-                                    break;
-                                case 9:
-                                    message = "Torch not found";
-                                    break;
-                                default:
-                                    message = "ErrorCode: " + errorCode;
+
+                            if (errorString.equals("" + ErrorCode.InvalidCommand)) {
+                                message = "Invalid command";
+                            } else if (errorString.equals("" + ErrorCode.OK)) {
+                                //Return message: t@latitude;longitude
+                                message = "t@" + position[0] + ";" + position[1];
+                                /*if (torchID == 1) {
+                                    message += ";" + position[3];
+                                }*/
+                            } else if (errorString.equals("" + ErrorCode.SQLError)) {
+                                message = "SQL error";
+                            } else if (errorString.equals("" + ErrorCode.WrongTorchID)) {
+                                message = "Torch not found";
+                            } else {
+                                message = "ErrorCode: " + errorString;
                             }
                             break;
                         //Updates torch location: t@torchID;latitude;longitude
                         case '@':
                             data = getData(str);
                             if (data.length == 3) {
-                                int torchID = Integer.parseInt(data[0]);
-                                double latitude = Double.parseDouble(data[1]);
-                                double longitude = Double.parseDouble(data[2]);
-                                errorCode = connector.setTorchPosition(torchID, latitude, longitude);
+                                errorCode = connector.setTorchPosition(data[0], data[1], data[2]);
                             } else {
-                                errorCode = -1;
+                                errorCode = ErrorCode.InvalidCommand;
                             }
                             switch (errorCode) {
-                                case -1:
+                                case InvalidCommand:
                                     message = "Invalid command";
                                     break;
-                                case 0:
+                                case OK:
                                     message = "Torch position updated";
                                     break;
-                                case 3:
+                                case SQLError:
                                     message = "SQL error";
                                     break;
-                                case 11:
+                                case WrongTorchID:
                                     message = "Wrong id";
                                     break;
                                 default:
@@ -214,13 +228,18 @@ public class TorchAppRunnable  implements Runnable{
                             message = "Invalid command";
                     }
                     break;
+                case 'a':
+                    message = "Working on it";
+                    break;
                 default:
                     message = "Invalid command";
             }
 
             System.out.println(message);
-            out.println(message);
-        } catch (IOException e) {
+            out.writeObject(message);
+            in.close();
+            out.close();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

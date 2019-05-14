@@ -1,11 +1,12 @@
 Create new torch:	t+torchname;latitude;longitude;creatorname;publicity
 
 Create new user:	u+userName;password
-Log in user:		u*userName;password
-Get user information:	u?unserID	-> u@userName;maxCarryTime;amountTorchesCreated;amountAchievements
+Log in user:		u*userName;password -> userID;userName
+Get user information:	u?userID	-> userName;maxCarryTime;carriedDistance;amountTorchesCreated;amountAchievements
 
 Create new torch:	t+torchName;latitude;longitude;creatorName;publicity
-Request torch location:	t?torchID	-> t@latitude;longitude {if torchID = 1 -> t@latitude;longitude;amountTorches}
-Update torch location:	t@torchID;latitude;longitude
+Update torch location:	t@torchID;latitude;longitude;bearerID
+Request torch location:	t?torchID	-> latitude;longitude {if torchID = 1 -> t@latitude;longitude;amountTorches}
+Request torch info:	t:torchID	-> torchName;creatorName;creationDate;distanceTraveled
 
-Get achievement:	a?achievementID;userID -> 
+Get achievement:	a?achievementID;userID -> hasAchievement;date
