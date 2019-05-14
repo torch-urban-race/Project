@@ -1,6 +1,8 @@
 package com.example.torchapp.database;
 
 
+import android.widget.Toast;
+
 import com.example.torchapp.login.LoginActivity;
 import com.example.torchapp.model.User;
 
@@ -33,10 +35,18 @@ public abstract class DatabaseFacade {
             public void run() {
                 /*User user = */
                 final String[] params = DatabaseHandler.getInstance().getUser(username, password);
+
                 loginActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        loginActivity.openMainScene(params[0], params[1]);
+
+                        if(params.length < 2){
+                            Toast.makeText(loginActivity.getApplicationContext(), "Failed to log in", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            loginActivity.openMainScene(params[0], params[1]);
+                        }
+
                     }
                 });
                 /*System.out.println("Got user: " + user);
