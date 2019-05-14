@@ -23,53 +23,6 @@ public class DBConnector {
         }
     }
 
-    public int createUser(String name, String password) {
-        int maxCaryTime = 5;
-
-        //Handle name
-        //error code 1: name is too short/ long
-        //error code 4: name contains illegal symbols
-        //error code 6: name already exists
-        int check = checkName(name);
-        if (check != 0) {
-            return check;
-        }
-        try {
-            ResultSet rs = statement.executeQuery("SELECT name FROM user WHERE name = '" + name + "';");
-            if (rs.next()) {
-                return 6;
-            }
-        } catch (SQLException sqle) {
-            return 3;
-        }
-
-        //Handle password
-        //error code 2: password is too short/ long
-        //error code 5: password contains illegal symbols
-        switch (checkString(password, MAX_PASSWORD_LENGTH)) {
-            case 0:
-                break;
-            case 1:
-                return 2;
-            case 2:
-                return 5;
-            default:
-                return -1;
-        }
-
-        //Executes MYSQL query
-        //error code 3: error in the query
-        try {
-            statement.executeUpdate("INSERT INTO `torchur`.`user` (`name`, `password`, `maxCarryTime`, `amountTorchesCreated`, `amountAchievements`) " +
-                    "VALUES ('" + name + "', '" + password + "', '" + maxCaryTime + "', '" + 0 + "', '" + 0 + "');");
-        } catch (SQLException e) {
-            return 3;
-        }
-
-        //error code 0: user created successfully
-        return 0;
-    }
-
     public int reset() {
         int user = resetUserTable();
         int torch = resetTorchTable();
@@ -103,130 +56,247 @@ public class DBConnector {
         }
     }
 
-    public int logIn(String name, String password) {
-        try {
-            //checks the database if the username matches the password
-            //error code 1: name is too short/ long
-            //error code 4: name contains illegal symbols
-            int check = checkName(name);
-            if (check != 0) {
-                return check;
-            }
+    public ErrorCode createUser(String name, String password) {
+        int maxCaryTime = 5;
 
-            //fetches password from table that matches the username
-            ResultSet rs = statement.executeQuery("SELECT `password` FROM `torchur`.`user` WHERE `name` = '" + name + "';");
-
-            //checks if name exists and if the password is correct
-            if (!rs.next()) {
-                return 7;   //error code 7: name doesn't exist
-            } else if (!rs.getString(1).equals(password)){
-                return 8;   //error code 8: password doesn't match
-            } else {
-                return 0;   //error code 0: login successful
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return 3;       //error code 3: error in SQL query
+        //Handle name
+        ErrorCode check = checkName(name);
+        if (check != ErrorCode.OK) {
+            return check;
         }
+        try {
+            ResultSet rs = statement.executeQuery("SELECT `name` FROM `user` WHERE `name` = '" + name + "';");
+            if (rs.next()) {
+                return ErrorCode.NameAlreadyExists;
+            }
+        } catch (SQLException sqle) {
+            return ErrorCode.SQLError;
+        }
+
+        //Handle password
+        switch (checkString(password, MAX_PASSWORD_LENGTH)) {
+            case 0:
+                break;
+            case 1:
+                return ErrorCode.PasswordTooLongOrShort;
+            case 2:
+                return ErrorCode.PasswordContainsIllegalSymbols;
+            default:
+                return ErrorCode.InvalidCommand;
+        }
+
+        //Executes MYSQL query
+        try {
+            statement.executeUpdate("INSERT INTO `torchur`.`user` (`name`, `password`, `maxCarryTime`, `amountTorchesCreated`, `amountAchievements`) " +
+                    "VALUES ('" + name + "', '" + password + "', '" + maxCaryTime + "', '" + 0 + "', '" + 0 + "');");
+        } catch (SQLException e) {
+            return ErrorCode.SQLError;
+        }
+
+        return ErrorCode.OK;
     }
 
-    public int createTorch(String torchName, double latitude, double longitude, String creatorName, boolean publicity) {
+    public String[] logIn(String name, String password) {
+        String confirmation[] = new String[2];
+        ErrorCode check = checkName(name);
+        if (check != ErrorCode.OK) {
+            confirmation[0] = "" + check;
+        } else {
+            try {
+                //checks the database if the username matches the password
+
+                //fetches password from table that matches the username
+                ResultSet rs = statement.executeQuery("SELECT `password`, `idUser`, `name` FROM `torchur`.`user` WHERE `name` = '" + name + "';");
+
+                //checks if name exists and if the password is correct
+                if (!rs.next()) {
+                    confirmation[0] = "" + ErrorCode.NameDoesNotExist;
+                } else if (!rs.getString(1).equals(password)) {
+                    confirmation[0] = "" + ErrorCode.PasswordDoesNotMatch;
+                } else {
+                    confirmation[0] = "" + ErrorCode.OK;
+                    confirmation[1] = rs.getString(2) + ";" + rs.getString(3);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                confirmation[0] = "" + ErrorCode.SQLError;
+            }
+        }
+        return confirmation;
+    }
+
+    public String[] getUserInformation(String userID) {
+        String information[] = new String[2];
+
+        try {
+            int id = Integer.parseInt(userID);
+
+            ResultSet rs = statement.executeQuery("SELECT `name`, `maxCarryTime`, `distanceTraveled`, `amountTorchesCreated`, `amountAchievements` " +
+                    "FROM `torchur`.`user` WHERE `idUser` = '" + id + "'");
+
+            if (!rs.next()) {
+                information[0] = "" + ErrorCode.WrongUserID;
+            } else {
+                information[0] = "" + ErrorCode.OK;
+                information[1] = rs.getString(1) + ";" + rs.getString(2) + ";" + rs.getString(3)
+                        + ";" + rs.getString(4) + ";" + rs.getString(5);
+            }
+        } catch (SQLException e) {
+            information[0] = "" + ErrorCode.SQLError;
+        } catch (NumberFormatException nfe) {
+            information[0] = "" + ErrorCode.WrongUserID;
+        }
+
+        return information;
+    }
+
+    public ErrorCode createTorch(String torchName, String latitude, String longitude, String creatorName, String publicity) {
         try {
             //gets current time
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            LocalDateTime now = LocalDateTime.now();
-            System.out.println(dtf.format(now));
+            String date = getDate();
 
+            //converts latitude and longitude into double
+            double lat = Double.parseDouble(latitude);
+            double lng = Double.parseDouble(longitude);
+
+            //converts publicity into int
             int publicTorch;
-            if (publicity) {
+            if (publicity.equalsIgnoreCase("true")) {
                 publicTorch = 1;
-            } else {
+            } else if (publicity.equalsIgnoreCase("false")) {
                 publicTorch = 0;
+            } else {
+                throw new NumberFormatException();
             }
 
             //checks creatorName
-            //error code 1: name is too short/ long
-            //error code 4: name contains illegal symbols
-            int check = checkName(creatorName);
-            if (check != 0) {
-                return check;
+            ErrorCode check = checkName(creatorName);
+            if (check != ErrorCode.OK) {
+                return ErrorCode.NameDoesNotExist;
             }
 
             //gets user ID
             ResultSet rs = statement.executeQuery("SELECT `idUser` FROM `torchur`.`user` WHERE `name` = '" + creatorName + "';");
             if (!rs.next()) {
-                return 7; //name doesn't exist
+                return ErrorCode.NameDoesNotExist;
             }
             int creatorID = rs.getInt(1);
 
+            //checks if torchName already exists
+            rs = statement.executeQuery("SELECT `name` FROM `torchur`.`torch` WHERE `name` = '" + torchName + "';");
+            if (rs.next()) {
+                return ErrorCode.NameAlreadyExists;
+            }
+
             //checks torchName
-            //Error code 0: no error detected
-            //Error code 1: torchName too short/ long
-            //Error code 10: torchName contains illegal symbols
-            //Error code -1: unidentified
             switch (checkString(torchName, MAX_TORCH_NAME_LENGTH)) {
                 case 0:
                     break;
                 case 1:
-                    return 1;
+                    return ErrorCode.NameTooShortOrLong;
                 case 2:
-                    return 10;
+                    return ErrorCode.NameContainsIllegalSymbols;
                 default:
-                    return -1;
+                    return ErrorCode.InvalidCommand;
             }
 
             //creates new torch entry
-            statement.executeUpdate("INSERT INTO `torchur`.`torch` (`name`, `latitude`, `longitude`, `creationTime`, `publicity`, `creatorID`) " +
-                    "VALUES ('" + torchName + "', '" + latitude + "', '" + longitude + "', '" + dtf.format(now) + "', '" + publicTorch + "', '" + creatorID + "');");
-            return 0;   //everything worked
+            statement.executeUpdate("INSERT INTO `torchur`.`torch` (`name`, `currentLatitude`, `currentLongitude`, `creationTime`, `publicity`, `creatorID`) " +
+                    "VALUES ('" + torchName + "', '" + lat + "', '" + lng + "', '" + date + "', '" + publicTorch + "', '" + creatorID + "');");
+
+            //get torchID
+            rs = statement.executeQuery("SELECT `idTorch` FROM `torchur`.`torch` WHERE `name` = '" + torchName + "';");
+            rs.next();
+            int torchID = rs.getInt(1);
+
+            //creates first RouteDataPoint
+            statement.executeUpdate("INSERT INTO `torchur`.`RouteDataPoint` (`latitude`, `longitude`, `date`, `idTorch`) " +
+                    "VALUES ('" + lat + "', '" + lng + "', '" + getDate() + "', '" + torchID + "');");
+            return ErrorCode.OK;
         } catch (SQLException e) {
             e.printStackTrace();
-            return 3;   //SQL error
+            return ErrorCode.SQLError;
+        } catch (NumberFormatException nfe) {
+            return ErrorCode.InvalidCommand;
         }
     }
 
-    public double[] getTorchPosition(int torchID) {
+    public String[] getTorchPosition(String tID) {
         //Function: gets torch latitude and longitude from database
-        double positions[] = new double[3];
+        String positions[] = new String[3];
         try {
-            /*if (torchID == 1) {
-                positions = new double[4];
-                ResultSet rs = statement.executeQuery("SELECT  COUNT (idTorch) FROM `torchur`.`torch`;");
-                if (!rs.next()) {
-                    return new double[]{0.0, 0.0, 3};
+            int torchID = Integer.parseInt(tID);
+
+            if (torchID == 1) {
+                try {
+                    positions = new String[4];
+                    ResultSet rs = statement.executeQuery("SELECT  COUNT (idTorch) FROM `torchur`.`torch`;");
+                    if (!rs.next()) {
+                        return new String[]{"" + ErrorCode.SQLError, "" + 0.0, "" + 0.0};
+                    }
+                    positions[3] = rs.getString(1);
+                } catch (SQLException sqle) {
+                    sqle.printStackTrace();
                 }
-                int amountTorches = rs.getInt(1);
-                positions[3] = amountTorches;
-            }*/
+            }
 
             //search for positions
-            ResultSet rs = statement.executeQuery("SELECT `latitude`, `longitude` FROM `torchur`.`torch` WHERE `idTorch` = '" + torchID + "';");
+            ResultSet rs = statement.executeQuery("SELECT `currentLatitude`, `currentLongitude` FROM `torchur`.`torch` WHERE `idTorch` = '" + torchID + "';");
 
             //If resultSet is empty
             if (!rs.next()) {
-                return new double[]{0.0, 0.0, 9};   //TorchID not found
+                return new String[]{"" + ErrorCode.WrongTorchID, "" + 0.0, "" + 0.0};
             }
 
             //get positions from the resultSet
-            positions[0] = rs.getDouble(1);
-            positions[1] = rs.getDouble(2);
-            positions[2] = 0;                       //Everything worked
+            positions[0] = "" + ErrorCode.OK;
+            positions[1] = rs.getString(1);
+            positions[2] = rs.getString(2);
             return positions;
         } catch (SQLException sqle) {
-            return new double[]{0.0, 0.0, 3};       //SQL error
+            sqle.printStackTrace();
+            return new String[]{"" + ErrorCode.SQLError, "" + 0.0, "" + 0.0};
+        } catch (NumberFormatException nfe) {
+            return new String[]{"" + ErrorCode.InvalidCommand, "" + 0.0, "" + 0.0};
         }
     }
 
-    public int setTorchPosition(int torchID, double latitude, double longitude) {
+    public ErrorCode setTorchPosition(String tID, String lat, String lng, String bearer) {
         try {
-            if (torchID > 0) {
-                statement.executeUpdate("UPDATE `torchur`.`torch` SET `latitude` = '" + latitude + "', `longitude` = '" + longitude + "' WHERE (`idTorch` = '" + torchID + "');");
-            } else {
-                return 11;  //Wrong torchID
+            int torchID = Integer.parseInt(tID);
+            int bearerID = Integer.parseInt(bearer);
+
+            double latitude = Double.parseDouble(lat);
+            double longitude = Double.parseDouble(lng);
+
+            double distance = calcDistance(torchID, latitude, longitude);
+
+            //if torch has been moved, create new RouteDataPoint
+            if (distance > 0.0005) {
+                statement.executeUpdate("INSERT INTO `torchur`.`RouteDataPoint` (`latitude`, `longitude`, `date`, `idTorch`) " +
+                        "VALUES ('" + lat + "', '" + lng + "', '" + getDate() + "', '" + torchID + "');");
             }
-            return 0;
+
+            //gets distance traveled from user and increases it by distance
+            ResultSet rs = statement.executeQuery("SELECT `distanceTraveled` FROM `torchur`.`user` WHERE `idUser` = '" + bearerID + "';");
+            if (!rs.next()) {
+                return ErrorCode.WrongUserID;
+            }
+            distance += rs.getDouble(1);
+            statement.executeUpdate("UPDATE `torchur`.`user` SET `distanceTraveled` = '" + distance + "';");
+
+            //update torch location
+            if (torchID > 0) {
+                statement.executeUpdate("UPDATE `torchur`.`torch` SET `currentLatitude` = '" + latitude + "', `currentLongitude` = '" + longitude + "' WHERE (`idTorch` = '" + torchID + "');");
+            } else {
+                return ErrorCode.WrongTorchID;
+            }
+            return ErrorCode.OK;
         } catch (SQLException sqle) {
-            return 3;       //SQL error
+            return ErrorCode.SQLError;
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+            return ErrorCode.InvalidCommand;
         }
     }
 
@@ -245,19 +315,44 @@ public class DBConnector {
         }
     }
 
-    private int checkName(String name) {
+    private ErrorCode checkName(String name) {
         //Function: handles names
         //error code 1: name is too short/ long
         //error code 4: name contains illegal symbols
         switch (checkString(name, MAX_NAME_LENGTH)) {
             case 0:
-                return 0;
+                return ErrorCode.OK;
             case 1:
-                return 1;
+                return ErrorCode.NameTooShortOrLong;
             case 2:
-                return 4;
+                return ErrorCode.NameContainsIllegalSymbols;
             default:
-                return -1;
+                return ErrorCode.InvalidCommand;
+        }
+    }
+
+    private String getDate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(dtf.format(now));
+        return dtf.format(now);
+    }
+
+    private double calcDistance(int tID, double lat, double lng) {
+        try {
+            //gets previous latitude and longitude to calculate the distance traveled
+            ResultSet rs = statement.executeQuery("SELECT `latitude`, `longitude` FROM `torchur`.`RouteDataPoint` WHERE `idTorch` = '" + tID + "' ORDER BY `date` DESC;");
+            double distance = 0.0;
+            if (rs.next()) {
+                double prevLat = rs.getDouble(1);
+                double prevLng = rs.getDouble(2);
+
+                distance += Math.sqrt(Math.abs(lat-prevLat) + Math.abs(lng-prevLng));
+            }
+            return distance;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0.0;
         }
     }
 }
