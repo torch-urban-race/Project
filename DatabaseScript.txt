@@ -22,17 +22,11 @@ CREATE TABLE IF NOT EXISTS `TorchUR`.`User` (
   `name` VARCHAR(20) NOT NULL,
   `password` VARCHAR(50) NOT NULL,
   `maxCarryTime` INT NOT NULL,
+  `distanceTraveled` DOUBLE NOT NULL,
   `amountTorchesCreated` INT NULL,
   `amountAchievements` INT NULL,
-  `carriedTorch` INT NULL,
   `sprite` VARCHAR(45) NULL,
-  PRIMARY KEY (`idUser`),
-  INDEX `fk_User_Torch1_idx` (`carriedTorch` ASC) VISIBLE,
-  CONSTRAINT `fk_User_Torch1`
-    FOREIGN KEY (`carriedTorch`)
-    REFERENCES `TorchUR`.`Torch` (`idTorch`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`idUser`))
 ENGINE = InnoDB;
 
 
@@ -41,17 +35,24 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `TorchUR`.`Torch` (
   `idTorch` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(10) NOT NULL,
-  `positionX` INT NOT NULL,
-  `positionY` INT NOT NULL,
+  `name` VARCHAR(20) NOT NULL,
+  `currentLatitude` DOUBLE NOT NULL,
+  `currentLongitude` DOUBLE NOT NULL,
   `creationTime` DATETIME NOT NULL,
   `publicity` TINYINT NOT NULL,
   `creatorID` INT NOT NULL,
+  `carriedBy` INT NULL,
   `sprite` VARCHAR(45) NULL,
   PRIMARY KEY (`idTorch`),
   INDEX `fk_Torch_User_idx` (`creatorID` ASC) VISIBLE,
+  INDEX `fk_Torch_User1_idx` (`carriedBy` ASC) VISIBLE,
   CONSTRAINT `fk_Torch_User`
     FOREIGN KEY (`creatorID`)
+    REFERENCES `TorchUR`.`User` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Torch_User1`
+    FOREIGN KEY (`carriedBy`)
     REFERENCES `TorchUR`.`User` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -98,8 +99,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `TorchUR`.`RouteDataPoint` (
   `idDatapoint` INT NOT NULL AUTO_INCREMENT,
-  `positionX` INT NOT NULL,
-  `positionY` INT NOT NULL,
+  `latitude` DOUBLE NOT NULL,
+  `longitude` DOUBLE NOT NULL,
   `date` DATETIME NOT NULL,
   `idTorch` INT NOT NULL,
   PRIMARY KEY (`idDatapoint`),

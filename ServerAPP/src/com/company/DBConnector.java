@@ -134,7 +134,13 @@ public class DBConnector {
             ResultSet rs = statement.executeQuery("SELECT `name`, `maxCarryTime`, `distanceTraveled`, `amountTorchesCreated`, `amountAchievements` " +
                     "FROM `torchur`.`user` WHERE `idUser` = '" + id + "'");
 
-            information[0] = "" + ErrorCode.OK;
+            if (!rs.next()) {
+                information[0] = "" + ErrorCode.WrongUserID;
+            } else {
+                information[0] = "" + ErrorCode.OK;
+                information[1] = rs.getString(1) + ";" + rs.getString(2) + ";" + rs.getString(3)
+                        + ";" + rs.getString(4) + ";" + rs.getString(5);
+            }
         } catch (SQLException e) {
             information[0] = "" + ErrorCode.SQLError;
         } catch (NumberFormatException nfe) {
@@ -195,7 +201,7 @@ public class DBConnector {
             }
 
             //creates new torch entry
-            statement.executeUpdate("INSERT INTO `torchur`.`torch` (`name`, `latitude`, `longitude`, `creationTime`, `publicity`, `creatorID`) " +
+            statement.executeUpdate("INSERT INTO `torchur`.`torch` (`name`, `currentLatitude`, `currentLongitude`, `creationTime`, `publicity`, `creatorID`) " +
                     "VALUES ('" + torchName + "', '" + lat + "', '" + lng + "', '" + date + "', '" + publicTorch + "', '" + creatorID + "');");
 
             //get torchID
@@ -222,12 +228,16 @@ public class DBConnector {
             int torchID = Integer.parseInt(tID);
 
             if (torchID == 1) {
-                positions = new String[4];
-                ResultSet rs = statement.executeQuery("SELECT  COUNT (idTorch) FROM `torchur`.`torch`;");
-                if (!rs.next()) {
-                    return new String[]{"" + ErrorCode.SQLError, "" + 0.0, "" + 0.0};
+                try {
+                    positions = new String[4];
+                    ResultSet rs = statement.executeQuery("SELECT  COUNT (idTorch) FROM `torchur`.`torch`;");
+                    if (!rs.next()) {
+                        return new String[]{"" + ErrorCode.SQLError, "" + 0.0, "" + 0.0};
+                    }
+                    positions[3] = rs.getString(1);
+                } catch (SQLException sqle) {
+                    sqle.printStackTrace();
                 }
-                positions[3] = rs.getString(1);
             }
 
             //search for positions
