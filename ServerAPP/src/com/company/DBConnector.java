@@ -267,6 +267,7 @@ public class DBConnector {
                         "VALUES ('" + lat + "', '" + lng + "', '" + getDate() + "', '" + torchID + "');");
             }
 
+            //gets distance traveled from user and increases it by distance
             ResultSet rs = statement.executeQuery("SELECT `distanceTraveled` FROM `torchur`.`user` WHERE `idUser` = '" + bearerID + "';");
             if (!rs.next()) {
                 return ErrorCode.WrongUserID;

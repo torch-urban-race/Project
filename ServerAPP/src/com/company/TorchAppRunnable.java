@@ -202,8 +202,8 @@ public class TorchAppRunnable implements Runnable{
                         //Updates torch location: t@torchID;latitude;longitude
                         case '@':
                             data = getData(str);
-                            if (data.length == 3) {
-                                errorCode = connector.setTorchPosition(data[0], data[1], data[2]);
+                            if (data.length == 4) {
+                                errorCode = connector.setTorchPosition(data[0], data[1], data[2], data[3]);
                             } else {
                                 errorCode = ErrorCode.InvalidCommand;
                             }
@@ -257,6 +257,9 @@ public class TorchAppRunnable implements Runnable{
                             data[0] = dataString.substring(firstChar, dataString.indexOf(";"));
                             data[1] = dataString.substring(dataString.indexOf(";")+1);
                             break;
+                        case '?':
+                            data[0] = dataString.substring(firstChar);
+                            break;
                     }
                     break;
                 case 't':
@@ -273,15 +276,27 @@ public class TorchAppRunnable implements Runnable{
                             data[4] = dataString.substring(dataString.indexOf(";")+1);
                             break;
                         case '?':
+                        case ':':
                             data = new String[1];
                             data[0] = dataString.substring(firstChar);
                             break;
                         case '@':
-                            data = new String[3];
+                            data = new String[4];
                             data[0] = dataString.substring(firstChar, dataString.indexOf(";"));
                             dataString = dataString.substring(dataString.indexOf(";")+1);
                             data[1] = dataString.substring(0, dataString.indexOf(";"));
-                            data[2] = dataString.substring(dataString.indexOf(";")+1);
+                            dataString = dataString.substring(dataString.indexOf(";")+1);
+                            data[2] = dataString.substring(0, dataString.indexOf(";"));
+                            data[3] = dataString.substring(dataString.indexOf(";")+1);
+                            break;
+                    }
+                    break;
+                case 'a':
+                    switch (dataString.charAt(1)) {
+                        case '?':
+                            data = new String[2];
+                            data[0] = dataString.substring(firstChar, dataString.indexOf(";"));
+                            data[1] = dataString.substring(dataString.indexOf(";")+1);
                             break;
                     }
             }
