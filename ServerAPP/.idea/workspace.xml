@@ -141,8 +141,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/TorchAppRunnable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4680">
-              <caret line="299" column="34" selection-start-line="299" selection-start-column="34" selection-end-line="299" selection-end-column="34" />
+            <state relative-caret-position="328">
+              <caret line="43" column="68" lean-forward="true" selection-start-line="43" selection-start-column="68" selection-end-line="43" selection-end-column="68" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -251,7 +251,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557866778643" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557866844808" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../Stelios/Medicine/Server" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -309,12 +309,12 @@
       <workItem from="1557437757662" duration="1244000" />
       <workItem from="1557444958078" duration="61000" />
       <workItem from="1557478826461" duration="3990000" />
-      <workItem from="1557836988093" duration="19939000" />
+      <workItem from="1557836988093" duration="20117000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65732000" />
+    <option name="totallyTimeSpent" value="65910000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1066" extended-state="6" />
@@ -506,8 +506,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/TorchAppRunnable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4680">
-          <caret line="299" column="34" selection-start-line="299" selection-start-column="34" selection-end-line="299" selection-end-column="34" />
+        <state relative-caret-position="328">
+          <caret line="43" column="68" lean-forward="true" selection-start-line="43" selection-start-column="68" selection-end-line="43" selection-end-column="68" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
