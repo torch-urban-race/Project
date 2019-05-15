@@ -42,4 +42,5 @@
     <string name="personal_number">Personal Number</string>
     <string name="doctor_name">Doctor\'s name</string>
     <string name="back_button_image_description">Go back to previous screen</string>
+    <string name="achievement_3_description">Ach3</string>
 </resources>
