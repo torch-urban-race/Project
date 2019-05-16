@@ -87,8 +87,8 @@ public class DBConnector {
 
         //Executes MYSQL query
         try {
-            statement.executeUpdate("INSERT INTO `torchur`.`user` (`name`, `password`, `maxCarryTime`, `amountTorchesCreated`, `amountAchievements`) " +
-                    "VALUES ('" + name + "', '" + password + "', '" + maxCaryTime + "', '" + 0 + "', '" + 0 + "');");
+            statement.executeUpdate("INSERT INTO `torchur`.`user` (`name`, `password`, `maxCarryTime`, `distanceTraveled`, `amountTorchesCreated`, `amountAchievements`) " +
+                    "VALUES ('" + name + "', '" + password + "', '" + maxCaryTime + "', '" + 0.0 + "', '" + 0 + "', '" + 0 + "');");
         } catch (SQLException e) {
             return ErrorCode.SQLError;
         }
