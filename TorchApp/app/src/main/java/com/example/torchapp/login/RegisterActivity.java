@@ -6,12 +6,9 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-
 import android.view.View;
 import android.widget.Button;
-
 import android.widget.ImageView;
-
 
 import com.example.torchapp.MainActivity;
 import com.example.torchapp.R;

@@ -2,6 +2,7 @@ package com.company;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class TorchAppRunnable implements Runnable{
 
@@ -186,11 +187,11 @@ public class TorchAppRunnable implements Runnable{
                             if (errorString.equals("" + ErrorCode.InvalidCommand)) {
                                 message = "Invalid command";
                             } else if (errorString.equals("" + ErrorCode.OK)) {
-                                //Return message: t@latitude;longitude
-                                message = "t@" + position[0] + ";" + position[1];
-                                /*if (torchID == 1) {
+                                //Return message: latitude;longitude
+                                message = position[1] + ";" + position[2];
+                                if (data[0].equals("1")) {
                                     message += ";" + position[3];
-                                }*/
+                                }
                             } else if (errorString.equals("" + ErrorCode.SQLError)) {
                                 message = "SQL error";
                             } else if (errorString.equals("" + ErrorCode.WrongTorchID)) {
@@ -223,6 +224,9 @@ public class TorchAppRunnable implements Runnable{
                                 default:
                                     message = "Error code: " + errorCode;
                             }
+                            break;
+                        case ':':
+                            message = "Working on it";
                             break;
                         default:
                             message = "Invalid command";

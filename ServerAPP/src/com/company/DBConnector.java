@@ -230,7 +230,7 @@ public class DBConnector {
             if (torchID == 1) {
                 try {
                     positions = new String[4];
-                    ResultSet rs = statement.executeQuery("SELECT  COUNT (idTorch) FROM `torchur`.`torch`;");
+                    ResultSet rs = statement.executeQuery("SELECT  COUNT(idTorch) FROM `torchur`.`torch`;");
                     if (!rs.next()) {
                         return new String[]{"" + ErrorCode.SQLError, "" + 0.0, "" + 0.0};
                     }

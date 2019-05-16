@@ -1,17 +1,8 @@
 package com.example.torchapp.database;
 
-import android.content.Context;
-
-import com.example.torchapp.MainActivity;
-import com.example.torchapp.SaveSharedPreference;
-import com.example.torchapp.model.User;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 import static com.example.torchapp.database.ExceptionPrints.printClassNotFoundException;
@@ -24,6 +15,7 @@ public class DatabaseHandler {
     private ObjectOutputStream socketOutObjecctOutputStream;
     private ObjectInputStream socketInObjectInputStream;
     private final String SPLIT = ";";
+    private final int MAIN_TORCH = 1;
 
     private String server = "85.197.159.54";
     private int port = 45454;
@@ -39,7 +31,7 @@ public class DatabaseHandler {
         return ourInstance;
     }
 
-    void prepareConnection() {
+    synchronized void prepareConnection() {
         try {
             clientSocket = new Socket(server, port);
             socketOutObjecctOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -49,18 +41,21 @@ public class DatabaseHandler {
         }
     }
 
-    void finishConnection() {
+    synchronized void finishConnection() {
         try {
-            //socketOutObjecctOutputStream.writeObject("disconnect");
             socketOutObjecctOutputStream.close();
             socketInObjectInputStream.close();
             clientSocket.close();
+
+            clientSocket = null;
+            socketOutObjecctOutputStream = null;
+            socketInObjectInputStream = null;
         } catch (IOException ioException) {
             printIOException(ioException);
         }
     }
 
-    String[] getUser(String username, String password) {
+    synchronized String[] getUser(String username, String password) {
         try {
 
             prepareConnection();
@@ -70,21 +65,19 @@ public class DatabaseHandler {
             String response = (String) socketInObjectInputStream.readObject();
             String[] params = response.split(SPLIT);
 
-            for(int i = 0; i < params.length; i++){
-                System.out.println(params[i]);
-            }
 
-            finishConnection();
             return params;
         } catch (ClassNotFoundException classNotFoundException) {
             printClassNotFoundException(classNotFoundException);
         } catch (IOException ioException) {
             printIOException(ioException);
+        }  finally {
+            finishConnection();
         }
         return null;
     }
 
-    String[] registerUser(String username, String password) {
+    synchronized String[] registerUser(String username, String password) {
         try {
 
             prepareConnection();
@@ -94,18 +87,83 @@ public class DatabaseHandler {
             String response = (String) socketInObjectInputStream.readObject();
             String[] params = response.split(SPLIT);
 
-            for(int i = 0; i < params.length; i++){
-                System.out.println(params[i]);
-            }
 
-            finishConnection();
             return params;
         } catch (ClassNotFoundException classNotFoundException) {
             printClassNotFoundException(classNotFoundException);
         } catch (IOException ioException) {
             printIOException(ioException);
+        } finally {
+            finishConnection();
         }
         return null;
     }
+
+    synchronized String[] getTorchesCount(){
+        try {
+
+            prepareConnection();
+
+            socketOutObjecctOutputStream.writeObject("t?" + MAIN_TORCH);
+
+            String response = (String) socketInObjectInputStream.readObject();
+            String[] params = response.split(SPLIT);
+
+
+            return params;
+        } catch (ClassNotFoundException classNotFoundException) {
+            printClassNotFoundException(classNotFoundException);
+        } catch (IOException ioException) {
+            printIOException(ioException);
+        } finally {
+            finishConnection();
+        }
+        return null;
+    }
+
+    synchronized String[] getTorchPosition(Integer torchID){
+        try {
+
+            prepareConnection();
+
+            socketOutObjecctOutputStream.writeObject("t?" + torchID);
+
+            String response = (String) socketInObjectInputStream.readObject();
+            String[] params = response.split(SPLIT);
+
+            return params;
+        } catch (ClassNotFoundException classNotFoundException) {
+            printClassNotFoundException(classNotFoundException);
+        } catch (IOException ioException) {
+            printIOException(ioException);
+        } finally {
+            finishConnection();
+        }
+        return null;
+    }
+
+    synchronized String[] createTorch(String torchName, Double latitude, Double longitude, String creatorName, boolean isPublic){
+        try {
+
+            prepareConnection();
+
+            socketOutObjecctOutputStream.writeObject("t+" + torchName + SPLIT + latitude + SPLIT + longitude + SPLIT + creatorName + SPLIT + isPublic);
+
+            String response = (String) socketInObjectInputStream.readObject();
+            String[] params = response.split(SPLIT);
+
+            return params;
+        } catch (ClassNotFoundException classNotFoundException) {
+            printClassNotFoundException(classNotFoundException);
+        } catch (IOException ioException) {
+            printIOException(ioException);
+        } finally {
+            finishConnection();
+        }
+        return null;
+
+    }
+
+
 
 }

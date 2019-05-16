@@ -2,16 +2,11 @@ package com.example.torchapp;
 
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+import com.example.torchapp.database.DatabaseFacade;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -21,14 +16,24 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MapUtils {
 
     private static volatile MapUtils singleInstance;
     private static DrawerMapActivity drawerMapActivity;
+    private static  Map<Integer, Marker> systemMarkers;
+
+    Marker mainMarker;
+    private int markerCount;
+
+
 
     //Circle Color
     final int circleFill = 0x3322e0f0;
@@ -51,6 +56,7 @@ public class MapUtils {
                 if (singleInstance == null){
                     singleInstance = new MapUtils();
                     drawerMapActivity = drawerMapActivitys;
+                    systemMarkers = new HashMap<Integer,Marker>(100);
                 }
 
             }
@@ -115,6 +121,7 @@ public class MapUtils {
 
     }
 
+
     /**
      * Calculates the distance between the user's location and a marker position
      */
@@ -155,7 +162,9 @@ public class MapUtils {
 
                             startLocationUpdates();
                             drawerMapActivity.pickupCircle = createPickupCircle(drawerMapActivity.MINIMUM_PICKUP_DISTANCE);
-                            addTestMarkers();
+                            //addTestMarkers();
+                            requestMainTorch();
+
 
 
                         } else {
@@ -227,10 +236,90 @@ public class MapUtils {
         return circle;
     }
 
+    /**
+     * Places the initial marker from system if doesn't exist otherwise updates its coordinates
+     */
+    public void placeMainMarker(Double latitude, Double longitude){
+
+        LatLng pos = new LatLng(latitude, longitude);
+        GoogleMap mMap = drawerMapActivity.mMap;
+
+        if(mainMarker == null){
+            mainMarker =  mMap.addMarker(new MarkerOptions().position(pos)
+                    .title("Main System Marker")
+                    .snippet("This marker should always be present.")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ttorch_icon)));
+
+            mainMarker.setTag(1);
+
+            systemMarkers.put(1, mainMarker);
+        } else {
+
+            systemMarkers.get(1).setPosition(pos);
+
+        }
+    }
+
+    /**
+     * Update the number of torches in system
+     */
+    public void updateMarkerCount(int number){
+        this.markerCount = number;
+    }
+
+    /**
+     * Creates a marker on the map with a latitude and longitude
+     */
+
+    public void createMarkerWithLatlng(Integer id, LatLng position){
+        GoogleMap mMap = drawerMapActivity.mMap;
+
+        Marker marker = mMap.addMarker(new MarkerOptions().position(position)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ttorch_icon)));
+        marker.setTag(id);
+        systemMarkers.put(id, marker);
+
+    }
+
+    /**
+     * Updates the marker's coordinates
+     */
+    public void updateMarkerCoordinates(Integer torchID, LatLng position){
+        systemMarkers.get(torchID).setPosition(position);
+    }
 
 
+    public void setTorchPosition(Integer torchID, double latitude, double longitude){
+        LatLng position = new LatLng(latitude,longitude);
+
+        if(!systemMarkers.containsKey(torchID)){
+            createMarkerWithLatlng(torchID, position);
+
+        } else if(systemMarkers.containsKey(torchID)){
+            updateMarkerCoordinates(torchID, position);
+        }
+    }
 
 
+    /**
+     * Add markers from database into map
+     */
+    public void handleMarkers(){
+        DatabaseFacade.getTorchCount(drawerMapActivity);
+
+        for(int i = 2; i <= markerCount; i++){
+            DatabaseFacade.getTorchPosition(drawerMapActivity, i);
+            System.out.println("Request this id: " + i);
+        }
+
+    }
+
+    /**
+     * Request main torch
+     */
+    public void requestMainTorch(){
+        DatabaseFacade.getTorchCount(drawerMapActivity);
+    }
 
 
 
