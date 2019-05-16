@@ -24,6 +24,7 @@ public class DatabaseHandler {
     private ObjectOutputStream socketOutObjecctOutputStream;
     private ObjectInputStream socketInObjectInputStream;
     private final String SPLIT = ";";
+    private final int MAIN_TORCH = 1;
 
     private String server = "85.197.159.54";
     private int port = 45454;
@@ -51,7 +52,6 @@ public class DatabaseHandler {
 
     void finishConnection() {
         try {
-            //socketOutObjecctOutputStream.writeObject("disconnect");
             socketOutObjecctOutputStream.close();
             socketInObjectInputStream.close();
             clientSocket.close();
@@ -69,10 +69,6 @@ public class DatabaseHandler {
             //return (User) socketInObjectInputStream.readObject();
             String response = (String) socketInObjectInputStream.readObject();
             String[] params = response.split(SPLIT);
-
-            for(int i = 0; i < params.length; i++){
-                System.out.println(params[i]);
-            }
 
             finishConnection();
             return params;
@@ -94,9 +90,25 @@ public class DatabaseHandler {
             String response = (String) socketInObjectInputStream.readObject();
             String[] params = response.split(SPLIT);
 
-            for(int i = 0; i < params.length; i++){
-                System.out.println(params[i]);
-            }
+            finishConnection();
+            return params;
+        } catch (ClassNotFoundException classNotFoundException) {
+            printClassNotFoundException(classNotFoundException);
+        } catch (IOException ioException) {
+            printIOException(ioException);
+        }
+        return null;
+    }
+
+    String[] getTorchesCount(){
+        try {
+
+            prepareConnection();
+
+            socketOutObjecctOutputStream.writeObject("t?" + MAIN_TORCH);
+
+            String response = (String) socketInObjectInputStream.readObject();
+            String[] params = response.split(SPLIT);
 
             finishConnection();
             return params;
@@ -107,5 +119,27 @@ public class DatabaseHandler {
         }
         return null;
     }
+
+    String[] getTorchPosition(Integer torchID){
+        try {
+
+            prepareConnection();
+
+            socketOutObjecctOutputStream.writeObject("t?" + torchID);
+
+            String response = (String) socketInObjectInputStream.readObject();
+            String[] params = response.split(SPLIT);
+
+            finishConnection();
+            return params;
+        } catch (ClassNotFoundException classNotFoundException) {
+            printClassNotFoundException(classNotFoundException);
+        } catch (IOException ioException) {
+            printIOException(ioException);
+        }
+        return null;
+    }
+
+
 
 }

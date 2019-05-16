@@ -383,4 +383,9 @@ public class DrawerMapActivity extends AppCompatActivity
     }
 
 
+    public MapUtils getMapUtils(){
+        return this.mapUtils;
+    }
+
+
 }

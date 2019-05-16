@@ -3,6 +3,7 @@ package com.example.torchapp.database;
 
 import android.widget.Toast;
 
+import com.example.torchapp.DrawerMapActivity;
 import com.example.torchapp.login.LoginActivity;
 import com.example.torchapp.login.RegisterActivity;
 import com.example.torchapp.model.User;
@@ -101,4 +102,61 @@ public abstract class DatabaseFacade {
          }).start();
 
      }
+
+
+
+    public static void getTorchCount(final DrawerMapActivity drawerMapActivity) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                /*User user = */
+                final String[] params = DatabaseHandler.getInstance().getTorchesCount();
+
+                drawerMapActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if(params.length < 2){
+                            Toast.makeText(drawerMapActivity.getApplicationContext(), params[0], Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            //TODO: I have lat long and number (Request ID as well)
+                            drawerMapActivity.getMapUtils().placeMainMarker(Double.parseDouble(params[0]), Double.parseDouble(params[1]));
+                            drawerMapActivity.getMapUtils().updateMarkerCount(Integer.parseInt(params[2]));
+                        }
+
+                    }
+                });
+
+            }
+        }).start();
+    }
+
+
+    public static void getTorchPosition(final DrawerMapActivity drawerMapActivity, final Integer torchID) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                /*User user = */
+                final String[] params = DatabaseHandler.getInstance().getTorchPosition(torchID);
+
+                drawerMapActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if(params.length < 2){
+                            Toast.makeText(drawerMapActivity.getApplicationContext(), params[0], Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            //TODO: I have lat long and number (Request ID as well)
+                            drawerMapActivity.getMapUtils().setTorchPosition(torchID, Double.parseDouble(params[0]), Double.parseDouble(params[1]));
+
+                        }
+
+                    }
+                });
+
+            }
+        }).start();
+    }
 }
