@@ -4,6 +4,7 @@ package com.example.torchapp.database;
 import android.widget.Toast;
 
 import com.example.torchapp.login.LoginActivity;
+import com.example.torchapp.login.RegisterActivity;
 import com.example.torchapp.model.User;
 
 public abstract class DatabaseFacade {
@@ -41,7 +42,7 @@ public abstract class DatabaseFacade {
                     public void run() {
 
                         if(params.length < 2){
-                            Toast.makeText(loginActivity.getApplicationContext(), "Failed to log in", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(loginActivity.getApplicationContext(), params[0], Toast.LENGTH_SHORT).show();
 
                         } else {
                             loginActivity.openMainScene(params[0], params[1]);
@@ -49,17 +50,55 @@ public abstract class DatabaseFacade {
 
                     }
                 });
-                /*System.out.println("Got user: " + user);
-                if (user.getPersonalNumber().equals(personalNumber) &&
-                        user.getPassword().equals(password)) {
-                    loginActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            loginActivity.openMainScene();
-                        }
-                    });
-                }*/
+
             }
         }).start();
     }
+
+
+     public static void registerUser(final RegisterActivity registerActivity, final String username, final String password){
+         new Thread(new Runnable() {
+             @Override
+             public void run() {
+
+                 final String[] paramsRegistration = DatabaseHandler.getInstance().registerUser(username, password);
+
+                 final String[] paramsLogin;
+                 if(paramsRegistration[0].equals("User created")){
+
+                     paramsLogin = DatabaseHandler.getInstance().getUser(username, password);
+
+
+                     registerActivity.runOnUiThread(new Runnable() {
+                         @Override
+                         public void run() {
+
+                             if(paramsLogin.length < 2){
+                                 Toast.makeText(registerActivity.getApplicationContext(), paramsLogin[0], Toast.LENGTH_SHORT).show();
+
+                             } else {
+                                 registerActivity.openMainScene(paramsLogin[0], paramsLogin[1]);
+                             }
+
+
+                         }
+                     });
+                 } else {
+                     registerActivity.runOnUiThread(new Runnable() {
+                         @Override
+                         public void run() {
+
+                             Toast.makeText(registerActivity.getApplicationContext(), paramsRegistration[0], Toast.LENGTH_SHORT).show();
+                         }
+                     });
+
+
+                 }
+
+                 System.out.println(paramsRegistration[0]);
+
+             }
+         }).start();
+
+     }
 }

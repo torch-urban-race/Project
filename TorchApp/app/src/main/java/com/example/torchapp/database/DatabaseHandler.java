@@ -84,4 +84,28 @@ public class DatabaseHandler {
         return null;
     }
 
+    String[] registerUser(String username, String password) {
+        try {
+
+            prepareConnection();
+
+            socketOutObjecctOutputStream.writeObject("u+" + username + SPLIT + password);
+            //return (User) socketInObjectInputStream.readObject();
+            String response = (String) socketInObjectInputStream.readObject();
+            String[] params = response.split(SPLIT);
+
+            for(int i = 0; i < params.length; i++){
+                System.out.println(params[i]);
+            }
+
+            finishConnection();
+            return params;
+        } catch (ClassNotFoundException classNotFoundException) {
+            printClassNotFoundException(classNotFoundException);
+        } catch (IOException ioException) {
+            printIOException(ioException);
+        }
+        return null;
+    }
+
 }

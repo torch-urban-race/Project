@@ -13,7 +13,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 
+import com.example.torchapp.MainActivity;
 import com.example.torchapp.R;
+import com.example.torchapp.SaveSharedPreference;
+import com.example.torchapp.database.DatabaseFacade;
 
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = RegisterActivity.class.getSimpleName();
@@ -118,14 +121,23 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser() {
-        String task = "register";
-        String email = registerNameEditText.getText().toString();
+        String username = registerNameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        String repeatPassword = repeatPasswordEditText.getText().toString();
+        //TODO: Check that password matches
 
+        //String repeatPassword = repeatPasswordEditText.getText().toString();
 
-
+        //TODO: Register user in database
+        DatabaseFacade.registerUser(RegisterActivity.this, username, password);
         finish(); //Closes this activity and goes back to who called it (always LoginActivity)
+    }
+
+
+    public void openMainScene(String userId, String userName) {
+        //Open main app
+        SaveSharedPreference.setUserId(this, userId);
+        SaveSharedPreference.setUserName(this, userName);
+        startActivity(new Intent(this, MainActivity.class));
     }
 
 
