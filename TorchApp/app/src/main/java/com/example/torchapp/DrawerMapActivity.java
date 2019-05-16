@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -65,11 +66,13 @@ public class DrawerMapActivity extends AppCompatActivity
     protected static final long LOCATION_UPDATE_INTERVAL = 5000;
     protected static final long LOCATION_UPDATE_FASTEST_INTERVAL = 5000;
     protected static final int MINIMUM_PICKUP_DISTANCE = 50;
+    protected static final long MARKER_UPDATE_INTERVAL = 5000;
 
     //Custom variables
     protected Marker selectedMarker;
     protected Marker carriedMarker;
     protected Circle pickupCircle;
+    protected Handler mHandler;
 
     //Buttons and Interactibles
     protected Button pickupButton;
@@ -138,6 +141,9 @@ public class DrawerMapActivity extends AppCompatActivity
 
 
         uiUtils.addListenersOnButtons();
+
+        mHandler = new Handler();
+        startRepeatingTask();
 
 
     }
@@ -311,6 +317,8 @@ public class DrawerMapActivity extends AppCompatActivity
         mapUtils.getDeviceLocation();
 
 
+
+
     }
 
 
@@ -371,5 +379,25 @@ public class DrawerMapActivity extends AppCompatActivity
         return this.mapUtils;
     }
 
+    Runnable mStatusChecker = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                mapUtils.handleMarkers(); //this function can change value of mInterval.
+            } finally {
+                // 100% guarantee that this always happens, even if
+                // your update method throws an exception
+                mHandler.postDelayed(mStatusChecker, MARKER_UPDATE_INTERVAL);
+            }
+        }
+    };
+
+    void startRepeatingTask() {
+        mStatusChecker.run();
+    }
+
+    void stopRepeatingTask() {
+        mHandler.removeCallbacks(mStatusChecker);
+    }
 
 }

@@ -31,7 +31,7 @@ public class DatabaseHandler {
         return ourInstance;
     }
 
-    void prepareConnection() {
+    synchronized void prepareConnection() {
         try {
             clientSocket = new Socket(server, port);
             socketOutObjecctOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -41,17 +41,21 @@ public class DatabaseHandler {
         }
     }
 
-    void finishConnection() {
+    synchronized void finishConnection() {
         try {
             socketOutObjecctOutputStream.close();
             socketInObjectInputStream.close();
             clientSocket.close();
+
+            clientSocket = null;
+            socketOutObjecctOutputStream = null;
+            socketInObjectInputStream = null;
         } catch (IOException ioException) {
             printIOException(ioException);
         }
     }
 
-    String[] getUser(String username, String password) {
+    synchronized String[] getUser(String username, String password) {
         try {
 
             prepareConnection();
@@ -61,17 +65,19 @@ public class DatabaseHandler {
             String response = (String) socketInObjectInputStream.readObject();
             String[] params = response.split(SPLIT);
 
-            finishConnection();
+
             return params;
         } catch (ClassNotFoundException classNotFoundException) {
             printClassNotFoundException(classNotFoundException);
         } catch (IOException ioException) {
             printIOException(ioException);
+        }  finally {
+            finishConnection();
         }
         return null;
     }
 
-    String[] registerUser(String username, String password) {
+    synchronized String[] registerUser(String username, String password) {
         try {
 
             prepareConnection();
@@ -81,17 +87,19 @@ public class DatabaseHandler {
             String response = (String) socketInObjectInputStream.readObject();
             String[] params = response.split(SPLIT);
 
-            finishConnection();
+
             return params;
         } catch (ClassNotFoundException classNotFoundException) {
             printClassNotFoundException(classNotFoundException);
         } catch (IOException ioException) {
             printIOException(ioException);
+        } finally {
+            finishConnection();
         }
         return null;
     }
 
-    String[] getTorchesCount(){
+    synchronized String[] getTorchesCount(){
         try {
 
             prepareConnection();
@@ -101,17 +109,19 @@ public class DatabaseHandler {
             String response = (String) socketInObjectInputStream.readObject();
             String[] params = response.split(SPLIT);
 
-            finishConnection();
+
             return params;
         } catch (ClassNotFoundException classNotFoundException) {
             printClassNotFoundException(classNotFoundException);
         } catch (IOException ioException) {
             printIOException(ioException);
+        } finally {
+            finishConnection();
         }
         return null;
     }
 
-    String[] getTorchPosition(Integer torchID){
+    synchronized String[] getTorchPosition(Integer torchID){
         try {
 
             prepareConnection();
@@ -121,17 +131,18 @@ public class DatabaseHandler {
             String response = (String) socketInObjectInputStream.readObject();
             String[] params = response.split(SPLIT);
 
-            finishConnection();
             return params;
         } catch (ClassNotFoundException classNotFoundException) {
             printClassNotFoundException(classNotFoundException);
         } catch (IOException ioException) {
             printIOException(ioException);
+        } finally {
+            finishConnection();
         }
         return null;
     }
 
-    String[] createTorch(String torchName, Double latitude, Double longitude, String creatorName, boolean isPublic){
+    synchronized String[] createTorch(String torchName, Double latitude, Double longitude, String creatorName, boolean isPublic){
         try {
 
             prepareConnection();
@@ -141,12 +152,13 @@ public class DatabaseHandler {
             String response = (String) socketInObjectInputStream.readObject();
             String[] params = response.split(SPLIT);
 
-            finishConnection();
             return params;
         } catch (ClassNotFoundException classNotFoundException) {
             printClassNotFoundException(classNotFoundException);
         } catch (IOException ioException) {
             printIOException(ioException);
+        } finally {
+            finishConnection();
         }
         return null;
 

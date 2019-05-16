@@ -79,7 +79,7 @@ public class UIUtils {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: ADD marker legit way
+                //TODO: ADD marker legit way do not place torch unless database accepted it
                 LatLng pos = new LatLng(drawerMapActivity.mLastKnownLocation.getLatitude(), drawerMapActivity.mLastKnownLocation.getLongitude());
 
                 drawerMapActivity.mMap.addMarker(new MarkerOptions().position(pos)

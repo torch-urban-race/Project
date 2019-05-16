@@ -164,7 +164,7 @@ public class MapUtils {
                             drawerMapActivity.pickupCircle = createPickupCircle(drawerMapActivity.MINIMUM_PICKUP_DISTANCE);
                             //addTestMarkers();
                             requestMainTorch();
-                            handleMarkers();
+
 
 
                         } else {
@@ -307,8 +307,9 @@ public class MapUtils {
     public void handleMarkers(){
         DatabaseFacade.getTorchCount(drawerMapActivity);
 
-        for(int i = 2; i < markerCount; i++){
+        for(int i = 2; i <= markerCount; i++){
             DatabaseFacade.getTorchPosition(drawerMapActivity, i);
+            System.out.println("Request this id: " + i);
         }
 
     }

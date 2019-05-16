@@ -124,6 +124,7 @@ public abstract class DatabaseFacade {
                             drawerMapActivity.getMapUtils().updateMarkerCount(Integer.parseInt(params[2]));
                         }
 
+
                     }
                 });
 
