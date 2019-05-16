@@ -1,17 +1,8 @@
 package com.example.torchapp.database;
 
-import android.content.Context;
-
-import com.example.torchapp.MainActivity;
-import com.example.torchapp.SaveSharedPreference;
-import com.example.torchapp.model.User;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 import static com.example.torchapp.database.ExceptionPrints.printClassNotFoundException;
@@ -138,6 +129,27 @@ public class DatabaseHandler {
             printIOException(ioException);
         }
         return null;
+    }
+
+    String[] createTorch(String torchName, Double latitude, Double longitude, String creatorName, boolean isPublic){
+        try {
+
+            prepareConnection();
+
+            socketOutObjecctOutputStream.writeObject("t+" + torchName + SPLIT + latitude + SPLIT + longitude + SPLIT + creatorName + SPLIT + isPublic);
+
+            String response = (String) socketInObjectInputStream.readObject();
+            String[] params = response.split(SPLIT);
+
+            finishConnection();
+            return params;
+        } catch (ClassNotFoundException classNotFoundException) {
+            printClassNotFoundException(classNotFoundException);
+        } catch (IOException ioException) {
+            printIOException(ioException);
+        }
+        return null;
+
     }
 
 

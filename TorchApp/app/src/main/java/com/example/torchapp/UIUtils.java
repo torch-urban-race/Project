@@ -1,7 +1,6 @@
 package com.example.torchapp;
 
 import android.graphics.Color;
-import android.location.Location;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.GravityCompat;
 import android.util.Log;
@@ -9,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.torchapp.database.DatabaseFacade;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -79,14 +79,16 @@ public class UIUtils {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Slide menu when user clicks on the FAB
+                //TODO: ADD marker legit way
                 LatLng pos = new LatLng(drawerMapActivity.mLastKnownLocation.getLatitude(), drawerMapActivity.mLastKnownLocation.getLongitude());
 
                 drawerMapActivity.mMap.addMarker(new MarkerOptions().position(pos)
-                        .title("You placed this marker!")
-                        .snippet("This marker was created by the user!")
+                        .title("Bork")
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.ttorch_icon)));
-                //Temporary for debugging purpose
+
+                DatabaseFacade.createTorch(drawerMapActivity, "Bork", pos.latitude, pos.longitude, SaveSharedPreference.getUserName(drawerMapActivity.getApplicationContext()), true);
+
+                                //Temporary for debugging purpose
                 Log.d(drawerMapActivity.TAG, "someone pressed the button!");
 
             }
