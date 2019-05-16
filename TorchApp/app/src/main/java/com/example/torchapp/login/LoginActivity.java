@@ -89,7 +89,8 @@ public class LoginActivity extends AppCompatActivity {
         haveNoAccountTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openRegisterActivity();
+                //openRegisterActivity();
+                openMainScene("66", "Text");
             }
         });
 
@@ -108,10 +109,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginUser() {
         //TODO validity check for inputs
-        String personalNumber = usernameEditText.getText().toString();
+        String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
-        DatabaseFacade.loginWithCredentials(LoginActivity.this, personalNumber, password);
+        DatabaseFacade.loginWithCredentials(LoginActivity.this, username, password);
 
         usernameEditText.setText("");
         passwordEditText.setText("");
