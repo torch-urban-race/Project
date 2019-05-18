@@ -1,20 +1,23 @@
-package com.example.torchapp;
+package com.example.torchapp.map;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +26,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.torchapp.AchievementsFragment;
+import com.example.torchapp.MainActivity;
+import com.example.torchapp.ProfileFragment;
+import com.example.torchapp.R;
+import com.example.torchapp.SaveSharedPreference;
+import com.example.torchapp.model.CurrentUser;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -73,6 +82,7 @@ public class DrawerMapActivity extends AppCompatActivity
     protected Marker carriedMarker;
     protected Circle pickupCircle;
     protected Handler mHandler;
+    protected long timeLeftInMilliseconds;
 
     //Buttons and Interactibles
     protected Button pickupButton;
@@ -80,10 +90,15 @@ public class DrawerMapActivity extends AppCompatActivity
     protected FloatingActionButton fab;
     protected ImageView menuImg;
     NavigationView navigationView;
+    Snackbar snackbar;
+    CountDownTimer countDownTimer;
 
     //Instances
     protected UIUtils uiUtils;
     protected MapUtils mapUtils;
+    protected CurrentUser currentUser;
+
+
 
 
     @Override
@@ -95,6 +110,7 @@ public class DrawerMapActivity extends AppCompatActivity
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //snackbar.show();
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
@@ -132,6 +148,7 @@ public class DrawerMapActivity extends AppCompatActivity
 
         uiUtils = UIUtils.getInstance(this);
         mapUtils = MapUtils.getInstance(this);
+        currentUser = CurrentUser.getInstance();
 
         //Assign all the buttons
         pickupButton = findViewById(R.id.pickup_button);
@@ -142,6 +159,7 @@ public class DrawerMapActivity extends AppCompatActivity
 
         uiUtils.addListenersOnButtons();
 
+        currentUser.requestUserUpdate(this, Integer.parseInt(SaveSharedPreference.getUserId(this.getApplicationContext())));
         mHandler = new Handler();
         startRepeatingTask();
 
@@ -379,6 +397,10 @@ public class DrawerMapActivity extends AppCompatActivity
         return this.mapUtils;
     }
 
+    public CurrentUser getCurrentUser(){ return  this.currentUser;}
+
+    public UIUtils getUiUtils(){ return  this.uiUtils;}
+
     Runnable mStatusChecker = new Runnable() {
         @Override
         public void run() {
@@ -399,5 +421,7 @@ public class DrawerMapActivity extends AppCompatActivity
     void stopRepeatingTask() {
         mHandler.removeCallbacks(mStatusChecker);
     }
+
+
 
 }

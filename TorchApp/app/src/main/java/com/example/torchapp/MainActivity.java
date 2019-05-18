@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.torchapp.database.DatabaseFacade;
 import com.example.torchapp.login.LoginActivity;
+import com.example.torchapp.map.DrawerMapActivity;
 
 
 public class MainActivity extends AppCompatActivity {

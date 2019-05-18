@@ -1,4 +1,4 @@
-package com.example.torchapp;
+package com.example.torchapp.map;
 
 
 import android.annotation.SuppressLint;
@@ -6,6 +6,7 @@ import android.location.Location;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.torchapp.R;
 import com.example.torchapp.database.DatabaseFacade;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -160,8 +161,9 @@ public class MapUtils {
                                     new LatLng(drawerMapActivity.mLastKnownLocation.getLatitude(),
                                             drawerMapActivity.mLastKnownLocation.getLongitude()), drawerMapActivity.DEFAULT_ZOOM));
 
-                            startLocationUpdates();
+
                             drawerMapActivity.pickupCircle = createPickupCircle(drawerMapActivity.MINIMUM_PICKUP_DISTANCE);
+                            startLocationUpdates();
                             //addTestMarkers();
                             requestMainTorch();
 
@@ -181,6 +183,7 @@ public class MapUtils {
 
 
     }
+
 
 
     @SuppressLint("MissingPermission")

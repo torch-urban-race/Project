@@ -15,7 +15,7 @@ public class DBConnector {
     public DBConnector() {
         //Connect to the database
         try {
-            String url = "jdbc:mysql://localhost:3306/torchur?user=NG-KB&password=1234567890";
+            String url = "jdbc:mysql://localhost:3306/torchur?user=root&password=123456";
             Connection connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
         } catch (SQLException sqle) {

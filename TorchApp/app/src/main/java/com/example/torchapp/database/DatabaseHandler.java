@@ -17,7 +17,7 @@ public class DatabaseHandler {
     private final String SPLIT = ";";
     private final int MAIN_TORCH = 1;
 
-    private String server = "85.197.159.54";
+    private String server = "85.197.159.210";
     private int port = 45454;
 
     private DatabaseHandler() {
@@ -61,7 +61,7 @@ public class DatabaseHandler {
             prepareConnection();
 
             socketOutObjecctOutputStream.writeObject("u*" + username + SPLIT + password);
-            //return (User) socketInObjectInputStream.readObject();
+            //return (CurrentUser) socketInObjectInputStream.readObject();
             String response = (String) socketInObjectInputStream.readObject();
             String[] params = response.split(SPLIT);
 
@@ -83,7 +83,7 @@ public class DatabaseHandler {
             prepareConnection();
 
             socketOutObjecctOutputStream.writeObject("u+" + username + SPLIT + password);
-            //return (User) socketInObjectInputStream.readObject();
+            //return (CurrentUser) socketInObjectInputStream.readObject();
             String response = (String) socketInObjectInputStream.readObject();
             String[] params = response.split(SPLIT);
 
@@ -148,6 +148,29 @@ public class DatabaseHandler {
             prepareConnection();
 
             socketOutObjecctOutputStream.writeObject("t+" + torchName + SPLIT + latitude + SPLIT + longitude + SPLIT + creatorName + SPLIT + isPublic);
+
+            String response = (String) socketInObjectInputStream.readObject();
+            String[] params = response.split(SPLIT);
+
+            return params;
+        } catch (ClassNotFoundException classNotFoundException) {
+            printClassNotFoundException(classNotFoundException);
+        } catch (IOException ioException) {
+            printIOException(ioException);
+        } finally {
+            finishConnection();
+        }
+        return null;
+
+    }
+
+
+    synchronized String[] getUserInformation(Integer userID){
+        try {
+
+            prepareConnection();
+
+            socketOutObjecctOutputStream.writeObject("u?" + userID);
 
             String response = (String) socketInObjectInputStream.readObject();
             String[] params = response.split(SPLIT);

@@ -3,8 +3,25 @@
   <component name="ChangeListManager">
     <list default="true" id="9b74e18a-01e3-4046-87a5-6ccf6959559e" name="Default Changelist" comment="Server uses ObjectInput- and -OutputStream&#10;Implemented changes to all commands">
       <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerAPP/com/company/DBConnector.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerAPP/com/company/DBConnector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerAPP/com/company/TorchAppRunnable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerAPP/com/company/TorchAppRunnable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/DBConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/DBConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/SocketServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/SocketServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/TorchAppRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/TorchAppRunnable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/DrawerMapActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/map/DrawerMapActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/MapUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/map/MapUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/SaveSharedPreference.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/SaveSharedPreference.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/UIUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/map/UIUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/database/DatabaseFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/database/DatabaseFacade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/database/DatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/database/DatabaseHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/model/CurrentUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/fragment_map.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/fragment_map.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/styles.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,7 +61,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/SocketServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
+            <state relative-caret-position="663">
               <caret line="41" column="36" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -62,23 +79,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/TorchAppRunnable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3213">
-              <caret line="189" column="57" selection-start-line="189" selection-start-column="49" selection-end-line="189" selection-end-column="57" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="385">
+              <caret line="203" column="33" lean-forward="true" selection-start-line="203" selection-start-column="33" selection-end-line="203" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/DBConnector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+            <state relative-caret-position="-1570">
+              <caret line="236" column="51" lean-forward="true" selection-start-line="236" selection-start-column="51" selection-end-line="236" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -137,7 +151,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -160,7 +174,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -231,16 +245,17 @@
       <workItem from="1557997560147" duration="2755000" />
       <workItem from="1558010954621" duration="769000" />
       <workItem from="1558023265743" duration="659000" />
+      <workItem from="1558114672826" duration="3306000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71466000" />
+    <option name="totallyTimeSpent" value="74772000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1096" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15191898" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15351813" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -249,7 +264,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32171583" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32087228" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39914164" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -311,13 +326,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Server uses ObjectInput- and -OutputStream&#10;Implemented changes to all commands" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/company/Torch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-9/lib/src.zip!/java.sql/java/sql/ResultSet.java" />
     <entry file="jar://$PROJECT_DIR$/mysql-connector-java-8.0.16/mysql-connector-java-8.0.16.jar!/com/mysql/cj/jdbc/StatementImpl.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -385,7 +393,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/SocketServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
+        <state relative-caret-position="663">
           <caret line="41" column="36" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -393,13 +401,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/DBConnector.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/Torch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="68">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -410,13 +415,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/TorchAppRunnable.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/DBConnector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3213">
-          <caret line="189" column="57" selection-start-line="189" selection-start-column="49" selection-end-line="189" selection-end-column="57" />
+        <state relative-caret-position="-1570">
+          <caret line="236" column="51" lean-forward="true" selection-start-line="236" selection-start-column="51" selection-end-line="236" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/TorchAppRunnable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="203" column="33" lean-forward="true" selection-start-line="203" selection-start-column="33" selection-end-line="203" selection-end-column="33" />
         </state>
       </provider>
     </entry>

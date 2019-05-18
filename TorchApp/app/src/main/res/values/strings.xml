@@ -27,7 +27,8 @@
     <string name="fragment_profile">Profile Fragment</string>
     <string name="fragment_achievements">Achievements Fragment</string>
 
-    <string name="username">Username</string> /string>
+    <string name="username">Username</string>
+    /string>
     <string name="email_address">Email address</string>
     <string name="password">Password</string>
     <string name="password_repeat">Repeat Password</string>
@@ -43,4 +44,5 @@
     <string name="doctor_name">Doctor\'s name</string>
     <string name="back_button_image_description">Go back to previous screen</string>
     <string name="achievement_3_description">Ach3</string>
+    <string name="timer_time">Mock</string>
 </resources>

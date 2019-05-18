@@ -3,11 +3,14 @@ package com.example.torchapp.database;
 
 import android.widget.Toast;
 
-import com.example.torchapp.DrawerMapActivity;
+import com.example.torchapp.SaveSharedPreference;
+import com.example.torchapp.map.DrawerMapActivity;
 import com.example.torchapp.login.LoginActivity;
 import com.example.torchapp.login.RegisterActivity;
 
 public abstract class DatabaseFacade {
+
+
 
     /**
      * Has to be run at the beginning of the application start to establish connection
@@ -34,7 +37,7 @@ public abstract class DatabaseFacade {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                /*User user = */
+                /*CurrentUser user = */
                 final String[] params = DatabaseHandler.getInstance().getUser(username, password);
 
                 loginActivity.runOnUiThread(new Runnable() {
@@ -64,7 +67,7 @@ public abstract class DatabaseFacade {
                  final String[] paramsRegistration = DatabaseHandler.getInstance().registerUser(username, password);
 
                  final String[] paramsLogin;
-                 if(paramsRegistration[0].equals("User created")){
+                 if(paramsRegistration[0].equals("CurrentUser created")){
 
                      paramsLogin = DatabaseHandler.getInstance().getUser(username, password);
 
@@ -108,7 +111,7 @@ public abstract class DatabaseFacade {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                /*User user = */
+                /*CurrentUser user = */
                 final String[] params = DatabaseHandler.getInstance().getTorchesCount();
 
                 drawerMapActivity.runOnUiThread(new Runnable() {
@@ -137,7 +140,7 @@ public abstract class DatabaseFacade {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                /*User user = */
+                /*CurrentUser user = */
                 final String[] params = DatabaseHandler.getInstance().getTorchPosition(torchID);
 
                 drawerMapActivity.runOnUiThread(new Runnable() {
@@ -175,7 +178,7 @@ public abstract class DatabaseFacade {
 
 
                             Toast.makeText(drawerMapActivity.getApplicationContext(), params[0], Toast.LENGTH_SHORT).show();
-                            //TODO: Update local index
+
 
                         }
                     });
@@ -186,6 +189,43 @@ public abstract class DatabaseFacade {
 
 
                             Toast.makeText(drawerMapActivity.getApplicationContext(), params[0], Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    });
+
+
+                }
+
+            }
+        }).start();
+    }
+
+
+    synchronized public static void getUserInformation(final DrawerMapActivity drawerMapActivity, final Integer userID) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                final String[] params = DatabaseHandler.getInstance().getUserInformation(userID);
+
+                if(params.length < 2){
+
+                    drawerMapActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            Toast.makeText(drawerMapActivity.getApplicationContext(), params[0], Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    });
+                } else {
+                    drawerMapActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            drawerMapActivity.getCurrentUser().updateCurrentUser(params[0], Integer.parseInt(params[1]), Double.parseDouble(params[2]), Integer.parseInt(params[3]), Integer.parseInt(params[4]));
 
                         }
                     });

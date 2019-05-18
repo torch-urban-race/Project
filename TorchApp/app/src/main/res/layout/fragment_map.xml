@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DrawerMapActivity"
+    tools:context=".map.DrawerMapActivity"
     tools:ignore="ExtraText">
 
     <!-- This button is invisible by default-->
@@ -51,7 +51,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.torchapp.DrawerMapActivity">
+        tools:context="com.example.torchapp.map.DrawerMapActivity">
 
     </fragment>
 
