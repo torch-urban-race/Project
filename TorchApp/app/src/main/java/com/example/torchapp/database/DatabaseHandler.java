@@ -187,6 +187,28 @@ public class DatabaseHandler {
 
     }
 
+    synchronized String[] getTorchInformation(Integer torchID){
+        try {
+
+            prepareConnection();
+
+            socketOutObjecctOutputStream.writeObject("t:" + torchID);
+
+            String response = (String) socketInObjectInputStream.readObject();
+            String[] params = response.split(SPLIT);
+
+            return params;
+        } catch (ClassNotFoundException classNotFoundException) {
+            printClassNotFoundException(classNotFoundException);
+        } catch (IOException ioException) {
+            printIOException(ioException);
+        } finally {
+            finishConnection();
+        }
+        return null;
+
+    }
+
 
 
 }

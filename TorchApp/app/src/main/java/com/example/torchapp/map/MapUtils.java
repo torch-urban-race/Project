@@ -31,6 +31,7 @@ public class MapUtils {
     private static DrawerMapActivity drawerMapActivity;
     private static  Map<Integer, Marker> systemMarkers;
 
+
     Marker mainMarker;
     private int markerCount;
 
@@ -38,6 +39,8 @@ public class MapUtils {
 
     //Circle Color
     final int circleFill = 0x3322e0f0;
+    private int obtainedTorches = 1;
+
     //private constructor.
     private MapUtils(){
 
@@ -58,6 +61,7 @@ public class MapUtils {
                     singleInstance = new MapUtils();
                     drawerMapActivity = drawerMapActivitys;
                     systemMarkers = new HashMap<Integer,Marker>(100);
+
                 }
 
             }
@@ -310,6 +314,8 @@ public class MapUtils {
     public void handleMarkers(){
         DatabaseFacade.getTorchCount(drawerMapActivity);
 
+
+
         for(int i = 2; i <= markerCount; i++){
             DatabaseFacade.getTorchPosition(drawerMapActivity, i);
             System.out.println("Request this id: " + i);
@@ -323,8 +329,6 @@ public class MapUtils {
     public void requestMainTorch(){
         DatabaseFacade.getTorchCount(drawerMapActivity);
     }
-
-
 
 
 }

@@ -31,6 +31,7 @@ import com.example.torchapp.MainActivity;
 import com.example.torchapp.ProfileFragment;
 import com.example.torchapp.R;
 import com.example.torchapp.SaveSharedPreference;
+import com.example.torchapp.database.DatabaseFacade;
 import com.example.torchapp.model.CurrentUser;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -101,6 +102,7 @@ public class DrawerMapActivity extends AppCompatActivity
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,7 +134,11 @@ public class DrawerMapActivity extends AppCompatActivity
                 }
 
                 mLastKnownLocation = locationResult.getLastLocation();
-                mapUtils.updateCircleLocation();
+
+                if(mLastKnownLocation != null) {
+
+                    mapUtils.updateCircleLocation();
+                }
 
             }
 
@@ -263,36 +269,24 @@ public class DrawerMapActivity extends AppCompatActivity
 
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
-        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-
-            @Override
-            // Return null here, so that getInfoContents() is called next.
-            public View getInfoWindow(Marker arg0) {
-                return null;
-            }
-
-            @Override
-            public View getInfoContents(Marker marker) {
-                // Inflate the layouts for the info window, title and snippet.
-                View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents,
-                        (FrameLayout) findViewById(R.id.map), false);
-
-                TextView title = ((TextView) infoWindow.findViewById(R.id.title));
-                title.setText(marker.getTitle());
-
-                TextView snippet = ((TextView) infoWindow.findViewById(R.id.snippet));
-                snippet.setText(marker.getSnippet());
-
-                return infoWindow;
-            }
-        });
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(this));
 
         //Specifies the checks that are done when a user presses on an infoWindow
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 
 
             @Override
-            public boolean onMarkerClick(Marker marker) {
+            public boolean onMarkerClick(final Marker marker) {
+
+                DatabaseFacade.getTorchInformation((Integer)marker.getTag());
+                Handler handlerTimer = new Handler();
+                handlerTimer.postDelayed(new Runnable() {
+                    public void run() {
+                        marker.showInfoWindow();
+                    }
+                }, 100);
+
+
                 //Make the Pickup button visible and disabled
                 pickupButton.setVisibility(View.VISIBLE);
                 uiUtils.disableButton(pickupButton);
@@ -309,7 +303,7 @@ public class DrawerMapActivity extends AppCompatActivity
                     pickupButton.setClickable(true);
 
                 }
-                return false;
+                return true;
             }
         });
 

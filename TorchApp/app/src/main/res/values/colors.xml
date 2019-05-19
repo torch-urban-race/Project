@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="circleFill">#22e0f0</color>
+    <color name="slightlyDarkerThanWhite">#F5F5F5</color>
 </resources>

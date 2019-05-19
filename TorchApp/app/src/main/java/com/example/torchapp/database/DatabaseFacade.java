@@ -4,6 +4,7 @@ package com.example.torchapp.database;
 import android.widget.Toast;
 
 import com.example.torchapp.SaveSharedPreference;
+import com.example.torchapp.map.CustomInfoWindowAdapter;
 import com.example.torchapp.map.DrawerMapActivity;
 import com.example.torchapp.login.LoginActivity;
 import com.example.torchapp.login.RegisterActivity;
@@ -67,7 +68,7 @@ public abstract class DatabaseFacade {
                  final String[] paramsRegistration = DatabaseHandler.getInstance().registerUser(username, password);
 
                  final String[] paramsLogin;
-                 if(paramsRegistration[0].equals("CurrentUser created")){
+                 if(paramsRegistration[0].equals("User created")){
 
                      paramsLogin = DatabaseHandler.getInstance().getUser(username, password);
 
@@ -122,7 +123,7 @@ public abstract class DatabaseFacade {
                             Toast.makeText(drawerMapActivity.getApplicationContext(), params[0], Toast.LENGTH_SHORT).show();
 
                         } else {
-                            //TODO: I have lat long and number (Request ID as well)
+
                             drawerMapActivity.getMapUtils().placeMainMarker(Double.parseDouble(params[0]), Double.parseDouble(params[1]));
                             drawerMapActivity.getMapUtils().updateMarkerCount(Integer.parseInt(params[2]));
                         }
@@ -202,7 +203,7 @@ public abstract class DatabaseFacade {
     }
 
 
-    synchronized public static void getUserInformation(final DrawerMapActivity drawerMapActivity, final Integer userID) {
+    public static void getUserInformation(final DrawerMapActivity drawerMapActivity, final Integer userID) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -236,4 +237,28 @@ public abstract class DatabaseFacade {
             }
         }).start();
     }
+
+
+    public static void getTorchInformation(final Integer torchID) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                String[] params = DatabaseHandler.getInstance().getTorchInformation(torchID);
+
+                if(params.length < 2){
+
+                    params = new String[]{"Working on it", "Placeholder", "xxx-yy-zz", "10000"};
+                    CustomInfoWindowAdapter.setInfoContents(params);
+
+                } else {
+
+                    CustomInfoWindowAdapter.setInfoContents(params);
+                }
+
+            }
+        }).start();
+    }
+
+
 }

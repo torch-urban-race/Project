@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.util.Log;
 import android.view.Gravity;
@@ -106,14 +107,9 @@ public class UIUtils {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LatLng pos = new LatLng(drawerMapActivity.mLastKnownLocation.getLatitude(), drawerMapActivity.mLastKnownLocation.getLongitude());
 
-                DatabaseFacade.createTorch(drawerMapActivity, "Bork", pos.latitude, pos.longitude, SaveSharedPreference.getUserName(drawerMapActivity.getApplicationContext()), true);
-
-
-
-                                //Temporary for debugging purpose
-                Log.d(drawerMapActivity.TAG, "someone pressed the button!");
+                //TODO: Launch creator
+                drawerMapActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TorchCreatorFragment()).commit();
 
             }
         });

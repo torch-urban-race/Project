@@ -45,4 +45,15 @@
     <string name="back_button_image_description">Go back to previous screen</string>
     <string name="achievement_3_description">Ach3</string>
     <string name="timer_time">Mock</string>
+    <string name="torch_title">Title</string>
+    <string name="torch_created_by">Created By</string>
+    <string name="torch_user">User</string>
+    <string name="torch_created_on">On</string>
+    <string name="torch_creation_date">Date</string>
+    <string name="torch_traveled">Traveled</string>
+    <string name="torch_traveled_distance">KM</string>
+    <string name="torch_creator_torch_name">Torch Name</string>
+    <string name="torch_creator_button_text">Create torch</string>
+    <string name="private_torch">Private Torch</string>
+    <string name="publlic_torch">Publlic Torch</string>
 </resources>
