@@ -56,4 +56,8 @@
     <string name="torch_creator_button_text">Create torch</string>
     <string name="private_torch">Private Torch</string>
     <string name="publlic_torch">Publlic Torch</string>
+    <string name="ach_title">Title</string>
+    <string name="ach_description">Description</string>
+    <string name="ach_date">Date</string>
+    <string name="your_achievements">Your Achievements</string>
 </resources>
