@@ -1,6 +1,8 @@
 package com.company;
 
 public enum ErrorCode {
+    WorkingOnIt,
+
     InvalidCommand,
     OK,
     NameTooShortOrLong,

@@ -9,6 +9,7 @@
       <change beforePath="$PROJECT_DIR$/../ClintApp/ClintApp/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ClintApp/ClintApp/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ClintApp/ClintApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ClintApp/ClintApp/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CommandList.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../CommandList.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DatabaseScript.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../DatabaseScript.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
@@ -158,20 +159,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/TorchAppRunnable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="116" lean-forward="true" selection-start-line="116" selection-end-line="116" />
+            <state relative-caret-position="17">
+              <caret line="110" selection-start-line="110" selection-end-line="110" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/DBConnector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="99" column="82" selection-start-line="99" selection-start-column="82" selection-end-line="99" selection-end-column="82" />
+            <state relative-caret-position="-187">
+              <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#searchName#0;class#DBConnector#0" />
@@ -186,8 +187,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/ErrorCode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="28" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
+            <state relative-caret-position="51">
+              <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -214,9 +215,9 @@
         <option value="$PROJECT_DIR$/src/com/company/TorchAppServer.java" />
         <option value="$PROJECT_DIR$/src/com/company/Torch.java" />
         <option value="$PROJECT_DIR$/src/com/company/SocketServer.java" />
+        <option value="$PROJECT_DIR$/src/com/company/DBConnector.java" />
         <option value="$PROJECT_DIR$/src/com/company/ErrorCode.java" />
         <option value="$PROJECT_DIR$/src/com/company/TorchAppRunnable.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DBConnector.java" />
       </list>
     </option>
   </component>
@@ -270,7 +271,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558369036008" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558371139031" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -334,12 +335,12 @@
       <workItem from="1558010954621" duration="769000" />
       <workItem from="1558023265743" duration="659000" />
       <workItem from="1558114672826" duration="3306000" />
-      <workItem from="1558353738028" duration="10949000" />
+      <workItem from="1558353738028" duration="12934000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85721000" />
+    <option name="totallyTimeSpent" value="87706000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1066" extended-state="6" />
@@ -491,20 +492,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/ErrorCode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="28" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/TorchAppRunnable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="116" lean-forward="true" selection-start-line="116" selection-end-line="116" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/SocketServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -517,8 +504,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/DBConnector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="99" column="82" selection-start-line="99" selection-start-column="82" selection-end-line="99" selection-end-column="82" />
+        <state relative-caret-position="-187">
+          <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#searchName#0;class#DBConnector#0" />
@@ -526,6 +513,20 @@
             <element signature="method#checkName#0;class#DBConnector#0" />
             <element signature="method#getDate#0;class#DBConnector#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/ErrorCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/TorchAppRunnable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="110" selection-start-line="110" selection-end-line="110" />
         </state>
       </provider>
     </entry>
