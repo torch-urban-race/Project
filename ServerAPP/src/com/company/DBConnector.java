@@ -64,13 +64,9 @@ public class DBConnector {
         if (check != ErrorCode.OK) {
             return check;
         }
-        try {
-            ResultSet rs = statement.executeQuery("SELECT `name` FROM `user` WHERE `name` = '" + name + "';");
-            if (rs.next()) {
-                return ErrorCode.NameAlreadyExists;
-            }
-        } catch (SQLException sqle) {
-            return ErrorCode.SQLError;
+        check = searchName(name);
+        if (check != ErrorCode.OK) {
+            return check;
         }
 
         //Handle password
@@ -221,24 +217,49 @@ public class DBConnector {
         }
     }
 
+    public ErrorCode updateTorchInformation(String value, String column) {
+        switch (column) {
+            case "name":
+                //Handle name
+                ErrorCode check = checkName(value);
+                if (check != ErrorCode.OK) {
+                    return check;
+                }
+                check = searchName(value);
+                if (check != ErrorCode.OK) {
+                    return check;
+                }
+                try {
+                    statement.executeUpdate("INSERT INTO `torchur`.`torch` (`" + column + "`) VALUES ('" + value + "');");
+                    return ErrorCode.OK;
+                } catch (SQLException e) {
+                    return ErrorCode.SQLError;
+                }
+            case "publicity":
+                try {
+                    int publicity;
+                    if (value.equals("true")) {
+                        publicity = 1;
+                    } else if (value.equals("false")) {
+                        publicity = 0;
+                    } else {
+                        return ErrorCode.InvalidCommand;
+                    }
+                    statement.executeUpdate("INSERT INTO `torchur`.`torch` (`" + column + "`) VALUES ('" + publicity + "');");
+                    return ErrorCode.OK;
+                } catch (SQLException sqle) {
+                    return ErrorCode.SQLError;
+                }
+            default:
+                return ErrorCode.InvalidCommand;
+        }
+    }
+
     public String[] getTorchPosition(String tID) {
         //Function: gets torch latitude and longitude from database
-        String positions[] = new String[3];
+        String positions[] = new String[2];
         try {
             int torchID = Integer.parseInt(tID);
-
-            if (torchID == 1) {
-                try {
-                    positions = new String[4];
-                    ResultSet rs = statement.executeQuery("SELECT  COUNT(idTorch) FROM `torchur`.`torch`;");
-                    if (!rs.next()) {
-                        return new String[]{"" + ErrorCode.SQLError, "" + 0.0, "" + 0.0};
-                    }
-                    positions[3] = rs.getString(1);
-                } catch (SQLException sqle) {
-                    sqle.printStackTrace();
-                }
-            }
 
             //search for positions
             ResultSet rs = statement.executeQuery("SELECT `currentLatitude`, `currentLongitude` FROM `torchur`.`torch` WHERE `idTorch` = '" + torchID + "';");
@@ -250,8 +271,22 @@ public class DBConnector {
 
             //get positions from the resultSet
             positions[0] = "" + ErrorCode.OK;
-            positions[1] = rs.getString(1);
-            positions[2] = rs.getString(2);
+            positions[1] = rs.getString(1) + ";" + rs.getString(2);
+
+            //Add number of torches if ID is 1
+            if (torchID == 1) {
+                try {
+                    positions = new String[4];
+                    rs = statement.executeQuery("SELECT  COUNT(idTorch) FROM `torchur`.`torch`;");
+                    if (!rs.next()) {
+                        return new String[]{"" + ErrorCode.SQLError, "" + 0.0, "" + 0.0};
+                    }
+                    positions[1] += ";" + rs.getString(1);
+                } catch (SQLException sqle) {
+                    sqle.printStackTrace();
+                }
+            }
+
             return positions;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
@@ -297,6 +332,39 @@ public class DBConnector {
         } catch (NumberFormatException nfe) {
             nfe.printStackTrace();
             return ErrorCode.InvalidCommand;
+        }
+    }
+
+    public String[] getAchievementInformation(String achievementID) {
+        String reply[] = new String[2];
+        try {
+            int id = Integer.parseInt(achievementID);
+
+            ResultSet rs = statement.executeQuery("SELECT `title`, `description`, `reward` FROM `achievement` WHERE `idAchievement` = '" + id + "'");
+            if (!rs.next()) {
+                reply[0] = "" + ErrorCode.WrongAchievementID;
+            } else {
+                reply[0] = "" + ErrorCode.OK;
+                reply[1] = rs.getString(1) + ";" + rs.getString(2) + "+" + rs.getString(3);
+            }
+
+        } catch (NumberFormatException nfe) {
+            reply[0] = "" + ErrorCode.InvalidCommand;
+        } catch (SQLException sqle) {
+            reply[0] = "" + ErrorCode.SQLError;
+        }
+        return reply;
+    }
+
+    private ErrorCode searchName(String name) {
+        try {
+            ResultSet rs = statement.executeQuery("SELECT `name` FROM `user` WHERE `name` = '" + name + "';");
+            if (rs.next()) {
+                return ErrorCode.NameAlreadyExists;
+            }
+            return ErrorCode.OK;
+        } catch (SQLException sqle) {
+            return ErrorCode.SQLError;
         }
     }
 

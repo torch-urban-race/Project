@@ -11,6 +11,8 @@ public enum ErrorCode {
     NameAlreadyExists,
     NameDoesNotExist,
     PasswordDoesNotMatch,
+    AchievementDoesNotExist,
     WrongUserID,
-    WrongTorchID
+    WrongTorchID,
+    WrongAchievementID
 }
