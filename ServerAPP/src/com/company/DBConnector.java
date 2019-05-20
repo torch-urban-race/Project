@@ -8,28 +8,33 @@ public class DBConnector {
 
     private Statement statement;
 
-    private final int MAX_NAME_LENGTH = 20;     //given by database
-    private final int MAX_PASSWORD_LENGTH = 50; //given by database
-    private final int MAX_TORCH_NAME_LENGTH = 20;//given by database
+    private final int MAX_NAME_LENGTH = 20;         //given by database
+    private final int MAX_PASSWORD_LENGTH = 50;     //given by database
+    private final int MAX_TORCH_NAME_LENGTH = 20;   //given by database
 
     public DBConnector() {
         //Connect to the database
         try {
-            String url = "jdbc:mysql://localhost:3306/torchur?user=root&password=123456";
+            String url = "jdbc:mysql://localhost:3306/torchur?user=NG-KB&password=1234567890";
             Connection connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
         } catch (SQLException sqle) {
             System.out.println("Connection failed!!! Panic! We can't reach the world! :(");
+            System.exit(-1);
         }
     }
 
     public int reset() {
-        int user = resetUserTable();
-        int torch = resetTorchTable();
-        if (user > 0) {
+        if (resetUserTable() > 0) {
             return 1;
-        } else if (torch > 0) {
+        } else if (resetTorchTable() > 0) {
             return 2;
+        } else if (resetAchievementTable() > 0){
+            return 3;
+        } else if (resetRouteTable() > 0) {
+            return 4;
+        } else if (resetUserAchievementTable() > 0) {
+            return 5;
         } else {
             return 0;
         }
@@ -39,9 +44,9 @@ public class DBConnector {
         try {
             statement.executeUpdate("DELETE FROM `torchur`.`user`");
             statement.executeUpdate("ALTER TABLE `torchur`.`user` AUTO_INCREMENT = 1");
+            statement.executeUpdate("INSERT INTO `torchur`.`user` (`name`, `password`, `maxCarryTime`, `distanceTraveled`, `amountTorchesCreated`, `amountAchievements`) VALUES ('Natan', 'Gomes', '5', '0.0', '0', '0');");
             return 0;
         } catch (SQLException e) {
-            e.printStackTrace();
             return 1;
         }
     }
@@ -50,6 +55,50 @@ public class DBConnector {
         try {
             statement.executeUpdate("DELETE FROM `torchur`.`torch`");
             statement.executeUpdate("ALTER TABLE `torchur`.`torch` AUTO_INCREMENT = 1");
+            statement.executeUpdate("INSERT INTO `torchur`.`torch` (`name`, `currentLatitude`, `currentLongitude`, `creationTime`, `publicity`, `creatorID`) VALUES ('OlympicTorch', '0.0', '0.0', '2019-05-17 15:00:00', '1', '3');");
+            return 0;
+        } catch (SQLException e) {
+            return 1;
+        }
+    }
+
+    public int resetAchievementTable() {
+        try {
+            statement.executeUpdate("DELETE FROM `torchur`.`achievement`");
+            statement.executeUpdate("ALTER TABLE `torchur`.`achievement` AUTO_INCREMENT = 1");
+            statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) VALUES ('A Friend in Need I', 'Let one other Player carry your torch', 'Create up to 5 torches');");
+            statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) VALUES ('A Friend in Need II', 'Let two other Players carry your torch', 'Create up to 10 torches');");
+            statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) VALUES ('A Friend in Need III', 'Let four other Players carry your torch', 'Create up to 15 torches');");
+            statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) VALUES ('A Friend in Need IV', 'Let eight other Players carry your torch', 'Create up to 20 torches');");
+            statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) VALUES ('A Friend in Need V', 'Let sixteen other Players carry your torch', 'Create up to 25 torches');");
+            statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) VALUES ('Make it brighter I', 'Create 5 torches', 'Carry a torch for 30 minutes');");
+            statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) VALUES ('Make it brighter II', 'Create 10 torches', 'Carry a torch for 60 minutes');");
+            statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) VALUES ('Make it brighter III', 'Create 15 torches', 'Carry a torch for 75 minutes');");
+            statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) VALUES ('Make it brighter IV', 'Create 20 torches', 'Carry a torch for 83 minutes');");
+            statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) VALUES ('Make it brighter V', 'Create 25 torches', 'Carry a torch for 86 minutes');");
+            statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) VALUES ('Torch Bearer', 'Cary your own torch for 1km', 'Unlocks public torches');");
+            statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) VALUES ('Olympic Torch', 'Let a torch you created travel 40000km', 'Exclusive torch icon');");
+            statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) VALUES ('Long Distance Runner', 'Walk for more than 42km with a torch', 'Exclusive torch icon');");
+            return 0;
+        } catch (SQLException e) {
+            return 1;
+        }
+    }
+
+    public int resetRouteTable() {
+        try {
+            statement.executeUpdate("DELETE FROM `torchur`.`routedatapoint`");
+            statement.executeUpdate("ALTER TABLE `torchur`.`routedatapoint` AUTO_INCREMENT = 1");
+            return 0;
+        } catch (SQLException e) {
+            return 1;
+        }
+    }
+
+    public int resetUserAchievementTable() {
+        try {
+            statement.executeUpdate("DELETE FROM `torchur`.`userhasachievement`");
+            statement.executeUpdate("ALTER TABLE `torchur`.`userhasachievement` AUTO_INCREMENT = 1");
             return 0;
         } catch (SQLException e) {
             return 1;
@@ -335,6 +384,29 @@ public class DBConnector {
         }
     }
 
+    public String[] getTorchInformation(String torchID) {
+        String reply[] = new String[2];
+        try {
+            int id = Integer.parseInt(torchID);
+
+            ResultSet rs = statement.executeQuery("SELECT `torch`.`name`, `user`.`name`, `creationTime`");
+
+            if (rs.next()) {
+                reply[1] = rs.getString(1) + ";" + rs.getString(2) + ";" + rs.getString(3);
+
+                rs = statement.executeQuery("SELECT `latitude`, `longitude` FROM `torchur`.`RouteDataPoint` WHERE `idTorch` = '" + id + "' ORDER BY `date` DESC;");
+
+                double distance = calcTotalDistance(rs);
+
+                reply[1] += ";" + distance;
+            }
+        } catch (SQLException sqle) {
+            reply[0] = "" + ErrorCode.SQLError;
+        }
+
+        return reply;
+    }
+
     public String[] getAchievementInformation(String achievementID) {
         String reply[] = new String[2];
         try {
@@ -422,5 +494,34 @@ public class DBConnector {
             e.printStackTrace();
             return 0.0;
         }
+    }
+
+    private double calcTotalDistance(ResultSet dataPoints) {
+        double distance = 0.0;
+        double prevLat = 0.0, prevLng = 0.0, newLat, newLng;
+        try {
+            while (dataPoints.next()) {
+                newLat = dataPoints.getDouble(1);
+                newLng = dataPoints.getDouble(2);
+
+                if (distance == 0.0) {
+                    if (dataPoints.next()) {
+                        prevLat = newLat;
+                        prevLng = newLng;
+                        newLat = dataPoints.getDouble(1);
+                        newLng = dataPoints.getDouble(2);
+                    }
+                }
+
+                distance += Math.sqrt(Math.abs(newLat-prevLat) + Math.abs(newLng-prevLng));
+
+                prevLat = newLat;
+                prevLng = newLng;
+            }
+        } catch (SQLException sqle) {
+            distance = -3.0;
+        }
+
+        return distance;
     }
 }

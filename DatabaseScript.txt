@@ -63,7 +63,8 @@ ENGINE = InnoDB;
 -- Table `TorchUR`.`Achievement`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `TorchUR`.`Achievement` (
-  `idAchievement` INT NOT NULL,
+  `idAchievement` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(20) NOT NULL,
   `description` VARCHAR(100) NOT NULL,
   `reward` VARCHAR(50) NOT NULL,
   `icon` VARCHAR(45) NULL,
@@ -72,22 +73,22 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `TorchUR`.`User_has_Achievement`
+-- Table `TorchUR`.`UserHasAchievement`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `TorchUR`.`User_has_Achievement` (
-  `Achievements_idAchievements` INT NOT NULL,
-  `User_idUser` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `TorchUR`.`UserHasAchievement` (
+  `idAchievements` INT NOT NULL,
+  `idUser` INT NOT NULL,
   `date` DATETIME NOT NULL,
-  PRIMARY KEY (`Achievements_idAchievements`, `User_idUser`),
-  INDEX `fk_Achievements_has_User_User1_idx` (`User_idUser` ASC) VISIBLE,
-  INDEX `fk_Achievements_has_User_Achievements1_idx` (`Achievements_idAchievements` ASC) VISIBLE,
+  PRIMARY KEY (`idAchievements`, `idUser`),
+  INDEX `fk_Achievements_has_User_User1_idx` (`idUser` ASC) VISIBLE,
+  INDEX `fk_Achievements_has_User_Achievements1_idx` (`idAchievements` ASC) VISIBLE,
   CONSTRAINT `fk_Achievements_has_User_Achievements1`
-    FOREIGN KEY (`Achievements_idAchievements`)
+    FOREIGN KEY (`idAchievements`)
     REFERENCES `TorchUR`.`Achievement` (`idAchievement`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Achievements_has_User_User1`
-    FOREIGN KEY (`User_idUser`)
+    FOREIGN KEY (`idUser`)
     REFERENCES `TorchUR`.`User` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

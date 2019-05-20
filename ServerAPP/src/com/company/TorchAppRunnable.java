@@ -24,7 +24,7 @@ public class TorchAppRunnable implements Runnable{
             System.out.println("Client: -> " + str);
 
             String errorString;
-            String data[];
+            String data[] = getData(str);
             String information[];
             switch (str.charAt(0)) {
                 case 'u':
@@ -32,7 +32,6 @@ public class TorchAppRunnable implements Runnable{
                         //Create format: u+Username;Password
                         case '+':
                             try {
-                                data = getData(str);
                                 if (data.length == 2) {
                                     System.out.println("Username: " + data[0] + "\nPassword: " + data[1]);
                                     errorString = "" + connector.createUser(data[0], data[1]);
@@ -48,7 +47,6 @@ public class TorchAppRunnable implements Runnable{
                             break;
                         //Login format: u*Username;Password
                         case '*':
-                            data = getData(str);
                             if (data.length == 2) {
                                 information = connector.logIn(data[0], data[1]);
                             } else {
@@ -59,7 +57,6 @@ public class TorchAppRunnable implements Runnable{
                             message = errorCodeToMessage(errorString, information[1]);
                             break;
                         case '?':
-                            data = getData(str);
                             if (data[0].length() > 0) {
                                 System.out.println("UserID: " + data[0]);
                                 information = connector.getUserInformation(data[0]);
@@ -78,7 +75,6 @@ public class TorchAppRunnable implements Runnable{
                     switch (str.charAt(1)) {
                         //create new torch format: t+torchName;latitude;longitude;creatorName;publicity
                         case '+':
-                            data = getData(str);
                             if (data.length == 5) {
                                 errorString = "" + connector.createTorch(data[0], data[1], data[2], data[3], data[4]);
                             } else {
@@ -90,8 +86,7 @@ public class TorchAppRunnable implements Runnable{
                             break;
                         //requests torch location: t?torchID
                         case '?':
-                            data = getData(str);
-                            if (data[0].length() == 1) {
+                            if (data[0].length() > 0) {
                                 System.out.println("TorchID: " + data[0]);
                                 information = connector.getTorchPosition(data[0]);
                             } else {
@@ -103,7 +98,6 @@ public class TorchAppRunnable implements Runnable{
                             break;
                         //Updates torch location: t@torchID;latitude;longitude
                         case '@':
-                            data = getData(str);
                             if (data.length == 4) {
                                 errorString = "" + connector.setTorchPosition(data[0], data[1], data[2], data[3]);
                             } else {
@@ -113,7 +107,15 @@ public class TorchAppRunnable implements Runnable{
                             message = errorCodeToMessage("" + errorString, "Torch position updated");
                             break;
                         case ':':
-                            message = "Working on it";
+                            if (data[0].length() > 0) {
+                                System.out.println("Torch ID: " + data[0]);
+                                information = connector.getTorchInformation(data[0]);
+                            } else {
+                                information = new String[]{"" + ErrorCode.InvalidCommand, ""};
+                            }
+                            errorString = information[0];
+
+                            message = errorCodeToMessage(errorString, information[1]);
                             break;
                         default:
                             message = "Invalid command";
@@ -122,11 +124,14 @@ public class TorchAppRunnable implements Runnable{
                 case 'a':
                     switch (str.charAt(1)) {
                         case '?':
+                            if (data.length == 2) {
+                                System.out.println("User ID: " + data[0]);
+                                System.out.println("Achievement ID: " + data[1]);
+                            }
                             message = "Working on it";
                             break;
                         case ':':
-                            data = getData(str);
-                            if (data.length == 1) {
+                            if (data[0].length() > 0) {
                                 System.out.println("Achievement ID: " + data[0]);
                                 information = connector.getAchievementInformation(data[0]);
                             } else {
