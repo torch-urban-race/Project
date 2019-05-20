@@ -25,6 +25,7 @@ public class DBConnector {
     }
 
     public int reset() {
+        //reset tables to default settings (1 user, 1 torch, 13 achievements)
         if (resetUserTable() > 0) {
             return 1;
         } else if (resetTorchTable() > 0) {

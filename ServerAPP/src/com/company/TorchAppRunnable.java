@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 
-public class TorchAppRunnable implements Runnable{
+public class TorchAppRunnable implements Runnable {
 
     private Socket clientSocket;
     private DBConnector connector;
@@ -67,6 +67,7 @@ public class TorchAppRunnable implements Runnable{
                         //unlock achievement: u#userID;achievementID
                         case '#':
                             errorString = "" + ErrorCode.WorkingOnIt;
+                            reply = "Achievement unlocked";
                             break;
                         default:
                             errorString = "" + ErrorCode.InvalidCommand;
@@ -201,6 +202,7 @@ public class TorchAppRunnable implements Runnable{
                     switch (dataString.charAt(1)) {
                         case '+':
                         case '*':
+                        case '#':
                             data = new String[2];
                             data[0] = dataString.substring(firstChar, dataString.indexOf(";"));
                             data[1] = dataString.substring(dataString.indexOf(";")+1);
@@ -212,17 +214,6 @@ public class TorchAppRunnable implements Runnable{
                     break;
                 case 't':
                     switch (dataString.charAt(1)) {
-                        case '+':
-                            data = new String[5];
-                            data[0] = dataString.substring(firstChar, dataString.indexOf(";"));
-                            dataString = dataString.substring(dataString.indexOf(";")+1);
-                            data[1] = dataString.substring(0, dataString.indexOf(";"));
-                            dataString = dataString.substring(dataString.indexOf(";")+1);
-                            data[2] = dataString.substring(0, dataString.indexOf(";"));
-                            dataString = dataString.substring(dataString.indexOf(";")+1);
-                            data[3] = dataString.substring(0, dataString.indexOf(";"));
-                            data[4] = dataString.substring(dataString.indexOf(";")+1);
-                            break;
                         case '?':
                         case ':':
                             data = new String[1];
@@ -237,18 +228,29 @@ public class TorchAppRunnable implements Runnable{
                             data[2] = dataString.substring(0, dataString.indexOf(";"));
                             data[3] = dataString.substring(dataString.indexOf(";")+1);
                             break;
+                        case '+':
+                            data = new String[5];
+                            data[0] = dataString.substring(firstChar, dataString.indexOf(";"));
+                            dataString = dataString.substring(dataString.indexOf(";")+1);
+                            data[1] = dataString.substring(0, dataString.indexOf(";"));
+                            dataString = dataString.substring(dataString.indexOf(";")+1);
+                            data[2] = dataString.substring(0, dataString.indexOf(";"));
+                            dataString = dataString.substring(dataString.indexOf(";")+1);
+                            data[3] = dataString.substring(0, dataString.indexOf(";"));
+                            data[4] = dataString.substring(dataString.indexOf(";")+1);
+                            break;
                     }
                     break;
                 case 'a':
                     switch (dataString.charAt(1)) {
+                        case ':':
+                            data = new String[1];
+                            data[0] = dataString.substring(firstChar);
+                            break;
                         case '?':
                             data = new String[2];
                             data[0] = dataString.substring(firstChar, dataString.indexOf(";"));
                             data[1] = dataString.substring(dataString.indexOf(";")+1);
-                            break;
-                        case ':':
-                            data = new String[1];
-                            data[0] = dataString.substring(firstChar);
                             break;
                     }
             }
