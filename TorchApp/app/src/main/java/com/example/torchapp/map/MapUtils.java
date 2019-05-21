@@ -233,14 +233,23 @@ public class MapUtils {
      * Creates a circle with specified pickup radius
      */
     public Circle createPickupCircle(int minimumPickupDistance){
+        if(drawerMapActivity.mLastKnownLocation != null) {
+            Circle circle = drawerMapActivity.mMap.addCircle(new CircleOptions()
+                    .center(new LatLng(drawerMapActivity.mLastKnownLocation.getLatitude(), drawerMapActivity.mLastKnownLocation.getLongitude()))
+                    .radius(minimumPickupDistance)
+                    .strokeColor(circleFill)
+                    .fillColor(circleFill));
 
-        Circle circle = drawerMapActivity.mMap.addCircle(new CircleOptions()
-                .center(new LatLng(drawerMapActivity.mLastKnownLocation.getLatitude(), drawerMapActivity.mLastKnownLocation.getLongitude()))
-                .radius(minimumPickupDistance)
-                .strokeColor(circleFill)
-                .fillColor(circleFill));
+            return circle;
+        } else{
+            Circle circle = drawerMapActivity.mMap.addCircle(new CircleOptions()
+                    .center(new LatLng(54, 54))
+                    .radius(minimumPickupDistance)
+                    .strokeColor(circleFill)
+                    .fillColor(circleFill));
 
-        return circle;
+            return circle;
+        }
     }
 
     /**

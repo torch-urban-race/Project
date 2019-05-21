@@ -2,14 +2,14 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ach_img"
-        android:layout_width="66dp"
-        android:layout_height="66dp"
-        android:layout_marginLeft="8dp"
+        android:layout_width="79dp"
+        android:layout_height="79dp"
+        android:layout_marginLeft="1dp"
         android:layout_marginTop="3dp"
         android:src="@drawable/olympic_torch"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,22 +30,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="3dp"
         android:baselineAligned="false"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintStart_toEndOf="@+id/ach_img"
         app:layout_constraintTop_toBottomOf="@+id/ach_title">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/ach_desc"
@@ -58,17 +52,25 @@
                 />
 
             <TextView
+                android:id="@+id/ach_reward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@string/ach_reward"
+                android:textSize="13sp"
+                />
+
+            <TextView
                 android:id="@+id/ach_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginTop="1dp"
                 android:text="@string/ach_date"
-                android:textSize="13sp" />
+                android:textSize="10sp" />
         </LinearLayout>
 
 
 
-    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

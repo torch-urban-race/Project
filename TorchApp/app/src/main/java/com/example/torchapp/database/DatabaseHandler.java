@@ -235,4 +235,51 @@ public class DatabaseHandler {
 
 
 
+    public synchronized String[] hasAchievement(Integer userID, Integer achievementID){
+        try {
+
+            prepareConnection();
+
+            socketOutObjecctOutputStream.writeObject("a?" + userID + SPLIT + achievementID);
+
+            String response = (String) socketInObjectInputStream.readObject();
+            String[] params = response.split(SPLIT);
+
+            return params;
+        } catch (ClassNotFoundException classNotFoundException) {
+            printClassNotFoundException(classNotFoundException);
+        } catch (IOException ioException) {
+            printIOException(ioException);
+        } finally {
+            finishConnection();
+        }
+        return null;
+
+    }
+
+
+    public synchronized String[] getAchievementInfo(Integer achievementID){
+        try {
+
+            prepareConnection();
+
+            socketOutObjecctOutputStream.writeObject("a:" + achievementID);
+
+            String response = (String) socketInObjectInputStream.readObject();
+            String[] params = response.split(SPLIT);
+
+            return params;
+        } catch (ClassNotFoundException classNotFoundException) {
+            printClassNotFoundException(classNotFoundException);
+        } catch (IOException ioException) {
+            printIOException(ioException);
+        } finally {
+            finishConnection();
+        }
+        return null;
+
+    }
+
+
+
 }

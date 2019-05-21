@@ -7,6 +7,44 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 
 public class Achievement {
+
+    private String title;
+    private String descripttion;
+    private String dateObtained;
+    private Drawable icon;
+    private Integer id;
+    private String reward;
+    private boolean complete= false;
+
+
+    public Achievement(){
+
+
+    }
+    /*
+    float redValue= 255;
+    float greenValue= 255;
+    float blueValue= 255;
+
+    float[] colorMatrix = {
+            redValue, 0, 0, 0, 0,  //red
+            0, greenValue, 0, 0, 0, //green
+            0, 0, blueValue, 0, 0,  //blue
+            0, 0, 0, 1, 0    //alpha
+    };
+
+     int asd = Color.GRAY;
+    ColorFilter colorFilter = new ColorMatrixColorFilter(colorMatrix);
+
+    public void setgray(){
+
+        if(!complete){
+            icon.setColorFilter(asd,PorterDuff.Mode.DST_OVER);
+        }
+
+    }
+*/
+
     public String getTitle() {
         return title;
     }
@@ -46,43 +84,21 @@ public class Achievement {
     public void setComplete(boolean commplete) {
         this.complete = commplete;
     }
-    private String title;
-    private String descripttion;
-    private String dateObtained;
-    private Drawable icon;
-    private boolean complete= false;
 
-
-
-    public Achievement(){
-
-
+    public Integer getId() {
+        return id;
     }
-    /*
-    float redValue= 255;
-    float greenValue= 255;
-    float blueValue= 255;
 
-    float[] colorMatrix = {
-            redValue, 0, 0, 0, 0,  //red
-            0, greenValue, 0, 0, 0, //green
-            0, 0, blueValue, 0, 0,  //blue
-            0, 0, 0, 1, 0    //alpha
-    };
-
-     int asd = Color.GRAY;
-    ColorFilter colorFilter = new ColorMatrixColorFilter(colorMatrix);
-
-    public void setgray(){
-
-        if(!complete){
-            icon.setColorFilter(asd,PorterDuff.Mode.DST_OVER);
-        }
-
+    public void setId(Integer id) {
+        this.id = id;
     }
-*/
 
 
+    public void setReward(String reward) {
+        this.reward = reward;
+    }
 
-
+    public String getReward() {
+        return reward;
+    }
 }

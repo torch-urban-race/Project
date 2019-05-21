@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.torchapp.AchievementUtils;
 import com.example.torchapp.AchievementsFragment;
 import com.example.torchapp.MainActivity;
 import com.example.torchapp.ProfileFragment;
@@ -103,6 +104,7 @@ public class DrawerMapActivity extends AppCompatActivity
     protected UIUtils uiUtils;
     protected MapUtils mapUtils;
     protected CurrentUser currentUser;
+    protected AchievementUtils achievementUtils;
 
 
 
@@ -160,6 +162,8 @@ public class DrawerMapActivity extends AppCompatActivity
         uiUtils = UIUtils.getInstance(this);
         mapUtils = MapUtils.getInstance(this);
         currentUser = CurrentUser.getInstance();
+        achievementUtils = AchievementUtils.getInstance(this);
+
 
         //Assign all the buttons
         pickupButton = findViewById(R.id.pickup_button);
@@ -170,6 +174,7 @@ public class DrawerMapActivity extends AppCompatActivity
 
         uiUtils.addListenersOnButtons();
         uiUtils.updateUserInfo();
+        achievementUtils.handleAchievements();
         mHandler = new Handler();
         startRepeatingTask();
 
@@ -415,10 +420,9 @@ public class DrawerMapActivity extends AppCompatActivity
         mHandler.removeCallbacks(mStatusChecker);
     }
 
-
-
-
-
+    public AchievementUtils getAchievementUtils() {
+        return achievementUtils;
+    }
 
 
     private static class GetTorchInformationAsyncTask extends AsyncTask<MarkerWIDContainer, Void, String[]>{

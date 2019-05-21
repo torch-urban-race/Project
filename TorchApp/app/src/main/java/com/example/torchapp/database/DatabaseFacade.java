@@ -290,5 +290,63 @@ public abstract class DatabaseFacade {
         }).start();
     }
 
+    public static void hasAchievement(final Integer userID, final Integer achievementID) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                final  String[] params = DatabaseHandler.getInstance().hasAchievement(userID, achievementID);
+
+                if(params.length < 2){
+                    drawerMapActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            Toast.makeText(drawerMapActivity.getApplicationContext(), params[0], Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    });
+
+                } else {
+                    //TODO:Update achievement with date obtained and the actual icon
+
+
+                }
+
+            }
+        }).start();
+    }
+
+
+    public static void getAchievementInformation(final Integer achievementID) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                final  String[] params = DatabaseHandler.getInstance().getAchievementInfo(achievementID);
+
+                if(params.length < 2){
+                    drawerMapActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            Toast.makeText(drawerMapActivity.getApplicationContext(), params[0], Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    });
+
+                } else {
+                    //TODO: create achievement if not exist
+                    drawerMapActivity.getAchievementUtils().createAchievement(params[0],params[1],params[2],achievementID);
+                }
+
+            }
+        }).start();
+    }
+
 
 }

@@ -40,6 +40,7 @@ public class AchRecycleViewAdapter extends RecyclerView.Adapter<AchRecycleViewAd
         viewHolder.achDesc.setText(ach.getDescripttion());
         viewHolder.achDate.setText(ach.getDateObtained());
         viewHolder.achImg.setImageDrawable(ach.getIcon());
+        viewHolder.achReward.setText(ach.getReward());
 
     }
 
@@ -54,6 +55,7 @@ public class AchRecycleViewAdapter extends RecyclerView.Adapter<AchRecycleViewAd
         TextView achTitle;
         TextView achDesc;
         TextView achDate;
+        TextView achReward;
         CircleImageView achImg;
 
         ViewHolder(View itemView) {
@@ -62,6 +64,8 @@ public class AchRecycleViewAdapter extends RecyclerView.Adapter<AchRecycleViewAd
             achDesc = itemView.findViewById(R.id.ach_desc);
             achDate = itemView.findViewById(R.id.ach_date);
             achImg = itemView.findViewById(R.id.ach_img);
+            achReward = itemView.findViewById(R.id.ach_reward);
+
         }
 
 

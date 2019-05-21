@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.torchapp.map.DrawerMapActivity;
 import com.example.torchapp.model.Achievement;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class AchievementsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_achievements, container, false);
-        ArrayList<Achievement> achievements = new ArrayList<>();
+        ArrayList<Achievement> achievements = AchievementUtils.getInstance((DrawerMapActivity) getActivity()).getSystemAchievements();
 
 
         //Truth table
@@ -40,20 +41,10 @@ public class AchievementsFragment extends Fragment {
         Drawable[] achievementIcons = new Drawable[]{ContextCompat.getDrawable(getActivity(), R.drawable.friend_in_need_ach), ContextCompat.getDrawable(getActivity(), R.drawable.long_distance_runner_ach),
         ContextCompat.getDrawable(getActivity(), R.drawable.make_it_brighter_ach),ContextCompat.getDrawable(getActivity(), R.drawable.olympic_torch_ach),ContextCompat.getDrawable(getActivity(), R.drawable.torch_bearer_achievement)};
 
-        achievementIcons =iconSorting(achievementIcons,tnfDebug);
+        //achievementIcons =iconSorting(achievementIcons,tnfDebug);
 
 
-        for(int i = 0; i < achievementNames.length; i++){
-            Achievement ach = new Achievement();
 
-            ach.setTitle(achievementNames[i]);
-            ach.setDescripttion(achievementDescriptions[i]);
-            ach.setDateObtained(achievementDates[i]);
-            ach.setIcon(achievementIcons[i]);
-
-
-            achievements.add(ach);
-        }
 
 
         RecyclerView recyclerView = view.findViewById(R.id.achievements_recycleview);

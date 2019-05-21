@@ -60,4 +60,5 @@
     <string name="ach_description">Description</string>
     <string name="ach_date">Date</string>
     <string name="your_achievements">Your Achievements</string>
+    <string name="ach_reward">Reward</string>
 </resources>
