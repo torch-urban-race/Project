@@ -16,8 +16,8 @@ public class DatabaseHandler {
     private ObjectInputStream socketInObjectInputStream;
     private final String SPLIT = ";";
     private final int MAIN_TORCH = 1;
-
-    private String server = "85.197.159.210";
+// mo 85.197.159.210
+    private String server = "85.197.159.54";
     private int port = 45454;
 
     private DatabaseHandler() {
