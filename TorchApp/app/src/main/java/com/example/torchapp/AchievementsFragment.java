@@ -32,7 +32,6 @@ public class AchievementsFragment extends Fragment {
         ArrayList<Achievement> achievements = AchievementUtils.getInstance((DrawerMapActivity) getActivity()).getSystemAchievements();
 
 
-
         RecyclerView recyclerView = view.findViewById(R.id.achievements_recycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         achRecycleViewAdapter = new AchRecycleViewAdapter(getActivity(), achievements);
@@ -50,7 +49,6 @@ public class AchievementsFragment extends Fragment {
         for(int i=0; i<icon.length; i++){
             if(!trueOrFalse[i]){
                 icon[i]=ContextCompat.getDrawable(getActivity(), R.drawable.blaack);
-        }
 
             }
       }
@@ -58,7 +56,18 @@ public class AchievementsFragment extends Fragment {
         return icon;
     }
 
+    private String[] getDatesComplted(Boolean[] tnfDebug){
+        String[] dates = new String[tnfDebug.length];
+        for(int i=0; i<tnfDebug.length; i++){
+            if(tnfDebug[i]){
+                dates[i]="testdate";
+                //TODO bring date from sever
+            }else{
+                dates[i]=" ";
+            }
+
         }
+        return dates;
 
     }
 
