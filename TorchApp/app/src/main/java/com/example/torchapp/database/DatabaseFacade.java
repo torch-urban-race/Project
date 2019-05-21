@@ -9,6 +9,8 @@ import com.example.torchapp.map.DrawerMapActivity;
 import com.example.torchapp.login.LoginActivity;
 import com.example.torchapp.login.RegisterActivity;
 
+import static com.example.torchapp.map.UIUtils.drawerMapActivity;
+
 public abstract class DatabaseFacade {
 
 
@@ -248,12 +250,40 @@ public abstract class DatabaseFacade {
 
                 if(params.length < 2){
 
-                    params = new String[]{"Working on it", "Placeholder", "xxx-yy-zz", "10000"};
+                    params = new String[]{params[0], "Placeholder", "xxx-yy-zz", "10000"};
                     CustomInfoWindowAdapter.setInfoContents(params);
 
                 } else {
 
                     CustomInfoWindowAdapter.setInfoContents(params);
+                }
+
+            }
+        }).start();
+    }
+
+    public static void updateTorchPosition(final Integer torchID, final Double latitude, final Double longitude, final Integer userID) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                final  String[] params = DatabaseHandler.getInstance().updateTorchPosition(torchID, latitude, longitude, userID);
+
+                if(params.length < 2){
+                    drawerMapActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            Toast.makeText(drawerMapActivity.getApplicationContext(), params[0], Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    });
+
+                } else {
+
+
                 }
 
             }

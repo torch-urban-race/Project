@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.example.torchapp.R;
 import com.example.torchapp.SaveSharedPreference;
 import com.example.torchapp.database.DatabaseFacade;
+import com.example.torchapp.database.DatabaseHandler;
 import com.example.torchapp.model.CurrentUser;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -148,6 +149,8 @@ public class UIUtils {
                 LatLng userPosition = new LatLng(drawerMapActivity.mLastKnownLocation.getLatitude(), drawerMapActivity.mLastKnownLocation.getLongitude());
                 drawerMapActivity.carriedMarker.setPosition(userPosition);
                 drawerMapActivity.carriedMarker.setVisible(true);
+
+                DatabaseFacade.updateTorchPosition((Integer) drawerMapActivity.carriedMarker.getTag(), userPosition.latitude, userPosition.longitude, Integer.parseInt(SaveSharedPreference.getUserId(drawerMapActivity.getApplicationContext())));
                 drawerMapActivity.carriedMarker = null;
 
                 disableButton(drawerMapActivity.dropButton);
@@ -231,6 +234,10 @@ public class UIUtils {
         timeLeft+= "" + seconds;
 
         drawerMapActivity.snackbar.setText(timeLeft);
+    }
+
+    public void updateUserInfo(){
+        drawerMapActivity.getCurrentUser().requestUserUpdate(drawerMapActivity, Integer.parseInt(SaveSharedPreference.getUserId(drawerMapActivity.getApplicationContext())));
     }
 
 }

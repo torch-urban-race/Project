@@ -17,13 +17,13 @@ public class DatabaseHandler {
     private final String SPLIT = ";";
     private final int MAIN_TORCH = 1;
 
-    private String server = "85.197.159.210";
+    private String server = "85.197.159.54";
     private int port = 45454;
 
     private DatabaseHandler() {
     }
 
-    static DatabaseHandler getInstance() {
+    public static DatabaseHandler getInstance() {
         if (ourInstance == null) {
             ourInstance = new DatabaseHandler();
         }
@@ -187,12 +187,36 @@ public class DatabaseHandler {
 
     }
 
-    synchronized String[] getTorchInformation(Integer torchID){
+    public synchronized String[] getTorchInformation(Integer torchID){
         try {
 
             prepareConnection();
 
             socketOutObjecctOutputStream.writeObject("t:" + torchID);
+
+            String response = (String) socketInObjectInputStream.readObject();
+            String[] params = response.split(SPLIT);
+
+            return params;
+        } catch (ClassNotFoundException classNotFoundException) {
+            printClassNotFoundException(classNotFoundException);
+        } catch (IOException ioException) {
+            printIOException(ioException);
+        } finally {
+            finishConnection();
+        }
+        return null;
+
+    }
+
+
+
+    public synchronized String[] updateTorchPosition(Integer torchID, Double latitude, Double longitiude, Integer userID){
+        try {
+
+            prepareConnection();
+
+            socketOutObjecctOutputStream.writeObject("t@" + torchID + SPLIT + latitude + SPLIT + longitiude + SPLIT + userID);
 
             String response = (String) socketInObjectInputStream.readObject();
             String[] params = response.split(SPLIT);

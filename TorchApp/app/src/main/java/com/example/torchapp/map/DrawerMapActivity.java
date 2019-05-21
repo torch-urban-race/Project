@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -32,7 +33,9 @@ import com.example.torchapp.ProfileFragment;
 import com.example.torchapp.R;
 import com.example.torchapp.SaveSharedPreference;
 import com.example.torchapp.database.DatabaseFacade;
+import com.example.torchapp.database.DatabaseHandler;
 import com.example.torchapp.model.CurrentUser;
+import com.example.torchapp.model.MarkerWIDContainer;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -45,6 +48,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+
+import java.lang.ref.WeakReference;
 
 public class DrawerMapActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
@@ -164,8 +169,7 @@ public class DrawerMapActivity extends AppCompatActivity
 
 
         uiUtils.addListenersOnButtons();
-
-        currentUser.requestUserUpdate(this, Integer.parseInt(SaveSharedPreference.getUserId(this.getApplicationContext())));
+        uiUtils.updateUserInfo();
         mHandler = new Handler();
         startRepeatingTask();
 
@@ -277,16 +281,8 @@ public class DrawerMapActivity extends AppCompatActivity
 
             @Override
             public boolean onMarkerClick(final Marker marker) {
-
-                DatabaseFacade.getTorchInformation((Integer)marker.getTag());
-                Handler handlerTimer = new Handler();
-                handlerTimer.postDelayed(new Runnable() {
-                    public void run() {
-                        marker.showInfoWindow();
-                    }
-                }, 100);
-
-
+                MarkerWIDContainer markerWIDContainer = new MarkerWIDContainer(marker, (Integer) marker.getTag());
+                new GetTorchInformationAsyncTask(DrawerMapActivity.this).execute(markerWIDContainer);
                 //Make the Pickup button visible and disabled
                 pickupButton.setVisibility(View.VISIBLE);
                 uiUtils.disableButton(pickupButton);
@@ -399,7 +395,10 @@ public class DrawerMapActivity extends AppCompatActivity
         @Override
         public void run() {
             try {
-                mapUtils.handleMarkers(); //this function can change value of mInterval.
+                mapUtils.handleMarkers();
+                uiUtils.updateUserInfo();
+
+                //this function can change value of mInterval.
             } finally {
                 // 100% guarantee that this always happens, even if
                 // your update method throws an exception
@@ -416,6 +415,47 @@ public class DrawerMapActivity extends AppCompatActivity
         mHandler.removeCallbacks(mStatusChecker);
     }
 
+
+
+
+
+
+
+    private static class GetTorchInformationAsyncTask extends AsyncTask<MarkerWIDContainer, Void, String[]>{
+        private WeakReference<DrawerMapActivity> drawerMapActivityWeakReference;
+        private Marker marker;
+        public GetTorchInformationAsyncTask(DrawerMapActivity drawerMapActivity){
+            this.drawerMapActivityWeakReference = new WeakReference<>(drawerMapActivity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String[] doInBackground(MarkerWIDContainer... markers) {
+
+            this.marker = markers[0].getmMarker();
+            String[] params = DatabaseHandler.getInstance().getTorchInformation(markers[0].getmMakerID());
+
+            if(params.length < 2){
+
+                params = new String[]{params[0], "Placeholder", "xxx-yy-zz", "10000"};
+                return params;
+
+            } else {
+                return params;
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String[] params) {
+            CustomInfoWindowAdapter.setInfoContents(params);
+            marker.showInfoWindow();
+        }
+    }
 
 
 }
