@@ -15,7 +15,7 @@ public class SocketServer {
 
     public void runServer() {
         DBConnector connector = new DBConnector();
-        //System.out.println("Reset: " + connector.reset());
+        System.out.println("Reset: " + connector.reset());
         /*System.out.println("Users reset: " + connector.resetUserTable());
         System.out.println("User created: " + connector.createUser("Natan", "Gomes"));
         System.out.println("User logged in: " + connector.logIn("Natan", "Gomes"));

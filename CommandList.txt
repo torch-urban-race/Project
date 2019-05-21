@@ -9,4 +9,4 @@ Request torch location:	t?torchID	-> latitude;longitude {if torchID = 1 -> latit
 Request torch info:	t:torchID	-> torchName;creatorName;creationDate;distanceTraveled
 
 Get achievement:	a?userID;achievementID -> hasAchievement;date
-Request achievement info: a:achievementID -> achievementName;description;reward {if achievementID = 1 -> achievementName;description;reward;amountAchievements}
+Request achievement info: a:achievementID -> achievementName;description;reward

@@ -95,7 +95,7 @@ public class TorchAppRunnable implements Runnable {
                             errorString = information[0];
                             reply = information[1]; //returns latitude;longitude{;amountTorches}
                             break;
-                        //update torch location: t@torchID;latitude;longitude
+                        //update torch location: t@torchID;latitude;longitude;bearerID
                         case '@':
                             if (data.length == 4) {
                                 errorString = "" + connector.setTorchPosition(data[0], data[1], data[2], data[3]);
@@ -126,8 +126,12 @@ public class TorchAppRunnable implements Runnable {
                             if (data.length == 2) {
                                 System.out.println("User ID: " + data[0]);
                                 System.out.println("Achievement ID: " + data[1]);
+                                information = connector.checkAchievements(data[0], data[1]);
+                            } else {
+                                information = new String[]{"" + ErrorCode.InvalidCommand, ""};
                             }
-                            errorString = "" + ErrorCode.WorkingOnIt;
+                            errorString = information[0];
+                            reply = information[1]; //returns hasCompleted;date
                             break;
                         //get achievement information: a:achievementID
                         case ':':
@@ -159,38 +163,41 @@ public class TorchAppRunnable implements Runnable {
     }
 
     private String errorCodeToMessage(String errorString, String message) {
-        if (errorString.equals("" + ErrorCode.InvalidCommand)) {
-            return "Invalid command";
-        } else if (errorString.equals("" + ErrorCode.OK)) {
-            return message;
-        } else if (errorString.equals("" + ErrorCode.SQLError)) {
-            return "SQL error";
-        } else if (errorString.equals("" + ErrorCode.WrongTorchID)) {
-            return "Torch not found";
-        } else if (errorString.equals("" + ErrorCode.WrongUserID)) {
-            return "User not found";
-        } else if (errorString.equals("" + ErrorCode.WrongAchievementID)) {
-            return "Achievement not found";
-        } else if (errorString.equals("" + ErrorCode.NameAlreadyExists)) {
-            return "Username already taken";
-        } else if (errorString.equals("" + ErrorCode.PasswordDoesNotMatch)) {
-            return "Wrong username or password";
-        } else if (errorString.equals("" + ErrorCode.NameDoesNotExist)) {
-            return "Wrong password or username";
-        } else if (errorString.equals("" + ErrorCode.PasswordContainsIllegalSymbols)) {
-            return "Password contains illegal symbols";
-        } else if (errorString.equals("" + ErrorCode.PasswordTooLongOrShort)) {
-            return "Password too short or too long";
-        } else if (errorString.equals("" + ErrorCode.NameContainsIllegalSymbols)) {
-            return "Username contains illegal symbols";
-        } else if (errorString.equals("" + ErrorCode.NameTooShortOrLong)) {
-            return "Username too short or too long";
-        } else if (errorString.equals("" + ErrorCode.WorkingOnIt)) {
-            return "Working on it";
-        } else {
-            return "ErrorCode: " + errorString;
+        try {
+            if (errorString.equals("" + ErrorCode.InvalidCommand)) {
+                return "Invalid command";
+            } else if (errorString.equals("" + ErrorCode.OK)) {
+                return message;
+            } else if (errorString.equals("" + ErrorCode.SQLError)) {
+                return "SQL error";
+            } else if (errorString.equals("" + ErrorCode.WrongTorchID)) {
+                return "Torch not found";
+            } else if (errorString.equals("" + ErrorCode.WrongUserID)) {
+                return "User not found";
+            } else if (errorString.equals("" + ErrorCode.WrongAchievementID)) {
+                return "Achievement not found";
+            } else if (errorString.equals("" + ErrorCode.NameAlreadyExists)) {
+                return "Username already taken";
+            } else if (errorString.equals("" + ErrorCode.PasswordDoesNotMatch)) {
+                return "Wrong username or password";
+            } else if (errorString.equals("" + ErrorCode.NameDoesNotExist)) {
+                return "Wrong password or username";
+            } else if (errorString.equals("" + ErrorCode.PasswordContainsIllegalSymbols)) {
+                return "Password contains illegal symbols";
+            } else if (errorString.equals("" + ErrorCode.PasswordTooLongOrShort)) {
+                return "Password too short or too long";
+            } else if (errorString.equals("" + ErrorCode.NameContainsIllegalSymbols)) {
+                return "Username contains illegal symbols";
+            } else if (errorString.equals("" + ErrorCode.NameTooShortOrLong)) {
+                return "Username too short or too long";
+            } else if (errorString.equals("" + ErrorCode.WorkingOnIt)) {
+                return "Working on it";
+            } else {
+                return "ErrorCode: " + errorString;
+            }
+        } catch (NullPointerException npe) {
+            return "Null pointer in the server";
         }
-
     }
 
     private String[] getData(String dataString) {
