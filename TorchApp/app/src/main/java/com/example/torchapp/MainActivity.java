@@ -9,7 +9,7 @@ import com.example.torchapp.login.LoginActivity;
 import com.example.torchapp.map.DrawerMapActivity;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
