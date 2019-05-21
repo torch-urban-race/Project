@@ -75,10 +75,7 @@ public class AchievementsFragment extends Fragment {
             if(!trueOrFalse[i]){
                 icon[i]=ContextCompat.getDrawable(getActivity(), R.drawable.blaack);
             }
-
-
-        }
-
+      }
 
         return icon;
     }
