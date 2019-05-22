@@ -566,7 +566,7 @@ public class DrawerMapActivity extends AppCompatActivity
                 String[] params = DatabaseHandler.getInstance().getTorchPosition(tracker);
 
                 try {
-                    Thread.sleep(300);
+                    Thread.sleep(200);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -575,7 +575,7 @@ public class DrawerMapActivity extends AppCompatActivity
            } else{
                String[] params = new String[1];
                params[0] = "Exceeded Limit";
-               tracker = 1;
+               tracker = 0;
 
                return params;
            }
@@ -592,7 +592,7 @@ public class DrawerMapActivity extends AppCompatActivity
             } else {
                 drawerMapActivityWeakReference.get().getMapUtils().setTorchPosition(tracker, Double.parseDouble(params[0]), Double.parseDouble(params[1]));
             }
-            new UpdateTorchAsyncTask(drawerMapActivityWeakReference.get()).execute(tracker++);
+            new UpdateTorchAsyncTask(drawerMapActivityWeakReference.get()).execute(++tracker);
 
         }
     }
