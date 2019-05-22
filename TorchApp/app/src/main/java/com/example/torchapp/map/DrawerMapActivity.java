@@ -564,18 +564,19 @@ public class DrawerMapActivity extends AppCompatActivity
             System.out.println("There are " + numTorches + "In the system");
             if(integers[0] <= numTorches){
                 String[] params = DatabaseHandler.getInstance().getTorchPosition(tracker);
-
+/*
                 try {
-                    Thread.sleep(300);
+                   Thread.sleep(300);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
+                }*/
 
                 return params;
            } else{
                String[] params = new String[1];
                params[0] = "Exceeded Limit";
-               tracker = 1;
+               tracker = 0;
+                System.gc();
 
                return params;
            }
