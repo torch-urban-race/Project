@@ -353,7 +353,7 @@ public class MetadataTest extends BaseTestCase {
             assertTrue(!((Boolean) this.rs.getObject(2)).booleanValue());
             assertEquals(this.rs.getObject(3), null);
 
-            System.out.println(this.rs.getObject(1) + ", " + this.rs.getObject(2) + ", " + this.rs.getObject(3));
+            //System.out.println(this.rs.getObject(1) + ", " + this.rs.getObject(2) + ", " + this.rs.getObject(3));
 
             this.rs = this.conn.prepareStatement("SELECT field1, field2, field3 FROM testBitType").executeQuery();
             this.rs.next();
@@ -372,7 +372,7 @@ public class MetadataTest extends BaseTestCase {
 
             createTable("testBitField", "(field1 BIT(9))");
             this.rs = this.stmt.executeQuery("SELECT field1 FROM testBitField");
-            System.out.println(this.rs.getMetaData().getColumnClassName(1));
+            //System.out.println(this.rs.getMetaData().getColumnClassName(1));
         } finally {
         }
     }

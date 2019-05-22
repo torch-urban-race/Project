@@ -51,6 +51,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 import java.lang.ref.WeakReference;
+import java.sql.SQLOutput;
 
 public class DrawerMapActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
@@ -79,10 +80,10 @@ public class DrawerMapActivity extends AppCompatActivity
     // Keys for storing activity state.
     protected static final String KEY_CAMERA_POSITION = "camera_position";
     protected static final String KEY_LOCATION = "location";
-    protected static final long LOCATION_UPDATE_INTERVAL = 3000;
-    protected static final long LOCATION_UPDATE_FASTEST_INTERVAL = 3000;
+    protected static final long LOCATION_UPDATE_INTERVAL = 5000;
+    protected static final long LOCATION_UPDATE_FASTEST_INTERVAL = 5000;
     protected static final int MINIMUM_PICKUP_DISTANCE = 50;
-    protected static final long MARKER_UPDATE_INTERVAL = 3000;
+    protected static final long MARKER_UPDATE_INTERVAL = 5000;
 
     //Custom variables
     protected Marker selectedMarker;
@@ -176,7 +177,7 @@ public class DrawerMapActivity extends AppCompatActivity
         uiUtils.updateUserInfo();
         achievementUtils.handleAchievements();
         mHandler = new Handler();
-        startRepeatingTask();
+        //startRepeatingTask();
 
 
     }
@@ -216,10 +217,9 @@ public class DrawerMapActivity extends AppCompatActivity
                 }
             }
         } else if (id == R.id.profile_profile) {
-           getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+            new UpdateUserInformationAsyncTask(DrawerMapActivity.this).execute(Integer.parseInt(SaveSharedPreference.getUserId(DrawerMapActivity.this)));
         } else if (id == R.id.profile_achievements) {
-           getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementsFragment()).commit();
-
+            new UpdateAchievementsAsyncTask(DrawerMapActivity.this).execute(Integer.parseInt(SaveSharedPreference.getUserId(DrawerMapActivity.this)));
         } else if (id == R.id.profile_logout) {
             Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show();
 
@@ -328,8 +328,8 @@ public class DrawerMapActivity extends AppCompatActivity
 
         // Get the current location of the device and set the position of the map.
         mapUtils.getDeviceLocation();
-
-
+        mapUtils.getTorchCount();
+        new UpdateTorchAsyncTask(DrawerMapActivity.this).execute(1);
 
 
     }
@@ -396,12 +396,11 @@ public class DrawerMapActivity extends AppCompatActivity
 
     public UIUtils getUiUtils(){ return  this.uiUtils;}
 
-    Runnable mStatusChecker = new Runnable() {
+    /*Runnable mStatusChecker = new Runnable() {
         @Override
         public void run() {
             try {
-                mapUtils.handleMarkers();
-                uiUtils.updateUserInfo();
+                new UpdateTorchAsyncTask(DrawerMapActivity.this).execute(1);
 
                 //this function can change value of mInterval.
             } finally {
@@ -418,7 +417,7 @@ public class DrawerMapActivity extends AppCompatActivity
 
     void stopRepeatingTask() {
         mHandler.removeCallbacks(mStatusChecker);
-    }
+    }*/
 
     public AchievementUtils getAchievementUtils() {
         return achievementUtils;
@@ -458,6 +457,143 @@ public class DrawerMapActivity extends AppCompatActivity
         protected void onPostExecute(String[] params) {
             CustomInfoWindowAdapter.setInfoContents(params);
             marker.showInfoWindow();
+        }
+    }
+
+
+    private static class UpdateUserInformationAsyncTask extends AsyncTask<Integer, Void, String[]>{
+        private WeakReference<DrawerMapActivity> drawerMapActivityWeakReference;
+
+        public UpdateUserInformationAsyncTask(DrawerMapActivity drawerMapActivity){
+            this.drawerMapActivityWeakReference = new WeakReference<>(drawerMapActivity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String[] doInBackground(Integer... integers) {
+
+            String[] params = DatabaseHandler.getInstance().getUserInformation(integers[0]);
+
+
+                return params;
+
+
+
+        }
+
+        @Override
+        protected void onPostExecute(String[] params) {
+            if(params.length < 2){
+                Toast.makeText(drawerMapActivityWeakReference.get(), params[0], Toast.LENGTH_SHORT).show();
+            } else{
+                drawerMapActivityWeakReference.get().getCurrentUser().updateCurrentUser(params[0], Integer.parseInt(params[1]), Double.parseDouble(params[2]), Integer.parseInt(params[3]), Integer.parseInt(params[4]));
+                drawerMapActivityWeakReference.get().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+            }
+
+        }
+    }
+
+
+    private static class UpdateAchievementsAsyncTask extends AsyncTask<Integer, Void, String[]>{
+        private WeakReference<DrawerMapActivity> drawerMapActivityWeakReference;
+
+        public UpdateAchievementsAsyncTask(DrawerMapActivity drawerMapActivity){
+            this.drawerMapActivityWeakReference = new WeakReference<>(drawerMapActivity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String[] doInBackground(Integer... integers) {
+            String[] params = new String[15];
+            for(int i = 1; i <14; i++){
+               String[] res = DatabaseHandler.getInstance().hasAchievement(integers[0], i);
+               if(Boolean.parseBoolean(res[0])){
+                   params[i] = res[1];
+               } else{}
+            }
+
+            return params;
+
+
+
+        }
+
+        @Override
+        protected void onPostExecute(String[] params) {
+
+            for(int i = 1; i < 14; i++){
+                if(params[i] != null){
+                    drawerMapActivityWeakReference.get().getAchievementUtils().setHasAchievement(i, params[1]);
+                }
+            }
+
+            drawerMapActivityWeakReference.get().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementsFragment()).commit();
+
+
+        }
+    }
+
+
+
+    private static class UpdateTorchAsyncTask extends AsyncTask<Integer, Void, String[]>{
+        private WeakReference<DrawerMapActivity> drawerMapActivityWeakReference;
+        private static  int tracker = 1;
+        private static int numTorches ;
+        public UpdateTorchAsyncTask(DrawerMapActivity drawerMapActivity){
+            this.drawerMapActivityWeakReference = new WeakReference<>(drawerMapActivity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            numTorches = drawerMapActivityWeakReference.get().mapUtils.markerCount;
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected String[] doInBackground(Integer... integers) {
+            System.out.println("Requesting torch: " + tracker);
+            System.out.println("There are " + numTorches + "In the system");
+            if(integers[0] <= numTorches){
+                String[] params = DatabaseHandler.getInstance().getTorchPosition(tracker);
+
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                return params;
+           } else{
+               String[] params = new String[1];
+               params[0] = "Exceeded Limit";
+               tracker = 1;
+
+               return params;
+           }
+        }
+
+        @Override
+        protected void onPostExecute(String[] params) {
+
+            if(params.length < 2){
+
+            } else if(tracker == 1 && params.length > 1){
+                drawerMapActivityWeakReference.get().getMapUtils().placeMainMarker(Double.parseDouble(params[0]), Double.parseDouble(params[1]));
+                drawerMapActivityWeakReference.get().getMapUtils().updateMarkerCount(Integer.parseInt(params[2]));
+            } else {
+                drawerMapActivityWeakReference.get().getMapUtils().setTorchPosition(tracker, Double.parseDouble(params[0]), Double.parseDouble(params[1]));
+            }
+            new UpdateTorchAsyncTask(drawerMapActivityWeakReference.get()).execute(tracker++);
+
         }
     }
 

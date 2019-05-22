@@ -256,8 +256,8 @@ public class ResultSetRegressionTest extends BaseTestCase {
             this.rs = this.stmt.executeQuery(statement);
 
             ResultSetMetaData rsmd = this.rs.getMetaData();
-            System.out.println(rsmd.getTableName(1));
-            System.out.println(rsmd.getColumnName(1));
+            //System.out.println(rsmd.getTableName(1));
+            //System.out.println(rsmd.getColumnName(1));
 
             this.rs.next();
 
@@ -341,7 +341,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
     public void testEmptyResultSetGet() throws Exception {
         try {
             this.rs = this.stmt.executeQuery("SHOW VARIABLES LIKE 'foo'");
-            System.out.println(this.rs.getInt(1));
+            //System.out.println(this.rs.getInt(1));
         } catch (SQLException sqlEx) {
             assertTrue("Correct exception not thrown", MysqlErrorNumbers.SQL_STATE_GENERAL_ERROR.equals(sqlEx.getSQLState()));
         }
@@ -428,7 +428,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
 
         this.rs = this.stmt.executeQuery("SELECT * FROM testGetTimestamp");
         this.rs.next();
-        System.out.println(this.rs.getTimestamp(1));
+        //System.out.println(this.rs.getTimestamp(1));
     }
 
     /**
@@ -480,14 +480,14 @@ public class ResultSetRegressionTest extends BaseTestCase {
 
         this.rs = this.stmt.executeQuery("SELECT * from testNextAndPrevious");
 
-        System.out.println("Currently at row " + this.rs.getRow());
+        //System.out.println("Currently at row " + this.rs.getRow());
         this.rs.next();
-        System.out.println("Value at row " + this.rs.getRow() + " is " + this.rs.getString(1));
+        //System.out.println("Value at row " + this.rs.getRow() + " is " + this.rs.getString(1));
 
         this.rs.previous();
 
         try {
-            System.out.println("Value at row " + this.rs.getRow() + " is " + this.rs.getString(1));
+            //System.out.println("Value at row " + this.rs.getRow() + " is " + this.rs.getString(1));
             fail("Should not be able to retrieve values with invalid cursor");
         } catch (SQLException sqlEx) {
             assertTrue(sqlEx.getMessage().startsWith("Before start"));
@@ -498,7 +498,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         this.rs.next();
 
         try {
-            System.out.println("Value at row " + this.rs.getRow() + " is " + this.rs.getString(1));
+            //System.out.println("Value at row " + this.rs.getRow() + " is " + this.rs.getString(1));
             fail("Should not be able to retrieve values with invalid cursor");
         } catch (SQLException sqlEx) {
             assertTrue(sqlEx.getMessage().startsWith("After end"));
@@ -1104,7 +1104,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
 
         this.rs = pStmt.executeQuery();
         this.rs.next();
-        System.out.println(this.rs.getString(1));
+        //System.out.println(this.rs.getString(1));
 
     }
 
@@ -1562,7 +1562,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         this.pstmt = this.conn.prepareStatement("SELECT field1 FROM testBug12104");
         this.rs = this.pstmt.executeQuery();
         assertTrue(this.rs.next());
-        System.out.println(this.rs.getObject(1));
+        //System.out.println(this.rs.getObject(1));
     }
 
     /**
@@ -1672,7 +1672,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
 
         Calendar cal2 = Calendar.getInstance();
         cal2.setTime(sqlDate);
-        System.out.println(new java.sql.Date(cal2.getTime().getTime()));
+        //System.out.println(new java.sql.Date(cal2.getTime().getTime()));
         this.pstmt = nonLegacyConn.prepareStatement("INSERT INTO testBug15604_date_cal VALUES (?)");
 
         this.pstmt.setDate(1, sqlDate, cal);
@@ -2120,7 +2120,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
                 String typeName = rsmd.getColumnTypeName(i + 1);
 
                 if ("VARBINARY".equalsIgnoreCase(typeName)) {
-                    System.out.println();
+                    //System.out.println();
                 }
 
                 if (!"BIT".equalsIgnoreCase(typeName)) {
@@ -3134,7 +3134,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         this.rs = truncConn.createStatement().executeQuery("SELECT " + Long.MAX_VALUE);
         this.rs.next();
         int i = this.rs.getInt(1);
-        System.out.println(i);
+        //System.out.println(i);
     }
 
     public void testUsageAdvisorOnZeroRowResultSet() throws Exception {
@@ -3221,7 +3221,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
                     break;
             }
 
-            System.out.println(i + " .fld: " + tblMD.getColumnName(i) + "T: " + typesName + ", MDC: " + tblMD.getColumnClassName(i) + " "
+            //System.out.println(i + " .fld: " + tblMD.getColumnName(i) + "T: " + typesName + ", MDC: " + tblMD.getColumnClassName(i) + " "
                     + tblMD.getColumnTypeName(i) + " , getObj: " + this.rs.getObject(i).getClass());
         }
 
@@ -4064,7 +4064,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
             this.rs = noBlobsConn.createStatement().executeQuery("SHOW VARIABLES LIKE 'old_passwords'");
             if (this.rs.next()) {
                 if (this.rs.getInt(2) == 2) {
-                    System.out.println("Skip testBug48820 due to SHA-256 password hashing.");
+                    //System.out.println("Skip testBug48820 due to SHA-256 password hashing.");
                     return;
                 }
             }
@@ -4169,7 +4169,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         final String connectionId = this.rs.getString(1);
         this.rs.close();
 
-        System.out.println("testBug64204.main: PID is " + connectionId);
+        //System.out.println("testBug64204.main: PID is " + connectionId);
 
         ScheduledExecutorService es = Executors.newSingleThreadScheduledExecutor();
         es.schedule(new Callable<Boolean>() {
@@ -4183,18 +4183,18 @@ public class ResultSetRegressionTest extends BaseTestCase {
                 Statement st2 = con2.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
                 st2.setFetchSize(Integer.MIN_VALUE); // turn on streaming mode
                 try {
-                    System.out.println("testBug64204.slave: Running KILL QUERY " + connectionId);
+                    //System.out.println("testBug64204.slave: Running KILL QUERY " + connectionId);
                     st2.execute("KILL QUERY " + connectionId + ";");
 
                     Thread.sleep(5000);
-                    System.out.println("testBug64204.slave: parent thread should be hung now!!!");
+                    //System.out.println("testBug64204.slave: parent thread should be hung now!!!");
                     res = true;
                 } finally {
                     st2.close();
                     con2.close();
                 }
 
-                System.out.println("testBug64204.slave: Done.");
+                //System.out.println("testBug64204.slave: Done.");
                 return res;
             }
         }, 10, TimeUnit.SECONDS);
@@ -4204,7 +4204,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
 
             int rows = 0;
             int columnCount = this.rs.getMetaData().getColumnCount();
-            System.out.println("testBug64204.main: fetched result set, " + columnCount + " columns");
+            //System.out.println("testBug64204.main: fetched result set, " + columnCount + " columns");
 
             long totalDataCount = 0;
             while (this.rs.next()) {
@@ -4220,7 +4220,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
                 totalDataCount += rowSize;
             }
 
-            System.out.println("testBug64204.main: character_sets total rows " + rows + ", data " + totalDataCount);
+            //System.out.println("testBug64204.main: character_sets total rows " + rows + ", data " + totalDataCount);
 
         } catch (SQLException se) {
             assertEquals("ER_QUERY_INTERRUPTED expected.", "70100", se.getSQLState());
@@ -4696,7 +4696,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
                 testRs.getTimestamp(1));
         assertThrows(SQLException.class, "Zero date value prohibited", new Callable<Void>() {
             public Void call() throws Exception {
-                System.out.println(testRs.getTimestamp(2));
+                //System.out.println(testRs.getTimestamp(2));
                 return null;
             }
         });
@@ -5462,7 +5462,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
 
         this.stmt.executeUpdate(sb.toString());
 
-        System.out.println(" with params = " + params);
+        //System.out.println(" with params = " + params);
         Connection con = getConnectionWithProps(params);
 
         PreparedStatement testPstmt = con.prepareStatement("SELECT * FROM testBug24525461", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
@@ -6195,7 +6195,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         props.setProperty(PropertyKey.sendFractionalSeconds.getKeyName(), "false");
 
         for (String serverTimezone : new String[] { null, "GMT", "Asia/Calcutta" }) {
-            System.out.println("serverTimezone=" + serverTimezone);
+            //System.out.println("serverTimezone=" + serverTimezone);
             if (serverTimezone != null) {
                 props.setProperty(PropertyKey.serverTimezone.getKeyName(), serverTimezone);
             }
@@ -6355,7 +6355,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
 
                 final String testCase = String.format("Case: [TIME_TRUNCATE_FRACTIONAL=%s, sendFractionalSeconds=%s, useServerPrepStmts=%s,",
                         sqlModeTimeTruncateFractional ? "Y" : "N", sendFractionalSeconds ? "Y" : "N", useServerPrepStmts ? "Y" : "N");
-                System.out.println(testCase);
+                //System.out.println(testCase);
 
                 String sqlMode = getMysqlVariable("sql_mode");
                 sqlMode = removeSqlMode("TIME_TRUNCATE_FRACTIONAL", sqlMode);
@@ -6376,7 +6376,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
                 for (int len = 0; len < 10; len++) {
 
                     int fieldLen = len > 6 ? 6 : len;
-                    //System.out.println("len: " + len);
+                    ////System.out.println("len: " + len);
 
                     String tableName = "testBug22305979_" + len;
                     createTable(tableName,
@@ -6458,7 +6458,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         for (String enc : new String[] { "ISO8859_1", "UTF-8" }) {
             for (String useSSPS : new String[] { "false", "true" }) {
                 final String testCase = String.format("Case: [characterEncoding=%s, useServerPrepStmts=%s]", enc, useSSPS);
-                System.out.println(testCase);
+                //System.out.println(testCase);
 
                 createTable("testBug80532", "(id char(50) NOT NULL, data longtext, num int, PRIMARY KEY (id,num)) CHARACTER SET "
                         + (versionMeetsMinimum(5, 5) ? "utf8mb4" : "utf8"));
@@ -6479,12 +6479,12 @@ public class ResultSetRegressionTest extends BaseTestCase {
                 this.rs = st.executeQuery("select * From testBug80532"); // where id='" + id1 + "'"
                 this.rs.next();
 
-                System.out.println(this.rs.getString("id") + ", " + this.rs.getString("data"));
+                //System.out.println(this.rs.getString("id") + ", " + this.rs.getString("data"));
                 assertEquals(id1, this.rs.getString("id"));
                 assertEquals(data1, this.rs.getString("data"));
                 this.rs.updateString("data", data2);
                 this.rs.updateRow();
-                System.out.println(this.rs.getString("id") + ", " + this.rs.getString("data"));
+                //System.out.println(this.rs.getString("id") + ", " + this.rs.getString("data"));
                 assertEquals(id1, this.rs.getString("id"));
                 assertEquals(data2, this.rs.getString("data"));
 
@@ -6494,13 +6494,13 @@ public class ResultSetRegressionTest extends BaseTestCase {
                 this.rs.updateInt("num", 2);
                 this.rs.insertRow();
                 assertTrue(this.rs.last());
-                System.out.println(this.rs.getString("id") + ", " + this.rs.getString("data"));
+                //System.out.println(this.rs.getString("id") + ", " + this.rs.getString("data"));
                 assertEquals(id2, this.rs.getString("id"));
                 assertEquals(data1, this.rs.getString("data"));
 
                 this.rs.updateString("id", id1);
                 this.rs.updateRow();
-                System.out.println(this.rs.getString("id") + ", " + this.rs.getString("data"));
+                //System.out.println(this.rs.getString("id") + ", " + this.rs.getString("data"));
                 assertEquals(id1, this.rs.getString("id"));
                 assertEquals(data1, this.rs.getString("data"));
             }
@@ -6539,7 +6539,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         do {
             final String testCase = String.format("Case: [sendFractionalSeconds=%s, useServerPrepStmts=%s]", sendFractionalSeconds ? "Y" : "N",
                     useServerPrepStmts ? "Y" : "N");
-            System.out.println(testCase);
+            //System.out.println(testCase);
 
             props.setProperty(PropertyKey.sendFractionalSeconds.getKeyName(), "" + sendFractionalSeconds);
             props.setProperty(PropertyKey.useServerPrepStmts.getKeyName(), "" + useServerPrepStmts);
@@ -6565,7 +6565,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
             this.rs = st1.executeQuery("select DATE_FORMAT(d, '%Y-%m-%d') as d, DATE_FORMAT(pd, '%Y-%m-%d') as pd,"
                     + " DATE_FORMAT(dt, '%Y-%m-%d %H:%i:%s.%f') as dt, DATE_FORMAT(pdt, '%Y-%m-%d %H:%i:%s.%f') as pdt from testBug72609");
             this.rs.next();
-            System.out.println(this.rs.getString(1) + ", " + this.rs.getString(2) + ", " + this.rs.getString(3) + ", " + this.rs.getString(4));
+            //System.out.println(this.rs.getString(1) + ", " + this.rs.getString(2) + ", " + this.rs.getString(3) + ", " + this.rs.getString(4));
 
             assertEquals(testCase, "1582-09-28", this.rs.getString(1)); // according to Julian calendar
             assertEquals(testCase, "1582-10-08", this.rs.getString(2)); // according to proleptic Gregorian calendar
@@ -6936,7 +6936,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
             this.pstmt = c1.prepareStatement("insert into testBug27784363 values (?)");
             this.pstmt.setAsciiStream(1, in1, in1.available());
             this.pstmt.execute();
-            System.out.println("inserted.");
+            //System.out.println("inserted.");
             this.rs = c1.createStatement().executeQuery("select * from testBug27784363");
             this.rs.next();
             assertEquals('g', this.rs.getByte("col0"));

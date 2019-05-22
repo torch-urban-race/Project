@@ -1072,30 +1072,30 @@ public class CallableStatementRegressionTest extends BaseTestCase {
         // sMaxBooleanVal = "true";
         //Boolean bool = Boolean.valueOf("true");
         String Min_Insert = "insert into Bit_Tab values(1,0,null)";
-        // System.out.println("Value to insert=" + extractVal(Min_Insert,1));
+        // //System.out.println("Value to insert=" + extractVal(Min_Insert,1));
         CallableStatement cstmt;
 
         this.stmt.executeUpdate("delete from Bit_Tab");
         this.stmt.executeUpdate(Min_Insert);
         cstmt = this.conn.prepareCall("{call Bit_Proc(?,?,?)}");
 
-        System.out.println("register the output parameters");
+        //System.out.println("register the output parameters");
         cstmt.registerOutParameter(1, java.sql.Types.BIT);
         cstmt.registerOutParameter(2, java.sql.Types.BIT);
         cstmt.registerOutParameter(3, java.sql.Types.BIT);
 
-        System.out.println("execute the procedure");
+        //System.out.println("execute the procedure");
         cstmt.executeUpdate();
 
-        System.out.println("invoke getBoolean method");
+        //System.out.println("invoke getBoolean method");
         boolean bRetVal = cstmt.getBoolean(2);
         oRetVal = new Boolean(bRetVal);
         minBooleanVal = new Boolean("false");
         this.rs = this.stmt.executeQuery(Min_Val_Query);
         if (oRetVal.equals(minBooleanVal)) {
-            System.out.println("getBoolean returns the Minimum value ");
+            //System.out.println("getBoolean returns the Minimum value ");
         } else {
-            System.out.println("getBoolean() did not return the Minimum value, getBoolean Failed!");
+            //System.out.println("getBoolean() did not return the Minimum value, getBoolean Failed!");
 
         }
     }
@@ -1535,8 +1535,8 @@ public class CallableStatementRegressionTest extends BaseTestCase {
             callableStatement.registerOutParameter(2, Types.BIGINT);
             callableStatement.registerOutParameter(3, Types.VARCHAR);
             callableStatement.execute();
-            System.out.println(callableStatement.getLong(2));
-            System.out.println(callableStatement.getString(3));
+            //System.out.println(callableStatement.getLong(2));
+            //System.out.println(callableStatement.getString(3));
 
             assertEquals(30314567L, callableStatement.getLong(2));
             assertEquals("STR30314567", callableStatement.getString(3));

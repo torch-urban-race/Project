@@ -286,7 +286,7 @@ public class UpdatabilityTest extends BaseTestCase {
              * 
              * java.sql.Date before = this.rs.getDate("expiry");
              * 
-             * if (this.rs.wasNull()) { System.out.println("Expiry was correctly
+             * if (this.rs.wasNull()) { //System.out.println("Expiry was correctly
              * SQL null before update"); }
              * 
              * //Update a different field this.rs.updateString("name",
@@ -295,8 +295,8 @@ public class UpdatabilityTest extends BaseTestCase {
              * //Test to see if field has been altered java.sql.Date after =
              * this.rs.getDate(3);
              * 
-             * if (this.rs.wasNull()) System.out.println("Bug disproved - expiry
-             * SQL null after update"); else System.out.println("Bug proved -
+             * if (this.rs.wasNull()) //System.out.println("Bug disproved - expiry
+             * SQL null after update"); else //System.out.println("Bug proved -
              * expiry corrupted to '" + after + "'");
              */
         } finally {

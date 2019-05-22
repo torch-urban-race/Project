@@ -147,7 +147,7 @@ public class BlobTest extends BaseTestCase {
 
                     if (retrBytes[i] != fromFile) {
                         passed = false;
-                        System.out.println("Byte pattern differed at position " + i + " , " + retrBytes[i] + " != " + fromFile);
+                        //System.out.println("Byte pattern differed at position " + i + " , " + retrBytes[i] + " != " + fromFile);
 
                         for (int j = 0; (j < (i + 10)) /* && (j < i) */; j++) {
                             System.out.print(Integer.toHexString(retrBytes[j] & 0xff) + " ");
@@ -160,7 +160,7 @@ public class BlobTest extends BaseTestCase {
                 }
             } else {
                 passed = false;
-                System.out.println("retrBytes.length(" + retrBytes.length + ") != testBlob.length(" + fileLength + ")");
+                //System.out.println("retrBytes.length(" + retrBytes.length + ") != testBlob.length(" + fileLength + ")");
             }
 
             return passed;

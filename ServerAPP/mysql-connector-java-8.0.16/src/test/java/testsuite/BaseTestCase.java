@@ -652,8 +652,8 @@ public abstract class BaseTestCase extends TestCase {
      */
     @Override
     public void setUp() throws Exception {
-        System.out.println("Running test " + getClass().getName() + "#" + getName());
-        System.out.println("################################################################################");
+        //System.out.println("Running test " + getClass().getName() + "#" + getName());
+        //System.out.println("################################################################################");
         Class.forName(this.dbClass).newInstance();
         this.createdObjects = new ArrayList<>();
 

@@ -52,7 +52,7 @@ public class AddMethods {
 
     public static void main(String[] args) throws Exception {
 
-        System.out.println("Applying AddMethods.");
+        //System.out.println("Applying AddMethods.");
 
         verbose = "true".equalsIgnoreCase(args[1]);
 
@@ -69,7 +69,7 @@ public class AddMethods {
 
     private static void sysOut(String s) {
         if (verbose) {
-            System.out.println(s);
+            //System.out.println(s);
         }
     }
 

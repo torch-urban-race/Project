@@ -23,7 +23,7 @@ public class DBConnector {
             Connection connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
         } catch (SQLException sqle) {
-            System.out.println("Connection failed!!! Panic! We can't reach the world! :(");
+            //System.out.println("Connection failed!!! Panic! We can't reach the world! :(");
             System.exit(-1);
         }
     }
@@ -56,23 +56,23 @@ public class DBConnector {
         try {
             statement.executeUpdate("DELETE FROM `torchur`.`routedatapoint`;");
             statement.executeUpdate("ALTER TABLE `torchur`.`routedatapoint` AUTO_INCREMENT = 1;");
-            System.out.println("Routes deleted");
+            //System.out.println("Routes deleted");
 
             statement.executeUpdate("DELETE FROM `torchur`.`userhasachievement`;");
             statement.executeUpdate("ALTER TABLE `torchur`.`userhasachievement` AUTO_INCREMENT = 1;");
-            System.out.println("User-Achievements deleted");
+            //System.out.println("User-Achievements deleted");
 
             statement.executeUpdate("DELETE FROM `torchur`.`torch`");
             statement.executeUpdate("ALTER TABLE `torchur`.`torch` AUTO_INCREMENT = 1;");
-            System.out.println("Torches deleted");
+            //System.out.println("Torches deleted");
 
             statement.executeUpdate("DELETE FROM `torchur`.`achievement`;");
             statement.executeUpdate("ALTER TABLE `torchur`.`achievement` AUTO_INCREMENT = 1;");
-            System.out.println("Achievements deleted");
+            //System.out.println("Achievements deleted");
 
             statement.executeUpdate("DELETE FROM `torchur`.`user`;");
             statement.executeUpdate("ALTER TABLE `torchur`.`user` AUTO_INCREMENT = 1;");
-            System.out.println("Users deleted");
+            //System.out.println("Users deleted");
 
             return 0;
         } catch (SQLException e) {
@@ -85,11 +85,11 @@ public class DBConnector {
         try {
             statement.executeUpdate("INSERT INTO `torchur`.`user` (`name`, `password`, `maxCarryTime`, `distanceTraveled`, `amountTorchesCreated`, `amountAchievements`) " +
                     "VALUES ('Natan', 'Gomes', '5', '0.0', '1', '0');");
-            System.out.println("Default user created");
+            //System.out.println("Default user created");
 
             statement.executeUpdate("INSERT INTO `torchur`.`torch` (`name`, `currentLatitude`, `currentLongitude`, `creationTime`, `publicity`, `creatorID`) " +
                     "VALUES ('OlympicTorch', '0.0', '0.0', '2019-05-17 15:00:00', '1', '1');");
-            System.out.println("Default torch created");
+            //System.out.println("Default torch created");
 
             statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) " +
                     "VALUES ('A Friend in Need I', 'Let one other Player carry your torch', 'Create up to 5 torches');");
@@ -117,7 +117,7 @@ public class DBConnector {
                     "VALUES ('Olympic Torch', 'Let a torch you created travel 40000km', 'Exclusive torch icon');");
             statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) " +
                     "VALUES ('Long Distance Runner', 'Walk for more than 42km with a torch', 'Exclusive torch icon');");
-            System.out.println("Default Achievements created");
+            //System.out.println("Default Achievements created");
 
             return 0;
         } catch (SQLException e) {
@@ -553,7 +553,7 @@ public class DBConnector {
                                 rs = statement.executeQuery("SELECT amountAchievements FROM user WHERE idUser = '" + uID + "';");
                                 if (rs.next()) {
                                     int amountAchievements = rs.getInt(1) + 1;
-                                    statement.executeUpdate("UPDATE user SET amountAchievements = '" + amountAchievements + "' WHERE idUser = '" + uID + "');");
+                                    statement.executeUpdate("UPDATE user SET amountAchievements = '" + amountAchievements + "' WHERE idUser = '" + uID + "';");
                                 }
                             } else {
                                 reply[0] = "" + ErrorCode.WorkingOnIt;
@@ -649,38 +649,38 @@ public class DBConnector {
                 kmTraveledWithTorch = rs.getDouble(1);
             }
         } catch (SQLException e) {
-            System.out.println("SQLError");
+            //System.out.println("SQLError");
             return false;
         }
 
         switch (achievementID) {
             //A friend in need
             case 1:
-                if (numberOfPeopleWhoCarriedUsersTorch > 0) {
+                if (numberOfPeopleWhoCarriedUsersTorch > 1) {
                     //TODO increase counter for maximum amount of torches to 5
                     newAchievement = true;
                 }
                 break;
             case 2:
-                if (numberOfPeopleWhoCarriedUsersTorch > 1) {
+                if (numberOfPeopleWhoCarriedUsersTorch > 2) {
                     //TODO increase counter for maximum amount of torches to 10
                     newAchievement = true;
                 }
                 break;
             case 3:
-                if (numberOfPeopleWhoCarriedUsersTorch > 3) {
+                if (numberOfPeopleWhoCarriedUsersTorch > 4) {
                     //TODO increase counter for maximum amount of torches to 15
                     newAchievement = true;
                 }
                 break;
             case 4:
-                if (numberOfPeopleWhoCarriedUsersTorch > 7) {
+                if (numberOfPeopleWhoCarriedUsersTorch > 8) {
                     //TODO increase counter for maximum amount of torches to 20
                     newAchievement = true;
                 }
                 break;
             case 5:
-                if (numberOfPeopleWhoCarriedUsersTorch > 15) {
+                if (numberOfPeopleWhoCarriedUsersTorch > 16) {
                     //TODO increase counter for maximum amount of torches to 25
                     newAchievement = true;
                 }
@@ -690,7 +690,7 @@ public class DBConnector {
                 if (torchesCreated >= 5) {
                     newAchievement = true;
                     try {
-                        statement.executeUpdate("UPDATE user SET maxCarryTime = '10' WHERE idUser = '" + userID + "');");
+                        statement.executeUpdate("UPDATE user SET maxCarryTime = '10' WHERE idUser = '" + userID + "';");
                     } catch (SQLException sqle) {
                         newAchievement = false;
                     }
@@ -700,7 +700,7 @@ public class DBConnector {
                 if (torchesCreated >= 10) {
                     newAchievement = true;
                     try {
-                        statement.executeUpdate("UPDATE user SET maxCarryTime = '15' WHERE idUser = '" + userID + "');");
+                        statement.executeUpdate("UPDATE user SET maxCarryTime = '15' WHERE idUser = '" + userID + "';");
                     } catch (SQLException sqle) {
                         newAchievement = false;
                     }
@@ -710,7 +710,7 @@ public class DBConnector {
                 if (torchesCreated >= 15) {
                     newAchievement = true;
                     try {
-                        statement.executeUpdate("UPDATE user SET maxCarryTime = '20' WHERE idUser = '" + userID + "');");
+                        statement.executeUpdate("UPDATE user SET maxCarryTime = '20' WHERE idUser = '" + userID + "';");
                     } catch (SQLException sqle) {
                         newAchievement = false;
                     }
@@ -720,7 +720,7 @@ public class DBConnector {
                 if (torchesCreated >= 20) {
                     newAchievement = true;
                     try {
-                        statement.executeUpdate("UPDATE user SET maxCarryTime = '25' WHERE idUser = '" + userID + "');");
+                        statement.executeUpdate("UPDATE user SET maxCarryTime = '25' WHERE idUser = '" + userID + "';");
                     } catch (SQLException sqle) {
                         newAchievement = false;
                     }
@@ -730,7 +730,7 @@ public class DBConnector {
                 if (torchesCreated >= 25) {
                     newAchievement = true;
                     try {
-                        statement.executeUpdate("UPDATE user SET maxCarryTime = '30' WHERE idUser = '" + userID + "');");
+                        statement.executeUpdate("UPDATE user SET maxCarryTime = '30' WHERE idUser = '" + userID + "';");
                     } catch (SQLException sqle) {
                         newAchievement = false;
                     }
@@ -764,7 +764,7 @@ public class DBConnector {
                 statement.executeUpdate("INSERT INTO userhasachievement (idAchievements, `idUser`, `date`) " +
                         "VALUES ('" + achievementID + "', '" + userID + "', '" + getDate() + "');");
             } catch (SQLException e) {
-                System.out.println("SQLError with the achievements");
+                //System.out.println("SQLError with the achievements");
                 newAchievement = false;
             }
         }
@@ -817,7 +817,7 @@ public class DBConnector {
     private String getDate() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        System.out.println(dtf.format(now));
+        //System.out.println(dtf.format(now));
         return dtf.format(now);
     }
 

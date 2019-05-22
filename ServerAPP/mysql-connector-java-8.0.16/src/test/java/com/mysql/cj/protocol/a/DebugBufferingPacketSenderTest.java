@@ -59,7 +59,7 @@ public class DebugBufferingPacketSenderTest extends PacketSenderTestBase {
 
         // check that packet was appended to the debug buffer
         String debugText = debugBuffer.get(0).toString();
-        System.out.println("Debug text is: " + debugText);
+        //System.out.println("Debug text is: " + debugText);
         // simple best-effort to make sure we have something reasonable
         Pattern p = Pattern.compile("Packet payload:.*00 01 02 03 04 05 06 07", Pattern.DOTALL);
         assertTrue(p.matcher(debugText).find());

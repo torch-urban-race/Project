@@ -175,7 +175,7 @@ public class CallableStatementTest extends BaseTestCase {
 
         storedProc.execute();
 
-        System.out.println(storedProc);
+        //System.out.println(storedProc);
 
         int indexedOutParamToTest = storedProc.getInt(2);
 
@@ -336,7 +336,7 @@ public class CallableStatementTest extends BaseTestCase {
 
         long elapsedTime = System.currentTimeMillis() - startTime;
 
-        System.out.println("Standard parsing/execution: " + elapsedTime + " ms");
+        //System.out.println("Standard parsing/execution: " + elapsedTime + " ms");
 
         storedProc = this.conn.prepareCall("{call testSpParse(?)}");
         storedProc.setString(1, "abc");
@@ -359,7 +359,7 @@ public class CallableStatementTest extends BaseTestCase {
 
         elapsedTime = System.currentTimeMillis() - startTime;
 
-        System.out.println("Cached parse stage: " + elapsedTime + " ms");
+        //System.out.println("Cached parse stage: " + elapsedTime + " ms");
 
         storedProc = cachedSpConn.prepareCall("{call testSpParse(?)}");
         storedProc.setString(1, "abc");

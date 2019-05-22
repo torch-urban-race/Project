@@ -72,7 +72,7 @@ public class CachedRowsetTest extends BaseTestCase {
         try {
             c = Class.forName(implClass);
         } catch (ClassNotFoundException e) {
-            System.out.println("skipping testBug5188. Requires: " + implClass);
+            //System.out.println("skipping testBug5188. Requires: " + implClass);
             return;
         }
         populate = c.getMethod("populate", new Class<?>[] { ResultSet.class });

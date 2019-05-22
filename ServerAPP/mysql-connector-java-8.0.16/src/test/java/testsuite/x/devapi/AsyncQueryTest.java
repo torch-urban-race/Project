@@ -110,10 +110,10 @@ public class AsyncQueryTest extends BaseCollectionTestCase {
         List<CompletableFuture<DocResult>> futures = new ArrayList<>();
         for (int i = 0; i < NUMBER_OF_QUERIES; ++i) {
             if (i % 5 == 0) {
-                //System.out.println("\nfutures.add(CompletableFuture.completedFuture(coll.find(\"mode = 'sync'\").execute()));");
+                ////System.out.println("\nfutures.add(CompletableFuture.completedFuture(coll.find(\"mode = 'sync'\").execute()));");
                 futures.add(CompletableFuture.completedFuture(coll.find("mode = 'sync'").execute()));
             } else {
-                //System.out.println("\nfutures.add(coll.find(\"mode = 'async'\").executeAsync());");
+                ////System.out.println("\nfutures.add(coll.find(\"mode = 'async'\").executeAsync());");
                 futures.add(coll.find("mode = 'async'").executeAsync());
             }
         }
@@ -260,7 +260,7 @@ public class AsyncQueryTest extends BaseCollectionTestCase {
         Collection coll = this.collection;
         List<CompletableFuture<DocResult>> futures = new ArrayList<>();
         for (int i = 0; i < MANY; ++i) {
-            //System.out.println("++++ Write " + i + " set " + i % 3 + " +++++");
+            ////System.out.println("++++ Write " + i + " set " + i % 3 + " +++++");
             if (i % 3 == 0) {
                 futures.add(coll.find("F1  like '%Field%-5'").fields("$._id as _id, $.F1 as F1, $.F2 as F2, $.F3 as F3").executeAsync());
             } else if (i % 3 == 1) {
@@ -271,13 +271,13 @@ public class AsyncQueryTest extends BaseCollectionTestCase {
         }
         DocResult docs;
         for (int i = 0; i < MANY; ++i) {
-            //System.out.println("++++ Read " + i + " set " + i % 3 + " +++++");
+            ////System.out.println("++++ Read " + i + " set " + i % 3 + " +++++");
             if (i % 3 == 0) {
                 //Expect Success and check F1  is like  %Field%-5
-                System.out.println("\nExpect Success and check F1  is like  %Field%-5");
+                //System.out.println("\nExpect Success and check F1  is like  %Field%-5");
                 docs = futures.get(i).get();
                 assertFalse(docs.hasNext());
-                System.out.println(docs.fetchOne());
+                //System.out.println(docs.fetchOne());
             } else if (i % 3 == 1) {
                 try {
                     //Expecting Error FUNCTION test.NON_EXISTING_FUNCTION does not exist
@@ -289,12 +289,12 @@ public class AsyncQueryTest extends BaseCollectionTestCase {
                 }
             } else {
                 //Expect Success and check F3 is 106
-                System.out.println("\nExpect Success and check F3 is 106");
+                //System.out.println("\nExpect Success and check F3 is 106");
                 docs = futures.get(i).get();
                 assertFalse(docs.hasNext());
-                System.out.println(docs.fetchOne());
+                //System.out.println(docs.fetchOne());
             }
         }
-        System.out.println("Done.");
+        //System.out.println("Done.");
     }
 }

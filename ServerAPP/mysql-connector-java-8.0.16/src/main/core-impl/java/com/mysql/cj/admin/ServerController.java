@@ -177,7 +177,7 @@ public class ServerController {
             pathBuf.append(File.separator);
             pathBuf.append("mysqladmin shutdown");
 
-            System.out.println(pathBuf.toString());
+            //System.out.println(pathBuf.toString());
 
             Process mysqladmin = Runtime.getRuntime().exec(pathBuf.toString());
 

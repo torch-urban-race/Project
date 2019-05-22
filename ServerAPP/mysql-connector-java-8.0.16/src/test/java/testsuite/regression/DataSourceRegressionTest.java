@@ -334,7 +334,7 @@ public class DataSourceRegressionTest extends BaseTestCase {
         try {
             Class.forName("org.jboss.resource.adapter.jdbc.ValidConnectionChecker");
         } catch (Exception ex) {
-            System.out.println("The testBug20242() is ignored because required class isn't available:");
+            //System.out.println("The testBug20242() is ignored because required class isn't available:");
             ex.printStackTrace();
             return; // class not available for testing
         }
@@ -448,7 +448,7 @@ public class DataSourceRegressionTest extends BaseTestCase {
         MysqlDataSource myDs = new MysqlDataSource();
         myDs.setUrl(dbUrl);
         Reference asRef = myDs.getReference();
-        System.out.println(asRef);
+        //System.out.println(asRef);
 
         removeFromRef(asRef, "port");
         removeFromRef(asRef, PropertyKey.USER.getKeyName());
@@ -560,7 +560,7 @@ public class DataSourceRegressionTest extends BaseTestCase {
                 this.rs.close();
                 if (connIsAlive) {
                     connAliveChecks--;
-                    System.out.println("Connection id " + connId + " is still alive. Checking " + connAliveChecks + " more times.");
+                    //System.out.println("Connection id " + connId + " is still alive. Checking " + connAliveChecks + " more times.");
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {

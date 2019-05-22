@@ -779,7 +779,7 @@ public class ConnectionUrlTest {
 
         for (String cs : connStr) {
             try {
-                System.out.println(ConnectionUrl.getConnectionUrlInstance(cs, null));
+                //System.out.println(ConnectionUrl.getConnectionUrlInstance(cs, null));
                 fail(cs + ": expected to throw a " + WrongArgumentException.class.getName());
             } catch (Exception e) {
                 assertTrue(cs + ": expected to throw a " + WrongArgumentException.class.getName(), WrongArgumentException.class.isAssignableFrom(e.getClass()));
@@ -1010,7 +1010,7 @@ public class ConnectionUrlTest {
         for (String cs : connStr) {
             try {
                 connUrl = ConnectionUrl.getConnectionUrlInstance(cs, null);
-                System.out.println(connUrl);
+                //System.out.println(connUrl);
                 fail(cs + ": expected to throw a " + WrongArgumentException.class.getName());
             } catch (Exception e) {
                 assertTrue(cs + ": expected to throw a " + WrongArgumentException.class.getName(), WrongArgumentException.class.isAssignableFrom(e.getClass()));
@@ -1029,7 +1029,7 @@ public class ConnectionUrlTest {
         for (String cs : connStr) {
             try {
                 connUrl = ConnectionUrl.getConnectionUrlInstance(cs, null);
-                System.out.println(connUrl);
+                //System.out.println(connUrl);
                 fail(cs + ": expected to throw a " + WrongArgumentException.class.getName());
             } catch (Exception e) {
                 assertTrue(cs + ": expected to throw a " + WrongArgumentException.class.getName(), WrongArgumentException.class.isAssignableFrom(e.getClass()));
@@ -1044,7 +1044,7 @@ public class ConnectionUrlTest {
         for (String cs : connStr) {
             try {
                 connUrl = ConnectionUrl.getConnectionUrlInstance(cs, null);
-                System.out.println(connUrl);
+                //System.out.println(connUrl);
                 fail(cs + ": expected to throw a " + WrongArgumentException.class.getName());
             } catch (Exception e) {
                 assertTrue(cs + ": expected to throw a " + WrongArgumentException.class.getName(), WrongArgumentException.class.isAssignableFrom(e.getClass()));

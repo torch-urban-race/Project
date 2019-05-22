@@ -16,14 +16,14 @@ public class SocketServer {
     public void runServer() {
         DBConnector connector = new DBConnector();
         System.out.println("Reset: " + connector.reset());
-        /*System.out.println("Users reset: " + connector.resetUserTable());
-        System.out.println("User created: " + connector.createUser("Natan", "Gomes"));
-        System.out.println("User logged in: " + connector.logIn("Natan", "Gomes"));
-        //System.out.println("Torch created: " + connector.createTorch("OlympicTo", 3.5, 1.2, "Natan", true));
-        System.out.println("Torch position changed: " + connector.setTorchPosition(1, 3.2, 2.1));
+        /*//System.out.println("Users reset: " + connector.resetUserTable());
+        //System.out.println("User created: " + connector.createUser("Natan", "Gomes"));
+        //System.out.println("User logged in: " + connector.logIn("Natan", "Gomes"));
+        ////System.out.println("Torch created: " + connector.createTorch("OlympicTo", 3.5, 1.2, "Natan", true));
+        //System.out.println("Torch position changed: " + connector.setTorchPosition(1, 3.2, 2.1));
         double response[] = connector.getTorchPosition(1);
-        System.out.println("Read Torch position: " + response[2]);
-        System.out.println("Latitude: " + response[0] + "\n" +
+        //System.out.println("Read Torch position: " + response[2]);
+        //System.out.println("Latitude: " + response[0] + "\n" +
                 "Longitude: " + response[1]);*/
         try {
             //Port number

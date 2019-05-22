@@ -70,15 +70,15 @@ public class ErrorMappingsDocGenerator {
             }
         }
 
-        System.out.println("<ErrorMappings>");
+        //System.out.println("<ErrorMappings>");
 
         for (Integer errorNumber : allErrorNumbers.keySet()) {
             String sql92State = MysqlErrorNumbers.mysqlToSql99(errorNumber.intValue());
 
-            System.out.println("   <ErrorMapping mysqlErrorNumber=\"" + errorNumber + "\" mysqlErrorName=\"" + mysqlErrorNumbersToNames.get(errorNumber)
+            //System.out.println("   <ErrorMapping mysqlErrorNumber=\"" + errorNumber + "\" mysqlErrorName=\"" + mysqlErrorNumbersToNames.get(errorNumber)
                     + "\" legacySqlState=\"" + "" + "\" sql92SqlState=\"" + ((sql92State == null) ? "" : sql92State) + "\"/>");
         }
 
-        System.out.println("</ErrorMappings>");
+        //System.out.println("</ErrorMappings>");
     }
 }

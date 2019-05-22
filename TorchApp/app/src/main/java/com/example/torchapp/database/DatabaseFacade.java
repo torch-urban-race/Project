@@ -27,15 +27,6 @@ public abstract class DatabaseFacade {
         }).start();
     }
 
-    /**
-     * When called stops the connection with the server
-     * To be called when the application shuts down
-     * ps: not really need to call it as when the app is closed, the server drops the socket itself
-     */
-    public static void stopServerConnection() {
-        DatabaseHandler.getInstance().finishConnection();
-    }
-
     public static void loginWithCredentials(final LoginActivity loginActivity, final String username, final String password) {
         new Thread(new Runnable() {
             @Override
@@ -140,26 +131,31 @@ public abstract class DatabaseFacade {
 
 
     public static void getTorchPosition(final DrawerMapActivity drawerMapActivity, final Integer torchID) {
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 /*CurrentUser user = */
                 final String[] params = DatabaseHandler.getInstance().getTorchPosition(torchID);
 
-                drawerMapActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                try {
+                    drawerMapActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                        if(params.length < 2){
-                            Toast.makeText(drawerMapActivity.getApplicationContext(), params[0], Toast.LENGTH_SHORT).show();
+                            if (params.length < 2) {
+                                Toast.makeText(drawerMapActivity.getApplicationContext(), params[0], Toast.LENGTH_SHORT).show();
 
-                        } else {
-                            drawerMapActivity.getMapUtils().setTorchPosition(torchID, Double.parseDouble(params[0]), Double.parseDouble(params[1]));
+                            } else {
+                                drawerMapActivity.getMapUtils().setTorchPosition(torchID, Double.parseDouble(params[0]), Double.parseDouble(params[1]));
+
+                            }
 
                         }
-
-                    }
-                });
+                    });
+                } catch (NullPointerException npe) {
+                    System.out.println("We caught a NULLPOINTER");
+                }
 
             }
         }).start();
@@ -298,20 +294,14 @@ public abstract class DatabaseFacade {
                 final  String[] params = DatabaseHandler.getInstance().hasAchievement(userID, achievementID);
 
                 if(params.length < 2){
-                    drawerMapActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-
-                            Toast.makeText(drawerMapActivity.getApplicationContext(), params[0], Toast.LENGTH_SHORT).show();
-
-
-                        }
-                    });
 
                 } else {
                     //TODO:Update achievement with date obtained and the actual icon
 
+                   if(Boolean.parseBoolean(params[0]))
+                    {
+                        drawerMapActivity.getAchievementUtils().setHasAchievement(achievementID, params[1]);
+                    }
 
                 }
 
@@ -340,7 +330,6 @@ public abstract class DatabaseFacade {
                     });
 
                 } else {
-                    //TODO: create achievement if not exist
                     drawerMapActivity.getAchievementUtils().createAchievement(params[0],params[1],params[2],achievementID);
                 }
 

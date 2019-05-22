@@ -152,7 +152,7 @@ public class BlobRegressionTest extends BaseTestCase {
         Statement updStmt = this.conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
         this.rs = updStmt.executeQuery("SELECT pk, field1 FROM testUpdatableBlobsWithCharsets");
-        System.out.println(this.rs);
+        //System.out.println(this.rs);
         this.rs.next();
 
         for (byte i = 0; i < smallBlob.length; i++) {

@@ -44,7 +44,7 @@ public class CommonChecks {
 
     public static void main(String[] args) throws Exception {
 
-        System.out.println("Applying CommonChecks.");
+        //System.out.println("Applying CommonChecks.");
 
         verbose = "true".equalsIgnoreCase(args[1]);
 
@@ -185,7 +185,7 @@ public class CommonChecks {
 
     private static void sysOut(String s) {
         if (verbose) {
-            System.out.println(s);
+            //System.out.println(s);
         }
     }
 

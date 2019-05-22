@@ -44,6 +44,8 @@ public class DatabaseHandler {
 
     synchronized void finishConnection() {
         try {
+
+            socketOutObjecctOutputStream.flush();
             socketOutObjecctOutputStream.close();
             socketInObjectInputStream.close();
             clientSocket.close();
@@ -51,6 +53,7 @@ public class DatabaseHandler {
             clientSocket = null;
             socketOutObjecctOutputStream = null;
             socketInObjectInputStream = null;
+
         } catch (IOException ioException) {
             printIOException(ioException);
         }
@@ -122,7 +125,7 @@ public class DatabaseHandler {
         return null;
     }
 
-    synchronized String[] getTorchPosition(Integer torchID){
+    public synchronized String[] getTorchPosition(Integer torchID){
         try {
 
             prepareConnection();
@@ -166,7 +169,7 @@ public class DatabaseHandler {
     }
 
 
-    synchronized String[] getUserInformation(Integer userID){
+    public synchronized String[] getUserInformation(Integer userID){
         try {
 
             prepareConnection();

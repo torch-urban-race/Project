@@ -42,7 +42,7 @@ import com.mysql.cj.conf.PropertyDefinitions;
 public class PropertiesDocGenerator {
 
     public static void main(String[] args) {
-        System.out.println(exposeAsXml());
+        //System.out.println(exposeAsXml());
     }
 
     static class XmlMap {

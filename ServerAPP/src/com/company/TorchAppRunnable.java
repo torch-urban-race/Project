@@ -21,7 +21,7 @@ public class TorchAppRunnable implements Runnable {
             ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
             String str = (String) in.readObject();
-            System.out.println("Client: -> " + str);
+            //System.out.println("Client: -> " + str);
 
             String errorString, reply = "";
             String data[] = getData(str);
@@ -33,7 +33,7 @@ public class TorchAppRunnable implements Runnable {
                         case '+':
                             try {
                                 if (data.length == 2) {
-                                    System.out.println("Username: " + data[0] + "\nPassword: " + data[1]);
+                                    //System.out.println("Username: " + data[0] + "\nPassword: " + data[1]);
                                     errorString = "" + connector.createUser(data[0], data[1]);
                                 } else {
                                     errorString = "" + ErrorCode.InvalidCommand;
@@ -56,7 +56,7 @@ public class TorchAppRunnable implements Runnable {
                         //get user information: u?userID
                         case '?':
                             if (data[0].length() > 0) {
-                                System.out.println("UserID: " + data[0]);
+                                ////System.out.println("UserID: " + data[0]);
                                 information = connector.getUserInformation(data[0]);
                             } else {
                                 information = new String[]{"" + ErrorCode.InvalidCommand, ""};
@@ -87,7 +87,7 @@ public class TorchAppRunnable implements Runnable {
                         //request torch location: t?torchID
                         case '?':
                             if (data[0].length() > 0) {
-                                System.out.println("TorchID: " + data[0]);
+                                ////System.out.println("TorchID: " + data[0]);
                                 information = connector.getTorchPosition(data[0]);
                             } else {
                                 information = new String[]{"" + ErrorCode.InvalidCommand, ""};
@@ -107,7 +107,7 @@ public class TorchAppRunnable implements Runnable {
                         //get general torch information: t:torchID
                         case ':':
                             if (data[0].length() > 0) {
-                                System.out.println("Torch ID: " + data[0]);
+                               // //System.out.println("Torch ID: " + data[0]);
                                 information = connector.getTorchInformation(data[0]);
                             } else {
                                 information = new String[]{"" + ErrorCode.InvalidCommand, ""};
@@ -124,8 +124,8 @@ public class TorchAppRunnable implements Runnable {
                         //get achievement-user entry: a?userID;achievementID
                         case '?':
                             if (data.length == 2) {
-                                System.out.println("User ID: " + data[0]);
-                                System.out.println("Achievement ID: " + data[1]);
+                                ////System.out.println("User ID: " + data[0]);
+                                ////System.out.println("Achievement ID: " + data[1]);
                                 information = connector.checkAchievements(data[0], data[1]);
                             } else {
                                 information = new String[]{"" + ErrorCode.InvalidCommand, ""};
@@ -136,7 +136,7 @@ public class TorchAppRunnable implements Runnable {
                         //get achievement information: a:achievementID
                         case ':':
                             if (data[0].length() > 0) {
-                                System.out.println("Achievement ID: " + data[0]);
+                                //System.out.println("Achievement ID: " + data[0]);
                                 information = connector.getAchievementInformation(data[0]);
                             } else {
                                 information = new String[]{"" + ErrorCode.InvalidCommand, ""};
@@ -153,7 +153,7 @@ public class TorchAppRunnable implements Runnable {
             }
 
             message = errorCodeToMessage(errorString, reply);
-            System.out.println(message);
+            //System.out.println(message);
             out.writeObject(message);
             in.close();
             out.close();

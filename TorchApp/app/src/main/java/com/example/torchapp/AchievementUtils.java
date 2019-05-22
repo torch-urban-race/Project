@@ -66,13 +66,41 @@ public class AchievementUtils {
     /**
      * Assigns date to some achievement that the user has obtained
      */
+    public void updateUserAchievements(){
+        for(int i = 1; i <= 13; i++){
+            DatabaseFacade.hasAchievement(Integer.parseInt(SaveSharedPreference.getUserId(drawerMapActivity)), i);
+            System.out.println("Request this  achievement id: " + i);
+        }
+
+    }
+
+    public void setHasAchievement(Integer achID, String date){
+        for (Achievement ach: systemAchievements
+             ) {
+            if(ach.getId() == achID){
+
+                ach.setDateObtained(date);
+
+                if(achID < 6){
+                    ach.setIcon(ContextCompat.getDrawable(drawerMapActivity.getApplicationContext(), R.drawable.friend_in_need_ach));
+                } else if (achID < 11) {
+                    ach.setIcon(ContextCompat.getDrawable(drawerMapActivity.getApplicationContext(), R.drawable.make_it_brighter_ach));
+                } else if (achID == 11){
+                    ach.setIcon(ContextCompat.getDrawable(drawerMapActivity.getApplicationContext(), R.drawable.torch_bearer_achievement));
+                } else if (achID == 12){
+                    ach.setIcon(ContextCompat.getDrawable(drawerMapActivity.getApplicationContext(), R.drawable.olympic_torch_ach));
+                } else {
+                    ach.setIcon(ContextCompat.getDrawable(drawerMapActivity.getApplicationContext(), R.drawable.long_distance_runner_ach));
+                }
+
+            }
+
+        }
+    }
 
     /**
      * Populates the achievements in the system
      *
-     */
-    /**
-     * Add markers from database into map
      */
     public void handleAchievements(){
 
@@ -84,6 +112,8 @@ public class AchievementUtils {
     }
 
 
+
+
     public void createAchievement(String achName, String achDesc, String achReward, Integer id){
        Achievement achievement = new Achievement();
        achievement.setTitle(achName);
@@ -91,17 +121,7 @@ public class AchievementUtils {
        achievement.setReward("Reward: " +achReward);
        achievement.setId(id);
 
-       if(id < 6){
-           achievement.setIcon(ContextCompat.getDrawable(drawerMapActivity.getApplicationContext(), R.drawable.friend_in_need_ach));
-       } else if (id < 11) {
-           achievement.setIcon(ContextCompat.getDrawable(drawerMapActivity.getApplicationContext(), R.drawable.make_it_brighter_ach));
-       } else if (id == 11){
-           achievement.setIcon(ContextCompat.getDrawable(drawerMapActivity.getApplicationContext(), R.drawable.torch_bearer_achievement));
-       } else if (id == 12){
-           achievement.setIcon(ContextCompat.getDrawable(drawerMapActivity.getApplicationContext(), R.drawable.olympic_torch_ach));
-       } else {
-           achievement.setIcon(ContextCompat.getDrawable(drawerMapActivity.getApplicationContext(), R.drawable.long_distance_runner_ach));
-       }
+       achievement.setIcon(ContextCompat.getDrawable(drawerMapActivity.getApplicationContext(), R.drawable.blaack));
 
 
        systemAchievements.add(achievement);

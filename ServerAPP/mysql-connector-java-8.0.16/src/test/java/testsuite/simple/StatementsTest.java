@@ -472,7 +472,7 @@ public class StatementsTest extends BaseTestCase {
             cStmt.close();
             cStmt = null;
 
-            System.out.println(rowsToCheck + " rows returned");
+            //System.out.println(rowsToCheck + " rows returned");
 
             assertTrue(numRows == rowsToCheck);
         } finally {
@@ -1139,7 +1139,7 @@ public class StatementsTest extends BaseTestCase {
             }
 
             long end = System.currentTimeMillis();
-            System.out.println(i + " columns = " + (end - start) + " ms");
+            //System.out.println(i + " columns = " + (end - start) + " ms");
         }
     }
 
@@ -1715,7 +1715,7 @@ public class StatementsTest extends BaseTestCase {
 
         PreparedStatement pStmt = null;
 
-        System.out.println("Testing prepared statements with binary result sets now");
+        //System.out.println("Testing prepared statements with binary result sets now");
 
         try {
             this.stmt.executeUpdate("DROP TABLE IF EXISTS testTruncationOnRead");

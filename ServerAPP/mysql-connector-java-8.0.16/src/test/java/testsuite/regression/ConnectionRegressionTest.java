@@ -208,22 +208,22 @@ public class ConnectionRegressionTest extends BaseTestCase {
     }
 
     public void testBug1914() throws Exception {
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), BIGINT)}"));
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), BINARY)}"));
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), BIT)}"));
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), CHAR)}"));
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), DATE)}"));
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), DECIMAL)}"));
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), DOUBLE)}"));
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), FLOAT)}"));
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), INTEGER)}"));
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), LONGVARBINARY)}"));
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), LONGVARCHAR)}"));
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), TIME)}"));
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), TIMESTAMP)}"));
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), TINYINT)}"));
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), VARBINARY)}"));
-        System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), VARCHAR)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), BIGINT)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), BINARY)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), BIT)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), CHAR)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), DATE)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), DECIMAL)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), DOUBLE)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), FLOAT)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), INTEGER)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), LONGVARBINARY)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), LONGVARCHAR)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), TIME)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), TIMESTAMP)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), TINYINT)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), VARBINARY)}"));
+        //System.out.println(this.conn.nativeSQL("{fn convert(foo(a,b,c), VARCHAR)}"));
     }
 
     /**
@@ -324,7 +324,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                     Properties props = new Properties();
                     props.setProperty(PropertyKey.characterEncoding.getKeyName(), charsetName);
 
-                    System.out.println("Testing character set " + charsetName);
+                    //System.out.println("Testing character set " + charsetName);
 
                     charsetConn = getAdminConnectionWithProps(props);
 
@@ -410,7 +410,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
             }
         }
 
-        System.out.println("Executing statement on reconnectable connection...");
+        //System.out.println("Executing statement on reconnectable connection...");
 
         this.rs = reconnectableConn.createStatement().executeQuery("SELECT CONNECTION_ID()");
         this.rs.next();
@@ -519,7 +519,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 Properties autoReconnectProps = new Properties();
                 autoReconnectProps.setProperty(PropertyKey.autoReconnect.getKeyName(), "true");
 
-                System.out.println(newUrlToTestPortNum);
+                //System.out.println(newUrlToTestPortNum);
 
                 //
                 // First test that port #'s are being correctly picked up
@@ -689,7 +689,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
 
             String failoverConnectionId = getSingleIndexedValueWithQuery(failoverConnection, 1, "SELECT CONNECTION_ID()").toString();
 
-            System.out.println("Connection id: " + failoverConnectionId);
+            //System.out.println("Connection id: " + failoverConnectionId);
 
             killConnection(killerConnection, failoverConnectionId);
 
@@ -706,20 +706,20 @@ public class ConnectionRegressionTest extends BaseTestCase {
             failoverConnection.setAutoCommit(true);
 
             String failedConnectionId = getSingleIndexedValueWithQuery(failoverConnection, 1, "SELECT CONNECTION_ID()").toString();
-            System.out.println("Failed over connection id: " + failedConnectionId);
+            //System.out.println("Failed over connection id: " + failedConnectionId);
 
             ((com.mysql.cj.jdbc.JdbcConnection) failoverConnection).setFailedOver(true);
 
             for (int i = 0; i < 30; i++) {
                 failoverConnection.setAutoCommit(true);
-                System.out.println(getSingleIndexedValueWithQuery(failoverConnection, 1, "SELECT CONNECTION_ID()"));
+                //System.out.println(getSingleIndexedValueWithQuery(failoverConnection, 1, "SELECT CONNECTION_ID()"));
                 // failoverConnection.createStatement().executeQuery("SELECT
                 // 1");
                 failoverConnection.setAutoCommit(true);
             }
 
             String fallbackConnectionId = getSingleIndexedValueWithQuery(failoverConnection, 1, "SELECT CONNECTION_ID()").toString();
-            System.out.println("fallback connection id: " + fallbackConnectionId);
+            //System.out.println("fallback connection id: " + fallbackConnectionId);
 
             /*
              * long begin = System.currentTimeMillis();
@@ -1318,12 +1318,12 @@ public class ConnectionRegressionTest extends BaseTestCase {
             utf8Conn = getConnectionWithProps(props);
             this.rs = utf8Conn.createStatement().executeQuery("SHOW VARIABLES LIKE 'character_%'");
             while (this.rs.next()) {
-                System.out.println(this.rs.getString(1) + " = " + this.rs.getString(2));
+                //System.out.println(this.rs.getString(1) + " = " + this.rs.getString(2));
             }
 
             this.rs = utf8Conn.createStatement().executeQuery("SHOW VARIABLES LIKE 'collation_%'");
             while (this.rs.next()) {
-                System.out.println(this.rs.getString(1) + " = " + this.rs.getString(2));
+                //System.out.println(this.rs.getString(1) + " = " + this.rs.getString(2));
             }
         } finally {
             if (utf8Conn != null) {
@@ -1421,13 +1421,13 @@ public class ConnectionRegressionTest extends BaseTestCase {
 
             String originalConnectionId = getSingleIndexedValueWithQuery(failoverConnection, 1, "SELECT CONNECTION_ID()").toString();
 
-            System.out.println(originalConnectionId);
+            //System.out.println(originalConnectionId);
 
             Connection nextConnection = getConnectionWithProps("jdbc:mysql://" + newHostBuf.toString() + "/", props);
 
             String nextId = getSingleIndexedValueWithQuery(nextConnection, 1, "SELECT CONNECTION_ID()").toString();
 
-            System.out.println(nextId);
+            //System.out.println(nextId);
 
         } finally {
             if (failoverConnection != null) {
@@ -3736,7 +3736,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
 
         if (!versionMeetsMinimum(5, 5, 7) || versionMeetsMinimum(5, 7, 5)) {
             // As of 5.7.5, support for mysql_old_password is removed.
-            System.out.println("testOldPasswordPlugin was skipped: This test is only run for 5.5.7 - 5.7.4 server versions.");
+            //System.out.println("testOldPasswordPlugin was skipped: This test is only run for 5.5.7 - 5.7.4 server versions.");
             return;
         }
 
@@ -5105,7 +5105,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
         //-------------
 
         // Concurrent test
-        System.out.println("Warming up");
+        //System.out.println("Warming up");
         for (int i = 0; i < failoverconnection.length; i++) {
             this.stmt = failoverconnection[i].createStatement();
             this.pstmt = failoverconnection[i].prepareStatement("SELECT 1 FROM DUAL");
@@ -5136,18 +5136,18 @@ public class ConnectionRegressionTest extends BaseTestCase {
                     || f4.get(5, TimeUnit.SECONDS) != null || f5.get(5, TimeUnit.SECONDS) != null || f6.get(5, TimeUnit.SECONDS) != null
                     || f7.get(5, TimeUnit.SECONDS) != null || f8.get(5, TimeUnit.SECONDS) != null || f9.get(5, TimeUnit.SECONDS) != null
                     || f10.get(5, TimeUnit.SECONDS) != null || f11.get(5, TimeUnit.SECONDS) != null || f12.get(5, TimeUnit.SECONDS) != null) {
-                System.out.println("waiting");
+                //System.out.println("waiting");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
 
         if (this.testServerPrepStmtDeadlockCounter < 12) {
             Map<Thread, StackTraceElement[]> tr = Thread.getAllStackTraces();
             for (StackTraceElement[] el : tr.values()) {
-                System.out.println();
+                //System.out.println();
                 for (StackTraceElement stackTraceElement : el) {
-                    System.out.println(stackTraceElement);
+                    //System.out.println(stackTraceElement);
                 }
             }
         }
@@ -5361,7 +5361,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
         }
 
         public void run() {
-            System.out.println(this.num + ". Start polling at " + new Date().getTime());
+            //System.out.println(this.num + ". Start polling at " + new Date().getTime());
             boolean connectionClosed = false;
 
             for (int i = 0; i < 20000; i++) {
@@ -5370,7 +5370,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                     this.pst1.executeQuery().close();
                 } catch (Exception ex1) {
                     if (!connectionClosed) {
-                        System.out.println(this.num + "." + i + " " + ex1.getMessage());
+                        //System.out.println(this.num + "." + i + " " + ex1.getMessage());
                         connectionClosed = true;
                     } else {
                         break;
@@ -5379,7 +5379,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
             }
 
             ConnectionRegressionTest.this.testServerPrepStmtDeadlockCounter++;
-            System.out.println(this.num + ". Done!");
+            //System.out.println(this.num + ". Done!");
         }
 
     }
@@ -5395,7 +5395,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
         }
 
         public void run() {
-            System.out.println(this.num + ". Start cancelling at " + new Date().getTime());
+            //System.out.println(this.num + ". Start cancelling at " + new Date().getTime());
 
             if (Proxy.isProxyClass(this.c.getClass())) {
                 try {
@@ -5409,7 +5409,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                     }
 
                     ConnectionRegressionTest.this.testServerPrepStmtDeadlockCounter++;
-                    System.out.println(this.num + ". Done!");
+                    //System.out.println(this.num + ". Done!");
                 } catch (Throwable e) {
                     e.printStackTrace();
                 }
@@ -5451,7 +5451,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
         testMemLeakBatch(props, connectionTrackingSet, referentField, 0, 1, s1, "testBug68400:true");
         testMemLeakBatch(props, connectionTrackingSet, referentField, 0, 2, s1, "testBug68400:true");
 
-        System.out.println("Done.");
+        //System.out.println("Done.");
 
     }
 
@@ -5473,7 +5473,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
 
         String[] typeNames = new String[] { "ConnectionImpl", "LoadBalancedConnection", "FailoverConnection", "ReplicationConnection" };
 
-        System.out.println("\n" + typeNames[connectionType] + ", " + (finType == 0 ? "nullification" : (finType == 1 ? "close()" : "abortInternal()")));
+        //System.out.println("\n" + typeNames[connectionType] + ", " + (finType == 0 ? "nullification" : (finType == 1 ? "close()" : "abortInternal()")));
 
         // 1. Create 100 connections with "testBug68400:true" attribute
         for (int j = 0; j < 20; j++) {
@@ -5539,10 +5539,10 @@ public class ConnectionRegressionTest extends BaseTestCase {
         }
 
         // 2. Count connections before GC
-        System.out.println("SET: " + connectionTrackingSet.size());
+        //System.out.println("SET: " + connectionTrackingSet.size());
 
         connectionNumber = countTestConnections(connectionTrackingSet, referentField, false, attributeValue);
-        System.out.println("Test related connections in SET before GC: " + connectionNumber);
+        //System.out.println("Test related connections in SET before GC: " + connectionNumber);
 
         // 3. Run GC
         Runtime.getRuntime().gc();
@@ -5552,8 +5552,8 @@ public class ConnectionRegressionTest extends BaseTestCase {
 
         // 5. Count connections before GC
         connectionNumber = countTestConnections(connectionTrackingSet, referentField, true, attributeValue);
-        System.out.println("Test related connections in SET after GC: " + connectionNumber);
-        System.out.println("SET: " + connectionTrackingSet.size());
+        //System.out.println("Test related connections in SET after GC: " + connectionNumber);
+        //System.out.println("SET: " + connectionTrackingSet.size());
 
         assertEquals(
                 "No connection with \"" + attributeValue
@@ -5572,12 +5572,12 @@ public class ConnectionRegressionTest extends BaseTestCase {
                     if (atts != null && atts.equals(attributValue)) {
                         connectionNumber++;
                         if (show) {
-                            System.out.println(ctmp.toString());
+                            //System.out.println(ctmp.toString());
                         }
                     }
                 }
             } catch (NullPointerException e) {
-                System.out.println("NullPointerException: \n" + ctmp + "\n" + atts);
+                //System.out.println("NullPointerException: \n" + ctmp + "\n" + atts);
             }
         }
         return connectionNumber;
@@ -5959,7 +5959,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
             }
 
             void releaseResources() {
-                System.out.println("Start releasing mock server resources.");
+                //System.out.println("Start releasing mock server resources.");
                 if (this.serverSocket != null) {
                     try {
                         this.serverSocket.close();
@@ -5976,10 +5976,10 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 Socket clientSocket = null;
                 try {
                     while ((clientSocket = this.serverSocket.accept()) != null) {
-                        System.out.println("Client socket accepted: [" + clientSocket.toString() + "]");
+                        //System.out.println("Client socket accepted: [" + clientSocket.toString() + "]");
                     }
                 } catch (IOException e) {
-                    System.out.println("Shutting down mock server.");
+                    //System.out.println("Shutting down mock server.");
                 } finally {
                     if (clientSocket != null) {
                         try {
@@ -7349,13 +7349,13 @@ public class ConnectionRegressionTest extends BaseTestCase {
             this.rs = testStmt.executeQuery("SHOW STATUS LIKE '%Rsa_public_key%'");
             final boolean rsaEnabled = this.rs.next() && this.rs.getString(1).length() > 0;
 
-            System.out.println();
-            System.out.println("* Testing URL: " + testDbUrl + " [SSL enabled: " + sslEnabled + "]  [RSA enabled: " + rsaEnabled + "]");
-            System.out.println("******************************************************************************************************************************"
+            //System.out.println();
+            //System.out.println("* Testing URL: " + testDbUrl + " [SSL enabled: " + sslEnabled + "]  [RSA enabled: " + rsaEnabled + "]");
+            //System.out.println("******************************************************************************************************************************"
                     + "*************");
             System.out.printf("%-25s : %-25s : %s : %-25s : %-18s : %-18s [%s]%n", "Connection Type", "Auth. Plugin", "pwd ", "Encoding Prop.",
                     "Encoding Value", "Server Encoding", "TstRes");
-            System.out.println("------------------------------------------------------------------------------------------------------------------------------"
+            //System.out.println("------------------------------------------------------------------------------------------------------------------------------"
                     + "-------------");
 
             boolean clearTextPluginInstalled = false;
@@ -7679,9 +7679,9 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 this.sha256Stmt.execute("GRANT ALL ON *.* TO 'bug75670user_mnp'@'%'");
                 this.sha256Stmt.execute("GRANT ALL ON *.* TO 'bug75670user_sha'@'%'");
 
-                System.out.println();
+                //System.out.println();
                 System.out.printf("%-25s : %-18s : %-25s : %-25s : %s%n", "DefAuthPlugin", "AllowPubKeyRet", "User", "Passwd", "Test result");
-                System.out.println("----------------------------------------------------------------------------------------------------"
+                //System.out.println("----------------------------------------------------------------------------------------------------"
                         + "------------------------------");
 
                 for (Class<?> defAuthPlugin : new Class<?>[] { MysqlNativePasswordPlugin.class, Sha256PasswordPlugin.class }) {
@@ -7897,11 +7897,11 @@ public class ConnectionRegressionTest extends BaseTestCase {
         if (threadIds != null) {
             ThreadInfo[] threadInfos = threadMXBean.getThreadInfo(threadIds, Integer.MAX_VALUE);
             for (ThreadInfo ti : threadInfos) {
-                System.out.println();
-                System.out.println(ti);
-                System.out.println("Stack trace:");
+                //System.out.println();
+                //System.out.println(ti);
+                //System.out.println("Stack trace:");
                 for (StackTraceElement ste : ti.getStackTrace()) {
-                    System.out.println("   " + ste);
+                    //System.out.println("   " + ste);
                 }
                 if (ti.getThreadName().equals("early_syncing_thread") || ti.getThreadName().equals("late_syncing_thread")) {
                     deadlockCount++;
@@ -7959,7 +7959,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
             ReplicationConnectionGroup replConnGrp = ReplicationConnectionGroupManager.getConnectionGroup("deadlock");
             if (!this.useSyncGroupServersLock || replConnGroupLocks.add(replConnGrp.getGroupName())) {
                 try {
-                    System.out.println("Emulating syncing state in: " + replConnGrp + " on thread " + Thread.currentThread().getName() + ".");
+                    //System.out.println("Emulating syncing state in: " + replConnGrp + " on thread " + Thread.currentThread().getName() + ".");
                     replConnGrp.removeMasterHost("localhost:1234");
                     replConnGrp.addSlaveHost("localhost:1234");
                     replConnGrp.removeSlaveHost("localhost:1234", false);
@@ -7972,7 +7972,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                     }
                 }
             } else {
-                System.out.println("Giving up syncing state on thread " + Thread.currentThread() + ". Let the other thread do it!");
+                //System.out.println("Giving up syncing state on thread " + Thread.currentThread() + ". Let the other thread do it!");
             }
 
             synchronized (TestBug21934573ExceptionInterceptor.mainThreadLock) {
@@ -8150,14 +8150,14 @@ public class ConnectionRegressionTest extends BaseTestCase {
         ResultSet rset = con.createStatement().executeQuery("SHOW STATUS LIKE 'ssl_cipher'");
         assertTrue(rset.next());
         String cipher = rset.getString(2);
-        System.out.println("ssl_cipher=" + cipher);
+        //System.out.println("ssl_cipher=" + cipher);
     }
 
     private void testBug21947042_PrintVersion(Connection con) throws Exception {
         ResultSet rset = con.createStatement().executeQuery("SHOW STATUS LIKE 'ssl_version'");
         assertTrue(rset.next());
         String version = rset.getString(2);
-        System.out.println("ssl_version=" + version);
+        //System.out.println("ssl_version=" + version);
     }
 
     /**
@@ -8293,16 +8293,16 @@ public class ConnectionRegressionTest extends BaseTestCase {
         }
 
         for (String testDbUrl : testDbUrls) {
-            System.out.println(testDbUrl);
-            System.out.println("JVM version: " + System.getProperty(PropertyDefinitions.SYSP_java_version));
-            System.out.println("JVM supports TLS protocols: " + jvmSupportedProtocols);
+            //System.out.println(testDbUrl);
+            //System.out.println("JVM version: " + System.getProperty(PropertyDefinitions.SYSP_java_version));
+            //System.out.println("JVM supports TLS protocols: " + jvmSupportedProtocols);
             Connection sslConn = getConnectionWithProps(testDbUrl, props);
             assertTrue(((MysqlConnection) sslConn).getSession().isSSLEstablished());
-            System.out.println("MySQL version: " + ((MysqlConnection) sslConn).getSession().getServerSession().getServerVersion());
+            //System.out.println("MySQL version: " + ((MysqlConnection) sslConn).getSession().getServerSession().getServerVersion());
             this.rs = sslConn.createStatement().executeQuery("SHOW STATUS LIKE 'ssl_version'");
             assertTrue(this.rs.next());
             String tlsVersionUsed = this.rs.getString(2);
-            System.out.println("TLS version used: " + tlsVersionUsed);
+            //System.out.println("TLS version used: " + tlsVersionUsed);
 
             if (((JdbcConnection) sslConn).getSession().versionMeetsMinimum(5, 7, 10)) {
                 this.rs = sslConn.createStatement().executeQuery("SHOW GLOBAL VARIABLES LIKE 'tls_version'");
@@ -8315,14 +8315,14 @@ public class ConnectionRegressionTest extends BaseTestCase {
                         break;
                     }
                 }
-                System.out.println("Server supports TLS protocols: " + serverSupportedProtocols);
-                System.out.println("Highest common TLS protocol: " + highestCommonTlsVersion);
+                //System.out.println("Server supports TLS protocols: " + serverSupportedProtocols);
+                //System.out.println("Highest common TLS protocol: " + highestCommonTlsVersion);
 
                 assertEquals(highestCommonTlsVersion, tlsVersionUsed);
             } else {
                 assertEquals("TLSv1", tlsVersionUsed);
             }
-            System.out.println();
+            //System.out.println();
 
             sslConn.close();
         }
@@ -8360,18 +8360,18 @@ public class ConnectionRegressionTest extends BaseTestCase {
         }
 
         for (String testDbUrl : testDbUrls) {
-            System.out.println(testDbUrl);
-            System.out.println("JVM version: " + System.getProperty(PropertyDefinitions.SYSP_java_version));
-            System.out.println("JVM supports TLS protocols: " + jvmSupportedProtocols);
+            //System.out.println(testDbUrl);
+            //System.out.println("JVM version: " + System.getProperty(PropertyDefinitions.SYSP_java_version));
+            //System.out.println("JVM supports TLS protocols: " + jvmSupportedProtocols);
             Connection sslConn = getConnectionWithProps(testDbUrl, props);
             assertTrue(((MysqlConnection) sslConn).getSession().isSSLEstablished());
-            System.out.println("MySQL version: " + ((MysqlConnection) sslConn).getSession().getServerSession().getServerVersion());
+            //System.out.println("MySQL version: " + ((MysqlConnection) sslConn).getSession().getServerSession().getServerVersion());
             List<String> commonSupportedProtocols = new ArrayList<>();
             if (((JdbcConnection) sslConn).getSession().versionMeetsMinimum(5, 7, 10)) {
                 this.rs = sslConn.createStatement().executeQuery("SHOW GLOBAL VARIABLES LIKE 'tls_version'");
                 assertTrue(this.rs.next());
                 List<String> serverSupportedProtocols = Arrays.asList(this.rs.getString(2).trim().split("\\s*,\\s*"));
-                System.out.println("Server supports TLS protocols: " + serverSupportedProtocols);
+                //System.out.println("Server supports TLS protocols: " + serverSupportedProtocols);
                 commonSupportedProtocols.addAll(serverSupportedProtocols);
                 commonSupportedProtocols.retainAll(jvmSupportedProtocols);
             } else {
@@ -8383,7 +8383,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 Properties testProps = new Properties();
                 testProps.putAll(props);
                 testProps.setProperty(PropertyKey.enabledTLSProtocols.getKeyName(), protocol);
-                System.out.println("Testing " + protocol + " expecting connection: " + commonSupportedProtocols.contains(protocol));
+                //System.out.println("Testing " + protocol + " expecting connection: " + commonSupportedProtocols.contains(protocol));
                 try {
                     Connection tlsConn = getConnectionWithProps(testDbUrl, testProps);
                     if (!commonSupportedProtocols.contains(protocol)) {
@@ -8401,7 +8401,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                     }
                 }
             }
-            System.out.println();
+            //System.out.println();
             sslConn.close();
         }
     }
@@ -8536,7 +8536,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
 
             String testCase = String.format("Case: %d [ %s | %s ]", tst, allowMasterDownConnections ? "alwMstDn" : "-",
                     allowSlaveDownConnections ? "alwSlvDn" : "-");
-            System.out.println(testCase);
+            //System.out.println(testCase);
 
             props.setProperty(PropertyKey.allowMasterDownConnections.getKeyName(), Boolean.toString(allowMasterDownConnections));
             props.setProperty(PropertyKey.allowSlaveDownConnections.getKeyName(), Boolean.toString(allowSlaveDownConnections));
@@ -8884,8 +8884,8 @@ public class ConnectionRegressionTest extends BaseTestCase {
         final String hostPort4 = host4 + ":" + defaultPort;
         final String lbConnGroup = "Bug22848249A";
 
-        System.out.println("testBug22848249A:");
-        System.out.println("********************************************************************************");
+        //System.out.println("testBug22848249A:");
+        //System.out.println("********************************************************************************");
 
         Properties props = new Properties();
         props.setProperty(PropertyKey.loadBalanceHostRemovalGracePeriod.getKeyName(), "0");
@@ -8926,7 +8926,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 connectionSwaps++;
             }
         }
-        System.out.println("\t1. Swapped connections " + connectionSwaps + " times out of 100, without hitting the removed host(s).");
+        //System.out.println("\t1. Swapped connections " + connectionSwaps + " times out of 100, without hitting the removed host(s).");
         assertTrue(connectionSwaps > 0); // Non-deterministic, but something must be wrong if there are no swaps after 100 transaction boundaries.
         assertFalse(UnreliableSocketFactory.getHostsFromAllConnections().contains(UnreliableSocketFactory.getHostConnectedStatus(removedHost)));
 
@@ -8956,7 +8956,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 fail("Failed to swap to the newly added host after 100 transaction boundaries and " + connectionSwaps + " connection swaps.");
             }
         }
-        System.out.println("\t2. Swapped connections " + connectionSwaps + " times before hitting the new host.");
+        //System.out.println("\t2. Swapped connections " + connectionSwaps + " times before hitting the new host.");
         assertTrue(connectionSwaps > 0); // Non-deterministic, but something must be wrong if there are no swaps after 100 transaction boundaries.
         assertTrue(UnreliableSocketFactory.getHostsFromAllConnections().contains(UnreliableSocketFactory.getHostConnectedStatus(newHost)));
 
@@ -8988,7 +8988,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 fail("Failed to swap to the newly added host after 100 transaction boundaries and " + connectionSwaps + " connection swaps.");
             }
         }
-        System.out.println("\t3. Swapped connections " + connectionSwaps + " times before hitting the new host.");
+        //System.out.println("\t3. Swapped connections " + connectionSwaps + " times before hitting the new host.");
         assertTrue(connectionSwaps > 0); // Non-deterministic, but something must be wrong if there are no swaps after 100 transaction boundaries.
         assertTrue(UnreliableSocketFactory.getHostsFromAllConnections().contains(UnreliableSocketFactory.getHostConnectedStatus(newHost)));
 
@@ -9022,7 +9022,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 connectionSwaps++;
             }
         }
-        System.out.println("\t4. Swapped connections " + connectionSwaps + " times out of 100, without hitting the removed host(s).");
+        //System.out.println("\t4. Swapped connections " + connectionSwaps + " times out of 100, without hitting the removed host(s).");
         assertTrue(connectionSwaps > 0); // Non-deterministic, but something must be wrong if there are no swaps after 100 transaction boundaries.
 
         // Make sure the connection is working fine.
@@ -9049,8 +9049,8 @@ public class ConnectionRegressionTest extends BaseTestCase {
         final String hostPort4 = host4 + ":" + defaultPort;
         final String lbConnGroup = "Bug22848249B";
 
-        System.out.println("testBug22848249B:");
-        System.out.println("********************************************************************************");
+        //System.out.println("testBug22848249B:");
+        //System.out.println("********************************************************************************");
 
         Properties props = new Properties();
         props.setProperty(PropertyKey.loadBalanceHostRemovalGracePeriod.getKeyName(), "0");
@@ -9093,7 +9093,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 connectionSwaps++;
             }
         }
-        System.out.println("\t1. Swapped connections " + connectionSwaps + " times out of 100, without hitting the removed host(s).");
+        //System.out.println("\t1. Swapped connections " + connectionSwaps + " times out of 100, without hitting the removed host(s).");
         assertTrue(connectionSwaps > 0); // Non-deterministic, but something must be wrong if there are no swaps after 100 transaction boundaries.
         assertFalse(UnreliableSocketFactory.getHostsFromAllConnections().contains(UnreliableSocketFactory.getHostConnectedStatus(removedHost)));
 
@@ -9123,7 +9123,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 fail("Failed to swap to the newly added host after 100 transaction boundaries and " + connectionSwaps + " connection swaps.");
             }
         }
-        System.out.println("\t2. Swapped connections " + connectionSwaps + " times before hitting the new host.");
+        //System.out.println("\t2. Swapped connections " + connectionSwaps + " times before hitting the new host.");
         assertTrue(connectionSwaps > 0); // Non-deterministic, but something must be wrong if there are no swaps after 100 transaction boundaries.
         assertTrue(UnreliableSocketFactory.getHostsFromAllConnections().contains(UnreliableSocketFactory.getHostConnectedStatus(newHost)));
 
@@ -9155,7 +9155,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 fail("Failed to swap to the newly added host after 100 transaction boundaries and " + connectionSwaps + " connection swaps.");
             }
         }
-        System.out.println("\t3. Swapped connections " + connectionSwaps + " times before hitting the new host.");
+        //System.out.println("\t3. Swapped connections " + connectionSwaps + " times before hitting the new host.");
         assertTrue(connectionSwaps > 0); // Non-deterministic, but something must be wrong if there are no swaps after 100 transaction boundaries.
         assertTrue(UnreliableSocketFactory.getHostsFromAllConnections().contains(UnreliableSocketFactory.getHostConnectedStatus(newHost)));
 
@@ -9191,7 +9191,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 connectionSwaps++;
             }
         }
-        System.out.println("\t4. Swapped connections " + connectionSwaps + " times out of 100, without hitting the removed host(s).");
+        //System.out.println("\t4. Swapped connections " + connectionSwaps + " times out of 100, without hitting the removed host(s).");
         assertTrue(connectionSwaps > 0); // Non-deterministic, but something must be wrong if there are no swaps after 100 transaction boundaries.
 
         // Make sure the connection is working fine.
@@ -9216,8 +9216,8 @@ public class ConnectionRegressionTest extends BaseTestCase {
         final String hostPort4 = host4 + ":" + defaultPort;
         final String lbConnGroup = "Bug22848249C";
 
-        System.out.println("testBug22848249C:");
-        System.out.println("********************************************************************************");
+        //System.out.println("testBug22848249C:");
+        //System.out.println("********************************************************************************");
 
         /*
          * Initial connection will be able to use all hosts, even after removed from the connection group.
@@ -9263,7 +9263,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 connectionSwaps++;
             }
         }
-        System.out.println("\t1. Swapped connections " + connectionSwaps + " times out of 100 or before using all hosts.");
+        //System.out.println("\t1. Swapped connections " + connectionSwaps + " times out of 100 or before using all hosts.");
         assertTrue(connectionSwaps > 0); // Non-deterministic, but something must be wrong if there are no swaps after 100 transaction boundaries.
         assertEquals(4, hostsUsed.size());
 
@@ -9302,7 +9302,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 connectionSwaps++;
             }
         }
-        System.out.println("\t2. Swapped connections " + connectionSwaps + " times out of 100, without hitting the removed host(s).");
+        //System.out.println("\t2. Swapped connections " + connectionSwaps + " times out of 100, without hitting the removed host(s).");
         assertTrue(connectionSwaps > 0); // Non-deterministic, but something must be wrong if there are no swaps after 100 transaction boundaries.
 
         // Make sure the connection is working fine.
@@ -9328,8 +9328,8 @@ public class ConnectionRegressionTest extends BaseTestCase {
         final String hostPort4 = host4 + ":" + defaultPort;
         final String lbConnGroup = "Bug22848249D";
 
-        System.out.println("testBug22848249D:");
-        System.out.println("********************************************************************************");
+        //System.out.println("testBug22848249D:");
+        //System.out.println("********************************************************************************");
 
         /*
          * Initial connection will be able to use only the hosts available when it was initialized, even after adding new ones to the connection group.
@@ -9370,7 +9370,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 connectionSwaps++;
             }
         }
-        System.out.println("\t1. Swapped connections " + connectionSwaps + " times out of 100, without hitting the newly added host(s).");
+        //System.out.println("\t1. Swapped connections " + connectionSwaps + " times out of 100, without hitting the newly added host(s).");
         assertTrue(connectionSwaps > 0); // Non-deterministic, but something must be wrong if there are no swaps after 100 transaction boundaries.
 
         // Make sure the connection is working fine.
@@ -9406,7 +9406,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 connectionSwaps++;
             }
         }
-        System.out.println("\t2. Swapped connections " + connectionSwaps + " times out of 100 or before using all hosts.");
+        //System.out.println("\t2. Swapped connections " + connectionSwaps + " times out of 100 or before using all hosts.");
         assertTrue(connectionSwaps > 0); // Non-deterministic, but something must be wrong if there are no swaps after 100 transaction boundaries.
         assertEquals(4, hostsUsed.size());
 
@@ -10718,8 +10718,8 @@ public class ConnectionRegressionTest extends BaseTestCase {
             Connection testConn = getConnectionWithProps(props);
             ResultSet rslt = testConn.createStatement().executeQuery("SELECT @@wait_timeout, @@interactive_timeout");
             rslt.next();
-            System.out.println("wait_timeout: " + rslt.getString(1));
-            System.out.println("interactive_timeout: " + rslt.getString(1));
+            //System.out.println("wait_timeout: " + rslt.getString(1));
+            //System.out.println("interactive_timeout: " + rslt.getString(1));
             Thread.sleep(1500 * seconds);
 
             assertThrows(CommunicationsException.class,
@@ -11140,7 +11140,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
         Session sess = ((JdbcConnection) c1).getSession();
 
         if (!sess.versionMeetsMinimum(5, 6, 5)) {
-            System.out.println("Skipped. Requires MySQL 5.6.5+ server.");
+            //System.out.println("Skipped. Requires MySQL 5.6.5+ server.");
             c1.close();
             return;
         }
@@ -11154,8 +11154,8 @@ public class ConnectionRegressionTest extends BaseTestCase {
         this.rs = s1.executeQuery("select database()");
         this.rs.next();
         String origDb = this.rs.getString(1);
-        System.out.println("URL [" + url + "]");
-        System.out.println("1. Original database [" + origDb + "]");
+        //System.out.println("URL [" + url + "]");
+        //System.out.println("1. Original database [" + origDb + "]");
 
         try {
             // create user with required password and sha256_password auth
@@ -11176,7 +11176,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
             ((JdbcConnection) c2).changeUser("Bug25642226u1", pwd);
             this.rs = s2.executeQuery("select database()");
             this.rs.next();
-            System.out.println("2. Database after sha256 changeUser [" + this.rs.getString(1) + "]");
+            //System.out.println("2. Database after sha256 changeUser [" + this.rs.getString(1) + "]");
             assertEquals(origDb, this.rs.getString(1)); // was returning null for database name
             this.rs = s2.executeQuery("show tables"); // was failing with exception
 
@@ -11195,7 +11195,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 ((JdbcConnection) c2).changeUser("Bug25642226u2", pwd);
                 this.rs = s2.executeQuery("select database()");
                 this.rs.next();
-                System.out.println("3. Database after sha2 changeUser [" + this.rs.getString(1) + "]");
+                //System.out.println("3. Database after sha2 changeUser [" + this.rs.getString(1) + "]");
                 assertEquals(origDb, this.rs.getString(1)); // was returning null for database name
                 this.rs = s2.executeQuery("show tables"); // was failing with exception
             }

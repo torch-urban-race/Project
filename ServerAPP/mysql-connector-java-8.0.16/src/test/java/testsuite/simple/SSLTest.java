@@ -73,6 +73,6 @@ public class SSLTest extends BaseTestCase {
      *             if an error occurs
      */
     public void testConnect() throws Exception {
-        System.out.println("<<<<<<<<<<< Look for SSL debug output >>>>>>>>>>>");
+        //System.out.println("<<<<<<<<<<< Look for SSL debug output >>>>>>>>>>>");
     }
 }

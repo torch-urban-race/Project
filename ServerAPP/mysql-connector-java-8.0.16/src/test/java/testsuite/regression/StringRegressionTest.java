@@ -90,7 +90,7 @@ public class StringRegressionTest extends BaseTestCase {
         String convertedString = StringUtils.toAsciiString(buf);
 
         for (int i = 0; i < convertedString.length(); i++) {
-            System.out.println((byte) convertedString.charAt(i));
+            //System.out.println((byte) convertedString.charAt(i));
         }
 
         assertTrue("Converted string != test string", testString.equals(convertedString));
@@ -148,7 +148,7 @@ public class StringRegressionTest extends BaseTestCase {
 
             String retrString = this.rs.getString(1);
 
-            System.out.println(retrString.equals(testString));
+            //System.out.println(retrString.equals(testString));
         } finally {
             sjisStmt.executeUpdate("DROP TABLE IF EXISTS doubleEscapeSJISTest");
         }
@@ -229,8 +229,8 @@ public class StringRegressionTest extends BaseTestCase {
 
             String retrievedString = this.rs.getString(1);
 
-            System.out.println(latin1String);
-            System.out.println(retrievedString);
+            //System.out.println(latin1String);
+            //System.out.println(retrievedString);
 
             if (!retrievedString.equals(latin1String)) {
                 int stringLength = Math.min(retrievedString.length(), latin1String.length());
@@ -309,7 +309,7 @@ public class StringRegressionTest extends BaseTestCase {
             bytesOut.append(" ");
         }
 
-        System.out.println(bytesOut.toString());
+        //System.out.println(bytesOut.toString());
 
         String origString = new String(origByteStream, "SJIS");
         byte[] newByteStream = StringUtils.getBytes(origString, "SJIS");
@@ -324,7 +324,7 @@ public class StringRegressionTest extends BaseTestCase {
             bytesOut.append(" ");
         }
 
-        System.out.println(bytesOut.toString());
+        //System.out.println(bytesOut.toString());
 
         //
         // Now, insert and retrieve the value from the database
@@ -342,7 +342,7 @@ public class StringRegressionTest extends BaseTestCase {
             this.rs = sjisStmt.executeQuery("SHOW VARIABLES LIKE 'character_set%'");
 
             while (this.rs.next()) {
-                System.out.println(this.rs.getString(1) + " = " + this.rs.getString(2));
+                //System.out.println(this.rs.getString(1) + " = " + this.rs.getString(2));
             }
 
             sjisStmt.executeUpdate("DROP TABLE IF EXISTS sjisTest");
@@ -365,7 +365,7 @@ public class StringRegressionTest extends BaseTestCase {
                     bytesOut.append(" ");
                 }
 
-                System.out.println("Value retrieved from database: " + bytesOut.toString());
+                //System.out.println("Value retrieved from database: " + bytesOut.toString());
 
                 String testValue = this.rs.getString(1);
 
@@ -469,7 +469,7 @@ public class StringRegressionTest extends BaseTestCase {
         assertTrue(this.rs.next());
 
         String testValue = this.rs.getString(1);
-        System.out.println(testValue);
+        //System.out.println(testValue);
         assertTrue(testValue.equals(charsToTest));
 
     }
@@ -641,7 +641,7 @@ public class StringRegressionTest extends BaseTestCase {
         String codePage1252 = new String(new byte[] { (byte) 0x80, (byte) 0x82, (byte) 0x83, (byte) 0x84, (byte) 0x85, (byte) 0x86, (byte) 0x87, (byte) 0x88,
                 (byte) 0x89, (byte) 0x8a, (byte) 0x8b, (byte) 0x8c, (byte) 0x8e }, "Cp1252");
 
-        System.out.println(codePage1252);
+        //System.out.println(codePage1252);
 
         Properties props = new Properties();
         props.setProperty(PropertyKey.characterEncoding.getKeyName(), "Cp1252");

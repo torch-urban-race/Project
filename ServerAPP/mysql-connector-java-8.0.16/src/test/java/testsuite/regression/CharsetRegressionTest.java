@@ -76,7 +76,7 @@ public class CharsetRegressionTest extends BaseTestCase {
             getConnectionWithProps(p);
             // exception will be thrown from the statement interceptor if any "SET NAMES utf8" statement is issued instead of "SET NAMES utf8mb4"
         } else {
-            System.out.println(
+            //System.out.println(
                     "testBug73663 was skipped: This test is only run when character_set_server=utf8mb4 and collation-server set to one of utf8mb4 collations.");
         }
     }

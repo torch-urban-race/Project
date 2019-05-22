@@ -87,7 +87,7 @@ public class DateTest extends BaseTestCase {
         cal.set(Calendar.MILLISECOND, 0);
         cal.set(Calendar.AM_PM, Calendar.AM);
         cal.getTime();
-        System.out.println(cal);
+        //System.out.println(cal);
 
         // DateFormat df = SimpleDateFormat.getInstance();
         DateFormat df = TimeUtil.getSimpleDateFormat(null, "yyyy/MM/dd HH:mm:ss z", null, null);
@@ -98,13 +98,13 @@ public class DateTest extends BaseTestCase {
         java.sql.Date nowDate = new java.sql.Date(cal.getTime().getTime());
         Timestamp nowDatetime = new Timestamp(cal.getTime().getTime());
         java.sql.Time nowTime = new java.sql.Time(cal.getTime().getTime());
-        System.out.println("** Times with given calendar (before storing) **\n");
-        System.out.println("TIMESTAMP:\t" + nowTstamp.getTime() + " -> " + df.format(nowTstamp));
-        System.out.println("DATE:\t\t" + nowDate.getTime() + " -> " + df.format(nowDate));
-        System.out.println("DATETIME:\t" + nowDatetime.getTime() + " -> " + df.format(nowDatetime));
-        System.out.println("DATE:\t\t" + nowDate.getTime() + " -> " + df.format(nowDate));
-        System.out.println("TIME:\t\t" + nowTime.getTime() + " -> " + df.format(nowTime));
-        System.out.println("\n");
+        //System.out.println("** Times with given calendar (before storing) **\n");
+        //System.out.println("TIMESTAMP:\t" + nowTstamp.getTime() + " -> " + df.format(nowTstamp));
+        //System.out.println("DATE:\t\t" + nowDate.getTime() + " -> " + df.format(nowDate));
+        //System.out.println("DATETIME:\t" + nowDatetime.getTime() + " -> " + df.format(nowDatetime));
+        //System.out.println("DATE:\t\t" + nowDate.getTime() + " -> " + df.format(nowDate));
+        //System.out.println("TIME:\t\t" + nowTime.getTime() + " -> " + df.format(nowTime));
+        //System.out.println("\n");
         this.pstmt.setTimestamp(1, nowTstamp, calGMT);
         // have to use the same TimeZone as used to create or there will be
         // shift
@@ -128,12 +128,12 @@ public class DateTest extends BaseTestCase {
             java.sql.Timestamp thenDatetime = this.rs.getTimestamp(3, calGMT);
 
             java.sql.Time thenTime = this.rs.getTime(4, cal);
-            System.out.println("** Times with given calendar (retrieved from database) **\n");
-            System.out.println("TIMESTAMP:\t" + thenTstamp.getTime() + " -> " + df.format(thenTstamp));
-            System.out.println("DATE:\t\t" + thenDate.getTime() + " -> " + df.format(thenDate));
-            System.out.println("DATETIME:\t" + thenDatetime.getTime() + " -> " + df.format(thenDatetime));
-            System.out.println("TIME:\t\t" + thenTime.getTime() + " -> " + df.format(thenTime));
-            System.out.println("\n");
+            //System.out.println("** Times with given calendar (retrieved from database) **\n");
+            //System.out.println("TIMESTAMP:\t" + thenTstamp.getTime() + " -> " + df.format(thenTstamp));
+            //System.out.println("DATE:\t\t" + thenDate.getTime() + " -> " + df.format(thenDate));
+            //System.out.println("DATETIME:\t" + thenDatetime.getTime() + " -> " + df.format(thenDatetime));
+            //System.out.println("TIME:\t\t" + thenTime.getTime() + " -> " + df.format(thenTime));
+            //System.out.println("\n");
         }
 
         this.rs.close();
@@ -319,10 +319,10 @@ public class DateTest extends BaseTestCase {
             pStmt.executeUpdate();
             this.rs = this.stmt.executeQuery("SELECT * FROM testReggieBug");
             this.rs.next();
-            System.out.println(this.rs.getDate(1));
+            //System.out.println(this.rs.getDate(1));
             this.rs = this.conn.prepareStatement("SELECT * FROM testReggieBug").executeQuery();
             this.rs.next();
-            System.out.println(this.rs.getDate(1));
+            //System.out.println(this.rs.getDate(1));
 
         } finally {
             this.stmt.executeUpdate("DROP TABLE IF EXISTS testReggieBug");
@@ -346,20 +346,20 @@ public class DateTest extends BaseTestCase {
         this.pstmt = this.conn.prepareStatement("SELECT time_field, date_field, datetime_field, timestamp_field FROM testNativeConversions");
         this.rs = this.pstmt.executeQuery();
         assertTrue(this.rs.next());
-        System.out.println(this.rs.getTime(1));
+        //System.out.println(this.rs.getTime(1));
         // DATE -> Time not allowed
-        System.out.println(this.rs.getTime(3));
-        System.out.println(this.rs.getTime(4));
-        System.out.println();
+        //System.out.println(this.rs.getTime(3));
+        //System.out.println(this.rs.getTime(4));
+        //System.out.println();
         // TIME -> Date not allowed
-        System.out.println(this.rs.getDate(2));
-        System.out.println(this.rs.getDate(3));
-        System.out.println(this.rs.getDate(4));
-        System.out.println();
-        System.out.println(this.rs.getTimestamp(1));
-        System.out.println(this.rs.getTimestamp(2));
-        System.out.println(this.rs.getTimestamp(3));
-        System.out.println(this.rs.getTimestamp(4));
+        //System.out.println(this.rs.getDate(2));
+        //System.out.println(this.rs.getDate(3));
+        //System.out.println(this.rs.getDate(4));
+        //System.out.println();
+        //System.out.println(this.rs.getTimestamp(1));
+        //System.out.println(this.rs.getTimestamp(2));
+        //System.out.println(this.rs.getTimestamp(3));
+        //System.out.println(this.rs.getTimestamp(4));
     }
 
 }
