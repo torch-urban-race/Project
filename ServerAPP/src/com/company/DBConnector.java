@@ -17,7 +17,9 @@ public class DBConnector {
     public DBConnector() {
         //Connect to the database
         try {
-            String url = "jdbc:mysql://localhost:3306/torchur?user=NG-KB&password=1234567890";
+
+            String url = "jdbc:mysql://localhost:3306/torchur?user=root&password=123456"; //-MoDB
+            //String url = "jdbc:mysql://localhost:3306/torchur?user=NG-KB&password=1234567890"; //-NatanDB
             Connection connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
         } catch (SQLException sqle) {
@@ -285,8 +287,8 @@ public class DBConnector {
             } else {
                 information[0] = "" + ErrorCode.OK;
 
-                String distance = rs.getString(3);
-                distance = distance.substring(0, distance.indexOf(".")+decimals);
+                String distance = String.format("%.2f", rs.getDouble(3));
+                //distance = distance.substring(0, distance.indexOf(".")+decimals);
 
                 information[1] = rs.getString(1) + ";" + rs.getString(2) + ";"
                         + distance + ";" + rs.getString(4) + ";" + rs.getString(5);

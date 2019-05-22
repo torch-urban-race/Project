@@ -224,9 +224,10 @@ public class MapUtils {
     public void updateCircleLocation(){
         Circle pickupCircle = drawerMapActivity.pickupCircle;
 
-
-        pickupCircle.setCenter(new LatLng(drawerMapActivity.mLastKnownLocation.getLatitude(), drawerMapActivity.mLastKnownLocation.getLongitude()));
-
+        if (drawerMapActivity.mLastKnownLocation != null) {
+            pickupCircle.setCenter(new LatLng(drawerMapActivity.mLastKnownLocation.getLatitude(), drawerMapActivity.mLastKnownLocation.getLongitude()));
+        } else {
+        }
     }
 
     /**
