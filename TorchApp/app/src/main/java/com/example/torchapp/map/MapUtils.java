@@ -222,10 +222,20 @@ public class MapUtils {
      * Updates the cetner of the circle which indicates the pick up radius
      */
     public void updateCircleLocation(){
-        Circle pickupCircle = drawerMapActivity.pickupCircle;
+
 
         if (drawerMapActivity.mLastKnownLocation != null) {
-            pickupCircle.setCenter(new LatLng(drawerMapActivity.mLastKnownLocation.getLatitude(), drawerMapActivity.mLastKnownLocation.getLongitude()));
+            if(drawerMapActivity.pickupCircle == null){
+                drawerMapActivity.pickupCircle = drawerMapActivity.mMap.addCircle(new CircleOptions()
+                        .center(new LatLng(drawerMapActivity.mLastKnownLocation.getLatitude(), drawerMapActivity.mLastKnownLocation.getLongitude()))
+                        .radius(50)
+                        .strokeColor(circleFill)
+                        .fillColor(circleFill));
+            } else {
+
+                Circle pickupCircle = drawerMapActivity.pickupCircle;
+                pickupCircle.setCenter(new LatLng(drawerMapActivity.mLastKnownLocation.getLatitude(), drawerMapActivity.mLastKnownLocation.getLongitude()));
+            }
         } else {
         }
     }

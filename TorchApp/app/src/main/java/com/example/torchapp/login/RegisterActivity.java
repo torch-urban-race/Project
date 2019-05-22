@@ -24,9 +24,6 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout passwordEditTextLayout;
     private TextInputEditText passwordEditText;
 
-    private TextInputLayout repeatPasswordEditTextLayout;
-    private TextInputEditText repeatPasswordEditText;
-
     private ImageView backButton;
     private Button registerButton;
 
@@ -48,8 +45,6 @@ public class RegisterActivity extends AppCompatActivity {
         this.passwordEditTextLayout = findViewById(R.id.register_password_edit_text_layout);
         this.passwordEditText = findViewById(R.id.register_password_edit_text);
 
-        this.repeatPasswordEditTextLayout = findViewById(R.id.register_repeat_password_edit_text_layout);
-        this.repeatPasswordEditText = findViewById(R.id.register_repeat_password_edit_text);
 
         this.backButton = findViewById(R.id.back_button);
         //this.termsOfServiceTextView = findViewById(R.id.register_terms_of_service_text_link);
@@ -85,19 +80,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        repeatPasswordEditText.addTextChangedListener(
-                LoginUtils.clearLayoutErrorOnUpdateTextWatcher(repeatPasswordEditTextLayout));
-        repeatPasswordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (LoginUtils.matchesText(passwordEditText.getText(),
-                            repeatPasswordEditText.getText())) {
-                        repeatPasswordEditTextLayout.setError("Your passwords must match");
-                    }
-                }
-            }
-        });
     }
 
     private void setupClickListeners() {

@@ -79,10 +79,10 @@ public class DrawerMapActivity extends AppCompatActivity
     // Keys for storing activity state.
     protected static final String KEY_CAMERA_POSITION = "camera_position";
     protected static final String KEY_LOCATION = "location";
-    protected static final long LOCATION_UPDATE_INTERVAL = 5000;
-    protected static final long LOCATION_UPDATE_FASTEST_INTERVAL = 5000;
+    protected static final long LOCATION_UPDATE_INTERVAL = 3000;
+    protected static final long LOCATION_UPDATE_FASTEST_INTERVAL = 3000;
     protected static final int MINIMUM_PICKUP_DISTANCE = 50;
-    protected static final long MARKER_UPDATE_INTERVAL = 5000;
+    protected static final long MARKER_UPDATE_INTERVAL = 3000;
 
     //Custom variables
     protected Marker selectedMarker;
