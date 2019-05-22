@@ -225,11 +225,8 @@ public class MapUtils {
 
 
         if (drawerMapActivity.mLastKnownLocation != null) {
-            drawerMapActivity.pickupCircle = drawerMapActivity.mMap.addCircle(new CircleOptions()
-                    .center(new LatLng(drawerMapActivity.mLastKnownLocation.getLatitude(), drawerMapActivity.mLastKnownLocation.getLongitude()))
-                    .radius(50)
-                    .strokeColor(circleFill)
-                    .fillColor(circleFill));
+
+            drawerMapActivity.pickupCircle.setCenter(new LatLng(drawerMapActivity.mLastKnownLocation.getLatitude(), drawerMapActivity.mLastKnownLocation.getLongitude()));
 
         } else {
         }
