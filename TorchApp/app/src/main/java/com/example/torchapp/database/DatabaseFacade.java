@@ -9,6 +9,8 @@ import com.example.torchapp.map.DrawerMapActivity;
 import com.example.torchapp.login.LoginActivity;
 import com.example.torchapp.login.RegisterActivity;
 
+import java.util.Arrays;
+
 import static com.example.torchapp.map.UIUtils.drawerMapActivity;
 
 public abstract class DatabaseFacade {
@@ -316,6 +318,7 @@ public abstract class DatabaseFacade {
             public void run() {
 
                 final  String[] params = DatabaseHandler.getInstance().getAchievementInfo(achievementID);
+                System.out.println(Arrays.deepToString(params));
 
                 if(params.length < 2){
                     drawerMapActivity.runOnUiThread(new Runnable() {

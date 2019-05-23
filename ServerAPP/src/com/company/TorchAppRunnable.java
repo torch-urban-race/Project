@@ -22,6 +22,7 @@ public class TorchAppRunnable implements Runnable {
             ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
             String str = (String) in.readObject();
             //System.out.println("Client: -> " + str);
+            //System.out.println(str);
 
             String errorString, reply = "";
             String data[] = getData(str);
