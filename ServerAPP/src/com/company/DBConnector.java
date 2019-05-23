@@ -19,8 +19,8 @@ public class DBConnector {
         //Connect to the database
         try {
 
-            String url = "jdbc:mysql://localhost:3306/torchur?user=root&password=123456"; //-MoDB
-            //String url = "jdbc:mysql://localhost:3306/torchur?user=NG-KB&password=1234567890"; //-NatanDB
+            //String url = "jdbc:mysql://localhost:3306/torchur?user=root&password=123456"; //-MoDB
+            String url = "jdbc:mysql://localhost:3306/torchur?user=NG-KB&password=1234567890"; //-NatanDB
             Connection connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
         } catch (SQLException sqle) {

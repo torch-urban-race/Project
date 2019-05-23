@@ -17,8 +17,8 @@ public class DatabaseHandler {
     private final String SPLIT = ";";
     private final int MAIN_TORCH = 1;
 
-    private String server = "85.197.159.210"; //--Mo
-    //private String server = "85.197.159.54"; //-- Natan
+    //private String server = "85.197.159.210"; //--Mo
+    private String server = "85.197.159.54"; //-- Natan
     private int port = 45454;
 
     private DatabaseHandler() {
