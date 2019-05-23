@@ -99,11 +99,15 @@ public class TorchAppRunnable implements Runnable {
                         //update torch location: t@torchID;latitude;longitude;bearerID
                         case '@':
                             if (data.length == 4) {
+                                Long start = System.currentTimeMillis();
                                 errorString = "" + connector.setTorchPosition(data[0], data[1], data[2], data[3]);
+                                Long end = System.currentTimeMillis();
+                                System.out.println(start - end);
                             } else {
                                 errorString = "" + ErrorCode.InvalidCommand;
                             }
                             reply = "Torch position updated";
+
                             break;
                         //get general torch information: t:torchID
                         case ':':
