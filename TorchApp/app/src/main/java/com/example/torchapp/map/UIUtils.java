@@ -22,6 +22,7 @@ import com.example.torchapp.model.CurrentUser;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class UIUtils {
@@ -150,8 +151,21 @@ public class UIUtils {
                 drawerMapActivity.carriedMarker.setPosition(userPosition);
                 drawerMapActivity.carriedMarker.setVisible(true);
 
+                //Start timing
+                long start = System.currentTimeMillis();
+
+                Marker marker = drawerMapActivity.getMapUtils().systemMarkers.get((Integer)drawerMapActivity.carriedMarker.getTag());
+                LatLng oldPos = marker.getPosition();
+
+
+                Double distance = calcDistance(oldPos.latitude, oldPos.longitude, userPosition.latitude, userPosition.longitude);
+
                 DatabaseFacade.updateTorchPosition((Integer) drawerMapActivity.carriedMarker.getTag(), userPosition.latitude, userPosition.longitude, Integer.parseInt(SaveSharedPreference.getUserId(drawerMapActivity.getApplicationContext())));
                 drawerMapActivity.carriedMarker = null;
+
+                long end = System.currentTimeMillis();
+
+                System.out.println(";" + (end-start));
 
                 disableButton(drawerMapActivity.dropButton);
                 drawerMapActivity.dropButton.setVisibility(View.INVISIBLE);
@@ -240,4 +254,28 @@ public class UIUtils {
         drawerMapActivity.getCurrentUser().requestUserUpdate(drawerMapActivity, Integer.parseInt(SaveSharedPreference.getUserId(drawerMapActivity.getApplicationContext())));
     }
 
+
+    public Double calcDistance(double latOld, double longOld, double latNew, double longNew){
+
+        double distance = 0.0;
+        double theta = longOld - longNew;
+
+        double dist = Math.sin(deg2rad(latOld)) * Math.sin(deg2rad(latNew)) + Math.cos(deg2rad(latOld)) * Math.cos(deg2rad(latNew)) * Math.cos(deg2rad(theta));
+
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+
+        dist = dist * 1.609344;
+
+
+        return dist;
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }
 }

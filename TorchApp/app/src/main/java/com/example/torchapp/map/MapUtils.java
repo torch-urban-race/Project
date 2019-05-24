@@ -29,7 +29,7 @@ public class MapUtils {
 
     private static volatile MapUtils singleInstance;
     private static DrawerMapActivity drawerMapActivity;
-    private static  Map<Integer, Marker> systemMarkers;
+    public static  Map<Integer, Marker> systemMarkers;
 
 
     Marker mainMarker;
