@@ -570,6 +570,7 @@ public class DrawerMapActivity extends AppCompatActivity
                String[] params = new String[1];
                params[0] = "Exceeded Limit";
                tracker = 0;
+               
                 System.gc();
 
 
