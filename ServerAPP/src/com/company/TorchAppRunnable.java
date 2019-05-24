@@ -8,6 +8,7 @@ public class TorchAppRunnable implements Runnable {
 
     private Socket clientSocket;
     private DBConnector connector;
+    long start;
 
     public TorchAppRunnable(Socket clientSocket, DBConnector connector) {
         this.clientSocket = clientSocket;
@@ -21,7 +22,8 @@ public class TorchAppRunnable implements Runnable {
             ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
             String str = (String) in.readObject();
-            System.out.println("Client: -> " + str);
+            start = System.currentTimeMillis();
+            //System.out.println("Client: -> " + str);
             //System.out.println(str);
 
             String errorString, reply = "";
@@ -99,10 +101,9 @@ public class TorchAppRunnable implements Runnable {
                         //update torch location: t@torchID;latitude;longitude;bearerID
                         case '@':
                             if (data.length == 4) {
-                                long start = System.currentTimeMillis();
                                 errorString = "" + connector.setTorchPosition(data[0], data[1], data[2], data[3]);
                                 long end = System.currentTimeMillis();
-                                System.out.println(start - end);
+                                System.out.println(end - start);
                             } else {
                                 errorString = "" + ErrorCode.InvalidCommand;
                             }
