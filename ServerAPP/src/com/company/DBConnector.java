@@ -1,12 +1,13 @@
 package com.company;
 
+import java.awt.desktop.SystemSleepEvent;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DBConnector {
 
-    private Statement statement;
+    private Connection connection;
 
     private final int MAX_NAME_LENGTH = 20;         //given by database
     private final int MAX_PASSWORD_LENGTH = 50;     //given by database
@@ -20,8 +21,7 @@ public class DBConnector {
 
             String url = "jdbc:mysql://localhost:3306/torchur?user=root&password=123456"; //-MoDB
             //String url = "jdbc:mysql://localhost:3306/torchur?user=NG-KB&password=1234567890"; //-NatanDB
-            Connection connection = DriverManager.getConnection(url);
-            statement = connection.createStatement();
+            connection = DriverManager.getConnection(url);
         } catch (SQLException sqle) {
             //System.out.println("Connection failed!!! Panic! We can't reach the world! :(");
             System.exit(-1);
@@ -54,6 +54,7 @@ public class DBConnector {
 
     private int deleteValues() {
         try {
+            Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM `torchur`.`routedatapoint`;");
             statement.executeUpdate("ALTER TABLE `torchur`.`routedatapoint` AUTO_INCREMENT = 1;");
             //System.out.println("Routes deleted");
@@ -83,6 +84,7 @@ public class DBConnector {
 
     private int initValues() {
         try {
+            Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO `torchur`.`user` (`name`, `password`, `maxCarryTime`, `distanceTraveled`, `amountTorchesCreated`, `amountAchievements`) " +
                     "VALUES ('Natan', 'Gomes', '5', '0.0', '1', '0');");
             //System.out.println("Default user created");
@@ -128,6 +130,7 @@ public class DBConnector {
 
     public int resetUserTable() {
         try {
+            Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM `torchur`.`user`");
             statement.executeUpdate("ALTER TABLE `torchur`.`user` AUTO_INCREMENT = 1");
             statement.executeUpdate("INSERT INTO `torchur`.`user` (`name`, `password`, `maxCarryTime`, `distanceTraveled`, `amountTorchesCreated`, `amountAchievements`) " +
@@ -141,6 +144,7 @@ public class DBConnector {
 
     public int resetTorchTable() {
         try {
+            Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM `torchur`.`torch`");
             statement.executeUpdate("ALTER TABLE `torchur`.`torch` AUTO_INCREMENT = 1");
             statement.executeUpdate("INSERT INTO `torchur`.`torch` (`name`, `currentLatitude`, `currentLongitude`, `creationTime`, `publicity`, `creatorID`) " +
@@ -154,6 +158,7 @@ public class DBConnector {
 
     public int resetAchievementTable() {
         try {
+            Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM `torchur`.`achievement`");
             statement.executeUpdate("ALTER TABLE `torchur`.`achievement` AUTO_INCREMENT = 1");
             statement.executeUpdate("INSERT INTO `torchur`.`achievement` (`title`, `description`, `reward`) " +
@@ -190,6 +195,7 @@ public class DBConnector {
 
     public int resetRouteTable() {
         try {
+            Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM `torchur`.`routedatapoint`");
             statement.executeUpdate("ALTER TABLE `torchur`.`routedatapoint` AUTO_INCREMENT = 1");
             return 0;
@@ -200,6 +206,7 @@ public class DBConnector {
 
     public int resetUserAchievementTable() {
         try {
+            Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM `torchur`.`userhasachievement`");
             statement.executeUpdate("ALTER TABLE `torchur`.`userhasachievement` AUTO_INCREMENT = 1");
             return 0;
@@ -235,6 +242,7 @@ public class DBConnector {
 
         //Executes MYSQL query
         try {
+            Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO `torchur`.`user` (`name`, `password`, `maxCarryTime`, `distanceTraveled`, `amountTorchesCreated`, `amountAchievements`) " +
                     "VALUES ('" + name + "', '" + password + "', '" + maxCaryTime + "', '" + 0.0 + "', '" + 0 + "', '" + 0 + "');");
         } catch (SQLException e) {
@@ -254,6 +262,7 @@ public class DBConnector {
                 //checks the database if the username matches the password
 
                 //fetches password from table that matches the username
+                Statement statement = connection.createStatement();
                 ResultSet rs = statement.executeQuery("SELECT `password`, `idUser`, `name` FROM `torchur`.`user` WHERE `name` = '" + name + "';");
 
                 //checks if name exists and if the password is correct
@@ -279,6 +288,7 @@ public class DBConnector {
         try {
             int id = Integer.parseInt(userID);
 
+            Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT `name`, `maxCarryTime`, `distanceTraveled`, `amountTorchesCreated`, `amountAchievements` " +
                     "FROM `torchur`.`user` WHERE `idUser` = '" + id + "'");
 
@@ -328,6 +338,7 @@ public class DBConnector {
             }
 
             //gets user ID
+            Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT `idUser`, `amountTorchesCreated` FROM `torchur`.`user` WHERE `name` = '" + creatorName + "';");
             if (!rs.next()) {
                 return ErrorCode.NameDoesNotExist;
@@ -392,6 +403,7 @@ public class DBConnector {
                     return check;
                 }
                 try {
+                    Statement statement = connection.createStatement();
                     statement.executeUpdate("INSERT INTO `torchur`.`torch` (`" + column + "`) VALUES ('" + value + "');");
                     return ErrorCode.OK;
                 } catch (SQLException e) {
@@ -407,6 +419,7 @@ public class DBConnector {
                     } else {
                         return ErrorCode.InvalidCommand;
                     }
+                    Statement statement = connection.createStatement();
                     statement.executeUpdate("INSERT INTO `torchur`.`torch` (`" + column + "`) VALUES ('" + publicity + "');");
                     return ErrorCode.OK;
                 } catch (SQLException sqle) {
@@ -424,6 +437,7 @@ public class DBConnector {
             int torchID = Integer.parseInt(tID);
 
             //search for positions
+            Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT `currentLatitude`, `currentLongitude` FROM `torchur`.`torch` WHERE `idTorch` = '" + torchID + "';");
 
             //If resultSet is empty
@@ -470,6 +484,7 @@ public class DBConnector {
             double distance = calcDistance(torchID, latitude, longitude);
 
             //gets distance traveled from user and increases it by distance
+            Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT `distanceTraveled` FROM `torchur`.`user` WHERE `idUser` = '" + bearerID + "';");
             if (!rs.next()) {
                 return ErrorCode.WrongUserID;
@@ -507,6 +522,7 @@ public class DBConnector {
         try {
             int tID = Integer.parseInt(torchID);
 
+            Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT `torch`.`name`, `user`.`name`, `creationTime` " +
                     "FROM torchur.torch, torchur.user " +
                     "WHERE idTorch = '" + tID + "' " +
@@ -539,6 +555,7 @@ public class DBConnector {
             try {
                 aID = Integer.parseInt(achievementID);
                 try {
+                    Statement statement = connection.createStatement();
                     ResultSet rs = statement.executeQuery("SELECT `date` FROM `userhasachievement` WHERE `idachievements` = '" + aID + "' AND `iduser` = '" + uID + "';");
                     hasCompleted = rs.next();
 
@@ -584,6 +601,7 @@ public class DBConnector {
         try {
             int id = Integer.parseInt(achievementID);
 
+            Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT `title`, `description`, `reward` FROM `achievement` WHERE `idAchievement` = '" + id + "'");
             if (!rs.next()) {
                 reply[0] = "" + ErrorCode.WrongAchievementID;
@@ -609,6 +627,7 @@ public class DBConnector {
 
         try {
             //get number of people who carried the torch of the user
+            Statement statement = connection.createStatement();
             rs = statement.executeQuery("SELECT amountTorchesCreated FROM user WHERE idUser = '" + userID + "';");
             if (rs.next()) {
                 torchesCreated = rs.getInt(1);
@@ -690,6 +709,7 @@ public class DBConnector {
                 if (torchesCreated >= 5) {
                     newAchievement = true;
                     try {
+                        Statement statement = connection.createStatement();
                         statement.executeUpdate("UPDATE user SET maxCarryTime = '10' WHERE idUser = '" + userID + "';");
                     } catch (SQLException sqle) {
                         newAchievement = false;
@@ -700,6 +720,7 @@ public class DBConnector {
                 if (torchesCreated >= 10) {
                     newAchievement = true;
                     try {
+                        Statement statement = connection.createStatement();
                         statement.executeUpdate("UPDATE user SET maxCarryTime = '15' WHERE idUser = '" + userID + "';");
                     } catch (SQLException sqle) {
                         newAchievement = false;
@@ -710,6 +731,7 @@ public class DBConnector {
                 if (torchesCreated >= 15) {
                     newAchievement = true;
                     try {
+                        Statement statement = connection.createStatement();
                         statement.executeUpdate("UPDATE user SET maxCarryTime = '20' WHERE idUser = '" + userID + "';");
                     } catch (SQLException sqle) {
                         newAchievement = false;
@@ -720,6 +742,7 @@ public class DBConnector {
                 if (torchesCreated >= 20) {
                     newAchievement = true;
                     try {
+                        Statement statement = connection.createStatement();
                         statement.executeUpdate("UPDATE user SET maxCarryTime = '25' WHERE idUser = '" + userID + "';");
                     } catch (SQLException sqle) {
                         newAchievement = false;
@@ -730,6 +753,7 @@ public class DBConnector {
                 if (torchesCreated >= 25) {
                     newAchievement = true;
                     try {
+                        Statement statement = connection.createStatement();
                         statement.executeUpdate("UPDATE user SET maxCarryTime = '30' WHERE idUser = '" + userID + "';");
                     } catch (SQLException sqle) {
                         newAchievement = false;
@@ -761,6 +785,7 @@ public class DBConnector {
 
         if (newAchievement) {
             try {
+                Statement statement = connection.createStatement();
                 statement.executeUpdate("INSERT INTO userhasachievement (idAchievements, `idUser`, `date`) " +
                         "VALUES ('" + achievementID + "', '" + userID + "', '" + getDate() + "');");
             } catch (SQLException e) {
@@ -773,6 +798,7 @@ public class DBConnector {
 
     private ErrorCode searchName(String name) {
         try {
+            Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT `name` FROM `user` WHERE `name` = '" + name + "';");
             if (rs.next()) {
                 return ErrorCode.NameAlreadyExists;
@@ -824,6 +850,7 @@ public class DBConnector {
     private double calcDistance(int tID, double lat, double lng) {
         try {
             //gets previous latitude and longitude to calculate the distance traveled
+            Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT `latitude`, `longitude` FROM `torchur`.`RouteDataPoint` WHERE `idTorch` = '" + tID + "' ORDER BY `date` DESC;");
             double distance = 0.0;
             if (rs.next()) {

@@ -2,12 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b74e18a-01e3-4046-87a5-6ccf6959559e" name="Default Changelist" comment="Server uses ObjectInput- and -OutputStream&#10;Implemented changes to all commands">
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ClintApp/ClintApp/.idea/ClintApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../ClintApp/ClintApp/.idea/ClintApp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ClintApp/ClintApp/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ClintApp/ClintApp/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ClintApp/ClintApp/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ClintApp/ClintApp/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ClintApp/ClintApp/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ClintApp/ClintApp/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ClintApp/ClintApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ClintApp/ClintApp/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CommandList.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../CommandList.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DatabaseScript.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../DatabaseScript.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bc2d467e-dcef-4fe0-9f3e-b8f07ef6baa0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bc2d467e-dcef-4fe0-9f3e-b8f07ef6baa0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_16.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_16.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/project-template.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/project-template.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerAPP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ServerAPP.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/build/java/documentation/ErrorMappingsDocGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/build/java/documentation/ErrorMappingsDocGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/build/java/documentation/PropertiesDocGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/build/java/documentation/PropertiesDocGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/build/java/instrumentation/AddMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/build/java/instrumentation/AddMethods.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/build/java/instrumentation/CommonChecks.java" beforeDir="false" afterPath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/build/java/instrumentation/CommonChecks.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/build/java/instrumentation/TranslateExceptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/build/java/instrumentation/TranslateExceptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/build/misc/Product.wxs" beforeDir="false" afterPath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/build/misc/Product.wxs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/main/core-impl/java/com/mysql/cj/admin/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/main/core-impl/java/com/mysql/cj/admin/ServerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/main/user-impl/java/com/mysql/cj/jdbc/admin/TimezoneDump.java" beforeDir="false" afterPath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/main/user-impl/java/com/mysql/cj/jdbc/admin/TimezoneDump.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/test/java/com/mysql/cj/ConnectionUrlTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/test/java/com/mysql/cj/ConnectionUrlTest.java" afterDir="false" />
@@ -44,15 +66,85 @@
       <change beforePath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/test/java/testsuite/x/devapi/AsyncQueryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/mysql-connector-java-8.0.16/src/test/java/testsuite/x/devapi/AsyncQueryTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ServerAPP/com/company/DBConnector.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerAPP/com/company/DBConnector.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ServerAPP/com/company/TorchAppRunnable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerAPP/com/company/TorchAppRunnable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ServerAPP/com/company/TorchAppServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerAPP/com/company/TorchAppServer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/DBConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/DBConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/ErrorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/ErrorCode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/SocketServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/SocketServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Torch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Torch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/TorchAppRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/TorchAppRunnable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/TorchAppServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/TorchAppServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/.idea/runConfigurations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/proguard-rules.pro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/androidTest/java/com/example/torchapp/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/androidTest/java/com/example/torchapp/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/debug/res/values/google_maps_api.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/debug/res/values/google_maps_api.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/AchRecycleViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/AchRecycleViewAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/AchievementUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/AchievementUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/AchievementsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/AchievementsFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/ProfileFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/SaveSharedPreference.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/SaveSharedPreference.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/TrochObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/TrochObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/database/DatabaseFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/database/DatabaseFacade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/database/DatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/database/DatabaseHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/database/ExceptionPrints.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/database/ExceptionPrints.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/login/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/login/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/login/LoginUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/login/LoginUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/login/RegisterActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/login/RegisterActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/map/CustomInfoWindowAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/map/CustomInfoWindowAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/map/DrawerMapActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/map/DrawerMapActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/map/MapUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/map/MapUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/map/TorchCreatorFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/map/TorchCreatorFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/map/UIUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/map/UIUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/model/Achievement.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/model/Achievement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/model/CurrentUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/model/CurrentUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/model/MarkerWIDContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/java/com/example/torchapp/model/MarkerWIDContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable-v24/ic_back_arrow_left.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable-v24/ic_back_arrow_left.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/ic_add_black_24dp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/ic_add_black_24dp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/ic_cancel_black_24dp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/ic_cancel_black_24dp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/ic_menu_black_24dp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/ic_menu_black_24dp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/ic_person_black_24dp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/ic_person_black_24dp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/ic_public_black_24dp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/ic_public_black_24dp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/ic_stars_black_24dp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/ic_stars_black_24dp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/side_nav_bar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/drawable/side_nav_bar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/activity_drawer_map.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/activity_drawer_map.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/activity_register.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/custom_info_contents.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/custom_info_contents.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/fragment_achievements.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/fragment_achievements.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/fragment_map.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/fragment_map.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/fragment_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/fragment_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/fragment_torch_creator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/fragment_torch_creator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/nav_header_drawer_map.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/nav_header_drawer_map.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/recycleview_achievement_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/recycleview_achievement_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/recyclevview_torch_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/layout/recyclevview_torch_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/menu/activity_drawer_map_drawer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/menu/activity_drawer_map_drawer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/menu/drawer_map.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/menu/drawer_map.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values-v21/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values-v21/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/drawables.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/drawables.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/ic_launcher_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/release/res/values/google_maps_api.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/release/res/values/google_maps_api.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/app/src/test/java/com/example/torchapp/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/app/src/test/java/com/example/torchapp/ExampleUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TorchApp/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../TorchApp/settings.gradle" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -92,8 +184,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/SocketServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="52" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
+            <state relative-caret-position="510">
+              <caret line="32" column="32" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -110,50 +202,27 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/TorchAppRunnable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="90" selection-start-line="90" selection-end-line="90" />
+            <state relative-caret-position="340">
+              <caret line="22" column="50" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk-12.0.1/lib/src.zip!/java.base/java/io/ObjectInputStream.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="3061" selection-start-line="3061" selection-end-line="3061" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk-12.0.1/lib/src.zip!/java.base/java/lang/Thread.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="834" selection-start-line="834" selection-end-line="834" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/DBConnector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="436" selection-start-line="436" selection-end-line="436" />
+            <state relative-caret-position="13991">
+              <caret line="858" selection-start-line="858" selection-end-line="858" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="method#checkString#0;class#DBConnector#0" />
+                <element signature="method#checkName#0;class#DBConnector#0" />
+                <element signature="method#getDate#0;class#DBConnector#0" />
+                <element signature="method#calcTotalDistance#0;class#DBConnector#0" />
+                <element signature="method#clipDistance#0;class#DBConnector#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/mysql-connector-java-8.0.16/mysql-connector-java-8.0.16.jar!/com/mysql/cj/jdbc/StatementImpl.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="136" column="81" selection-start-line="136" selection-start-column="81" selection-end-line="136" selection-end-column="81" />
             </state>
           </provider>
         </entry>
@@ -198,17 +267,23 @@
         <option value="$PROJECT_DIR$/src/com/company/TorchAppServer.java" />
         <option value="$PROJECT_DIR$/src/com/company/Torch.java" />
         <option value="$PROJECT_DIR$/src/com/company/ErrorCode.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DBConnector.java" />
         <option value="$PROJECT_DIR$/src/com/company/TorchAppRunnable.java" />
+        <option value="$PROJECT_DIR$/src/com/company/DBConnector.java" />
         <option value="$PROJECT_DIR$/src/com/company/SocketServer.java" />
       </list>
     </option>
   </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1928" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1096" />
+    <option name="width" value="1696" />
+    <option name="height" value="1066" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -316,16 +391,22 @@
       <workItem from="1558353738028" duration="14819000" />
       <workItem from="1558438753903" duration="1123000" />
       <workItem from="1558445243123" duration="22287000" />
+      <workItem from="1558606679023" duration="131000" />
+      <workItem from="1558609041004" duration="2752000" />
+      <workItem from="1558633737221" duration="537000" />
+      <workItem from="1558634672247" duration="5307000" />
+      <workItem from="1558700784871" duration="350000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120863000" />
+    <option name="totallyTimeSpent" value="129940000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="-8" y="-8" width="1696" height="1066" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16044776" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16992664" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -334,8 +415,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31983384" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39875388" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3197425" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39806867" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -391,27 +472,12 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Server uses ObjectInput- and -OutputStream&#10;Implemented changes to all commands" />
     <option name="LAST_COMMIT_MESSAGE" value="Server uses ObjectInput- and -OutputStream&#10;Implemented changes to all commands" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/company/DBConnector.java</url>
-          <line>611</line>
-          <properties />
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/company/DBConnector.java</url>
-          <line>655</line>
-          <properties />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://C:/Program Files/Java/jdk-9/lib/src.zip!/java.sql/java/sql/ResultSet.java" />
@@ -458,6 +524,34 @@
       </provider>
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/bc2d467e-dcef-4fe0-9f3e-b8f07ef6baa0/console.sql" />
+    <entry file="jar://C:/Program Files/Java/jdk-12.0.1/lib/src.zip!/java.base/java/io/ObjectInputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50881">
+          <caret line="3061" selection-start-line="3061" selection-end-line="3061" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-12.0.1/lib/src.zip!/java.base/java/lang/Thread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13175">
+          <caret line="834" selection-start-line="834" selection-end-line="834" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/mysql-connector-java-8.0.16/mysql-connector-java-8.0.16.jar!/com/mysql/cj/jdbc/StatementImpl.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1139">
+          <caret line="136" column="42" selection-start-line="136" selection-start-column="42" selection-end-line="136" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/mysql-connector-java-8.0.16/mysql-connector-java-8.0.16.jar!/com/mysql/cj/jdbc/result/ResultSetImpl.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="1712" selection-start-line="1712" selection-end-line="1712" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/TorchAppServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -465,10 +559,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/ErrorCode.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/SocketServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+        <state relative-caret-position="510">
+          <caret line="32" column="32" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -479,44 +576,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/mysql-connector-java-8.0.16/mysql-connector-java-8.0.16.jar!/com/mysql/cj/jdbc/StatementImpl.class">
+    <entry file="file://$PROJECT_DIR$/src/com/company/DBConnector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="136" column="81" selection-start-line="136" selection-start-column="81" selection-end-line="136" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/SocketServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="52" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
+        <state relative-caret-position="13991">
+          <caret line="858" selection-start-line="858" selection-end-line="858" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="method#checkString#0;class#DBConnector#0" />
+            <element signature="method#checkName#0;class#DBConnector#0" />
+            <element signature="method#getDate#0;class#DBConnector#0" />
+            <element signature="method#calcTotalDistance#0;class#DBConnector#0" />
+            <element signature="method#clipDistance#0;class#DBConnector#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-12.0.1/lib/src.zip!/java.base/java/io/ObjectInputStream.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/ErrorCode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="3061" selection-start-line="3061" selection-end-line="3061" />
+        <state relative-caret-position="51">
+          <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/TorchAppRunnable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="90" selection-start-line="90" selection-end-line="90" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/DBConnector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="436" selection-start-line="436" selection-end-line="436" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="340">
+          <caret line="22" column="50" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
         </state>
       </provider>
     </entry>

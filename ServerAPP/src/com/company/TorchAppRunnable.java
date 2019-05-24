@@ -8,6 +8,7 @@ public class TorchAppRunnable implements Runnable {
 
     private Socket clientSocket;
     private DBConnector connector;
+    long start;
 
     public TorchAppRunnable(Socket clientSocket, DBConnector connector) {
         this.clientSocket = clientSocket;
@@ -17,11 +18,13 @@ public class TorchAppRunnable implements Runnable {
     @Override
     public void run() {
         try {
+            start = System.currentTimeMillis();
             String message;
             ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
             String str = (String) in.readObject();
             //System.out.println("Client: -> " + str);
+            //System.out.println(str);
 
             String errorString, reply = "";
             String data[] = getData(str);
@@ -99,6 +102,8 @@ public class TorchAppRunnable implements Runnable {
                         case '@':
                             if (data.length == 4) {
                                 errorString = "" + connector.setTorchPosition(data[0], data[1], data[2], data[3]);
+                                long end = System.currentTimeMillis();
+                                System.out.println(end - start);
                             } else {
                                 errorString = "" + ErrorCode.InvalidCommand;
                             }

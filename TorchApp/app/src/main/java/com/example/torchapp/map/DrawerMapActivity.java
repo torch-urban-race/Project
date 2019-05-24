@@ -560,10 +560,18 @@ public class DrawerMapActivity extends AppCompatActivity
 
         @Override
         protected String[] doInBackground(Integer... integers) {
-            System.out.println("Requesting torch: " + tracker);
-            System.out.println("There are " + numTorches + "In the system");
+            //System.out.println("Requesting torch: " + tracker);
+            //System.out.println("There are " + numTorches + "In the system");
             if(integers[0] <= numTorches){
                 String[] params = DatabaseHandler.getInstance().getTorchPosition(tracker);
+
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                System.gc();
 
                 return params;
            } else{

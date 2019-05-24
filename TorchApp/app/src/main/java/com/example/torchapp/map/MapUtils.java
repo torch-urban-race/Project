@@ -224,7 +224,7 @@ public class MapUtils {
     public void updateCircleLocation(){
 
 
-        if (drawerMapActivity.mLastKnownLocation != null) {
+        if (drawerMapActivity.mLastKnownLocation != null && drawerMapActivity.pickupCircle != null) {
 
             drawerMapActivity.pickupCircle.setCenter(new LatLng(drawerMapActivity.mLastKnownLocation.getLatitude(), drawerMapActivity.mLastKnownLocation.getLongitude()));
 

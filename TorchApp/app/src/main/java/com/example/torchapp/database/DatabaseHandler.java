@@ -32,6 +32,7 @@ public class DatabaseHandler {
         return ourInstance;
     }
 
+
     synchronized void prepareConnection() {
         try {
             clientSocket = new Socket(server, port);
@@ -59,10 +60,20 @@ public class DatabaseHandler {
         }
     }
 
+
     synchronized String[] getUser(String username, String password) {
+        Socket clientSocket = null;
+        ObjectOutputStream socketOutObjecctOutputStream = null;
+        ObjectInputStream socketInObjectInputStream = null;
+
         try {
 
-            prepareConnection();
+            //prepareConnection();
+
+            clientSocket = new Socket(server, port);
+            socketOutObjecctOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+            socketInObjectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+
 
             socketOutObjecctOutputStream.writeObject("u*" + username + SPLIT + password);
             //return (CurrentUser) socketInObjectInputStream.readObject();
@@ -76,15 +87,34 @@ public class DatabaseHandler {
         } catch (IOException ioException) {
             printIOException(ioException);
         }  finally {
-            finishConnection();
+            //finishConnection();
+            try {
+                socketOutObjecctOutputStream.flush();
+                socketOutObjecctOutputStream.close();
+                socketInObjectInputStream.close();
+                clientSocket.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
         return null;
     }
 
     synchronized String[] registerUser(String username, String password) {
+        Socket clientSocket = null;
+        ObjectOutputStream socketOutObjecctOutputStream = null;
+        ObjectInputStream socketInObjectInputStream = null;
+
+
         try {
 
-            prepareConnection();
+           // prepareConnection();
+
+            clientSocket = new Socket(server, port);
+            socketOutObjecctOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+            socketInObjectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+
 
             socketOutObjecctOutputStream.writeObject("u+" + username + SPLIT + password);
             //return (CurrentUser) socketInObjectInputStream.readObject();
@@ -98,15 +128,33 @@ public class DatabaseHandler {
         } catch (IOException ioException) {
             printIOException(ioException);
         } finally {
-            finishConnection();
+            //finishConnection();
+            try {
+                socketOutObjecctOutputStream.flush();
+                socketOutObjecctOutputStream.close();
+                socketInObjectInputStream.close();
+                clientSocket.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
 
     synchronized String[] getTorchesCount(){
+        Socket clientSocket = null;
+        ObjectOutputStream socketOutObjecctOutputStream = null;
+        ObjectInputStream socketInObjectInputStream = null;
+
+
         try {
 
-            prepareConnection();
+            //prepareConnection();
+
+            clientSocket = new Socket(server, port);
+            socketOutObjecctOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+            socketInObjectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+
 
             socketOutObjecctOutputStream.writeObject("t?" + MAIN_TORCH);
 
@@ -120,15 +168,32 @@ public class DatabaseHandler {
         } catch (IOException ioException) {
             printIOException(ioException);
         } finally {
-            finishConnection();
+            //finishConnection();
+            try {
+                socketOutObjecctOutputStream.flush();
+                socketOutObjecctOutputStream.close();
+                socketInObjectInputStream.close();
+                clientSocket.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
 
     public synchronized String[] getTorchPosition(Integer torchID){
+        Socket clientSocket = null;
+        ObjectOutputStream socketOutObjecctOutputStream = null;
+        ObjectInputStream socketInObjectInputStream = null;
+
         try {
 
-            prepareConnection();
+            //prepareConnection();
+
+            clientSocket = new Socket(server, port);
+            socketOutObjecctOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+            socketInObjectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+
 
             socketOutObjecctOutputStream.writeObject("t?" + torchID);
 
@@ -141,15 +206,33 @@ public class DatabaseHandler {
         } catch (IOException ioException) {
             printIOException(ioException);
         } finally {
-            finishConnection();
+           // finishConnection();
+            try {
+                socketOutObjecctOutputStream.flush();
+                socketOutObjecctOutputStream.close();
+                socketInObjectInputStream.close();
+                clientSocket.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
 
     synchronized String[] createTorch(String torchName, Double latitude, Double longitude, String creatorName, boolean isPublic){
+        Socket clientSocket = null;
+        ObjectOutputStream socketOutObjecctOutputStream = null;
+        ObjectInputStream socketInObjectInputStream = null;
+
+
         try {
 
-            prepareConnection();
+            //prepareConnection();
+
+            clientSocket = new Socket(server, port);
+            socketOutObjecctOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+            socketInObjectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+
 
             socketOutObjecctOutputStream.writeObject("t+" + torchName + SPLIT + latitude + SPLIT + longitude + SPLIT + creatorName + SPLIT + isPublic);
 
@@ -162,7 +245,15 @@ public class DatabaseHandler {
         } catch (IOException ioException) {
             printIOException(ioException);
         } finally {
-            finishConnection();
+            //finishConnection();
+            try {
+                socketOutObjecctOutputStream.flush();
+                socketOutObjecctOutputStream.close();
+                socketInObjectInputStream.close();
+                clientSocket.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
 
@@ -170,9 +261,18 @@ public class DatabaseHandler {
 
 
     public synchronized String[] getUserInformation(Integer userID){
+        Socket clientSocket = null;
+        ObjectOutputStream socketOutObjecctOutputStream = null;
+        ObjectInputStream socketInObjectInputStream = null;
+
         try {
 
-            prepareConnection();
+            //prepareConnection();
+
+            clientSocket = new Socket(server, port);
+            socketOutObjecctOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+            socketInObjectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+
 
             socketOutObjecctOutputStream.writeObject("u?" + userID);
 
@@ -185,16 +285,31 @@ public class DatabaseHandler {
         } catch (IOException ioException) {
             printIOException(ioException);
         } finally {
-            finishConnection();
+            //finishConnection();
+            try {
+                socketOutObjecctOutputStream.flush();
+                socketOutObjecctOutputStream.close();
+                socketInObjectInputStream.close();
+                clientSocket.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
 
     }
 
     public synchronized String[] getTorchInformation(Integer torchID){
+        Socket clientSocket = null;
+        ObjectOutputStream socketOutObjecctOutputStream = null;
+        ObjectInputStream socketInObjectInputStream = null;
         try {
 
-            prepareConnection();
+           // prepareConnection();
+
+            clientSocket = new Socket(server, port);
+            socketOutObjecctOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+            socketInObjectInputStream = new ObjectInputStream(clientSocket.getInputStream());
 
             socketOutObjecctOutputStream.writeObject("t:" + torchID);
 
@@ -207,7 +322,15 @@ public class DatabaseHandler {
         } catch (IOException ioException) {
             printIOException(ioException);
         } finally {
-            finishConnection();
+            //finishConnection();
+            try {
+                socketOutObjecctOutputStream.flush();
+                socketOutObjecctOutputStream.close();
+                socketInObjectInputStream.close();
+                clientSocket.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
 
@@ -216,9 +339,18 @@ public class DatabaseHandler {
 
 
     public synchronized String[] updateTorchPosition(Integer torchID, Double latitude, Double longitiude, Integer userID){
+        Socket clientSocket = null;
+        ObjectOutputStream socketOutObjecctOutputStream = null;
+        ObjectInputStream socketInObjectInputStream = null;
+
         try {
 
-            prepareConnection();
+            //prepareConnection();
+
+            clientSocket = new Socket(server, port);
+            socketOutObjecctOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+            socketInObjectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+
 
             socketOutObjecctOutputStream.writeObject("t@" + torchID + SPLIT + latitude + SPLIT + longitiude + SPLIT + userID);
 
@@ -231,7 +363,15 @@ public class DatabaseHandler {
         } catch (IOException ioException) {
             printIOException(ioException);
         } finally {
-            finishConnection();
+            //finishConnection();
+            try {
+                socketOutObjecctOutputStream.flush();
+                socketOutObjecctOutputStream.close();
+                socketInObjectInputStream.close();
+                clientSocket.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
 
@@ -240,9 +380,18 @@ public class DatabaseHandler {
 
 
     public synchronized String[] hasAchievement(Integer userID, Integer achievementID){
+        Socket clientSocket = null;
+        ObjectOutputStream socketOutObjecctOutputStream = null;
+        ObjectInputStream socketInObjectInputStream = null;
+
         try {
 
-            prepareConnection();
+            //prepareConnection();
+
+            clientSocket = new Socket(server, port);
+            socketOutObjecctOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+            socketInObjectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+
 
             socketOutObjecctOutputStream.writeObject("a?" + userID + SPLIT + achievementID);
 
@@ -255,7 +404,15 @@ public class DatabaseHandler {
         } catch (IOException ioException) {
             printIOException(ioException);
         } finally {
-            finishConnection();
+            //finishConnection();
+            try {
+                socketOutObjecctOutputStream.flush();
+                socketOutObjecctOutputStream.close();
+                socketInObjectInputStream.close();
+                clientSocket.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
 
@@ -263,9 +420,16 @@ public class DatabaseHandler {
 
 
     public synchronized String[] getAchievementInfo(Integer achievementID){
+        Socket clientSocket = null;
+        ObjectOutputStream socketOutObjecctOutputStream = null;
+        ObjectInputStream socketInObjectInputStream = null;
+
         try {
 
-            prepareConnection();
+            //prepareConnection();
+            clientSocket = new Socket(server, port);
+            socketOutObjecctOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+            socketInObjectInputStream = new ObjectInputStream(clientSocket.getInputStream());
 
             socketOutObjecctOutputStream.writeObject("a:" + achievementID);
 
@@ -278,7 +442,15 @@ public class DatabaseHandler {
         } catch (IOException ioException) {
             printIOException(ioException);
         } finally {
-            finishConnection();
+            //finishConnection();
+            try {
+                socketOutObjecctOutputStream.flush();
+                socketOutObjecctOutputStream.close();
+                socketInObjectInputStream.close();
+                clientSocket.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
 
