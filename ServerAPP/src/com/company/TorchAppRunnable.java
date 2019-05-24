@@ -18,11 +18,11 @@ public class TorchAppRunnable implements Runnable {
     @Override
     public void run() {
         try {
+            start = System.currentTimeMillis();
             String message;
             ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
             String str = (String) in.readObject();
-            start = System.currentTimeMillis();
             //System.out.println("Client: -> " + str);
             //System.out.println(str);
 
